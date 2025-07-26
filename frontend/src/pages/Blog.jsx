@@ -39,9 +39,9 @@ export const blogJson = [
     },
     {
         "id": 4,
-        "title": "How to Use APIs in Web Development",
-        "author": "Rohit Singh",
-        "date": "2025-03-27",
+        "title": "How to Use Rest APIs in Web Development",
+        "author": "Nishan Rajak",
+        "date": "2025-07-25",
         "content": "APIs play a crucial role in modern web development. Learn how to integrate third-party APIs, create RESTful APIs with Node.js, and use authentication methods like OAuth.",
         "tags": ["APIs", "web development", "Node.js", "RESTful API"],
         "category": "Web Development",
@@ -68,7 +68,7 @@ const Blog = () => {
     useEffect(() => {
         const getAllPublsihedBlogs = async () => {
             try {
-                const res = await axios.get(`https://mern-blog-ha28.onrender.com/api/v1/blog/get-published-blogs`, { withCredentials: true })
+                const res = await axios.get(`https://${process.env.siteLink}/api/v1/blog/get-published-blogs`, { withCredentials: true })
                 if (res.data.success) {
                     dispatch(setBlog(res.data.blogs))
                 }

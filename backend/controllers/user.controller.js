@@ -1,183 +1,311 @@
-import { User } from "../models/user.model.js";
-import bcrypt from "bcryptjs"
-import jwt from "jsonwebtoken"
+import User from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 import getDataUri from "../utils/dataUri.js";
 import cloudinary from "../utils/cloudinary.js";
+import ApiErrorResponse from "../utils/ApiErrorResponse.js";
+import ApiResponse from "../utils/ApiResponse.js";
+import codes from "../utils/codes.js";
+import hideEmail from "../utils/hideEmail.js";
+import isEmpty from "../utils/isEmpty.js";
+import { tokens } from "../utils/tokenization.js";
+import tokenOptions from "../utils/tokenOptions.js";
+import asyncHandler from "../utils/asyncHandler.js";
+
+export const register = asyncHandler(async (req, res) => {
+  const { firstName, lastName, email, password,userName } = req.body;
+  if (isEmpty([ email, password,userName])) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse("All fields are required", codes.badRequest).res()
+      );
+  }
+
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  if (!emailRegex.test(email)) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse("Invalid email format.", codes.badRequest).res()
+      );
+  }
+
+  if (password.length < 8) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Password must be atleast 8 characters long",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  if (!/\d/.test(password)) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Password must have a digit [1,2...].",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  if (!/[a-z]/.test(password)) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Password must have a lowercase character [a-z].",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  if (!/[A-Z]/.test(password)) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Password must have an uppercase character [A-Z].",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  if (/\s/.test(password)) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Password must not have any spaces between.",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  if (!/\W/.test(password)) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Password must have a symbol [!,@...].",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  const existingEmail = await User.findOne({ email });
+
+  if (existingEmail) {
+    return res
+      .status(codes.conflict)
+      .json(
+        new ApiErrorResponse("Email already exists.", codes.conflict).res()
+      );
+  }
+
+  const existingUsername = await User.findOne({ userName });
+
+  if (existingUsername) {
+    return res
+      .status(codes.conflict)
+      .json(
+        new ApiErrorResponse(
+          `Account with username : ${userName} already exists`,
+          codes.conflict
+        ).res()
+      );
+  }
+
+  await User.create({
+    firstName,
+    lastName,
+    email,
+    password,
+    userName
+  });
+
+  return res
+    .status(codes.created)
+    .json(
+      new ApiResponse(
+        "Account created and registered successfully,please return to login",
+        codes.created,
+        { userName: userName, email: hideEmail(email) }
+      ).res()
+    );
+});
+
+/////////////////////////////////////////////////////////////////
+
+export const login = asyncHandler(async (req, res) => {
+  if (req.user) {
+    return res
+      .status(codes.found)
+      .json(new ApiErrorResponse("User already logged in.").res());
+  }
+  const { email, userName, password } = req.body;
+  if (!(email || userName) && !password) {
+    return res
+      .status(codes.badRequest)
+      .json(
+        new ApiErrorResponse(
+          "Username or email required with password.",
+          codes.badRequest
+        ).res()
+      );
+  }
+
+  let user = await User.findOne({ $or: [{ email }, { userName }] });
+  if (!user) {
+    return res
+      .status(codes.notFound)
+      .json(
+        new ApiErrorResponse(
+          "Account with credentials do not exist, try registering.",
+          codes.notFound
+        ).res()
+      );
+  }
+
+  if (!user.comparePassword(password)) {
+    return res
+      .status(codes.conflict)
+      .json(new ApiErrorResponse("Password mismatch.", codes.conflict).res());
+  }
+
+  let payload = { _id: user._id, userName: user.userName };
+  const { accessToken, refreshToken } = tokens(payload);
+  user.refreshToken = refreshToken;
+  await user.save();
+
+  res.cookie("accessToken", accessToken, tokenOptions("access"));
+  res.cookie("refreshToken", refreshToken, tokenOptions("refresh"));
+
+  return res
+    .status(codes.found)
+    .json(
+      new ApiResponse(
+        `Welcome back ${user.userName}. Logging you in.`,
+        codes.found
+      ).res()
+    );
+});
 
 
-export const register = async (req, res) => {
-    try {
-        const { firstName, lastName, email,  password } = req.body;
-        if (!firstName || !lastName || !email ||  !password) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            })
-        }
-        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+/////////////////////////////////////////////////////////////
 
-        if (!emailRegex.test(email)) {
-            return res.status(400).json({
-                success: false,
-                message: "Invalid email"
-            });
-        }
+export const logout = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    return res
+      .status(codes.unauthorized)
+      .json(
+        new ApiErrorResponse(
+          "User not authorized,please login before.",
+          codes.unauthorized
+        ).res()
+      );
+  }
 
-        if (password.length < 6) {
-            return res.status(400).json({
-                success: false,
-                message: "Password must be at least 6 characters"
-            });
-        }
+  let user = await User.findOne({
+    $or: [{ userName: req.user.userName }, { _id: req.user._id }],
+  });
 
-        const existingUserByEmail = await User.findOne({ email: email });
+if(!user){return res.status(codes.internalServerError).json(new ApiErrorResponse("Error fetching the user.",codes.internalServerError).res())}
 
-        if (existingUserByEmail) {
-            return res.status(400).json({ success: false, message: "Email already exists" });
-        }
+  user.refreshToken = "";
+ await user.save();
 
-        // const existingUserByUsername = await User.findOne({ userName: userName });
+  for (let cookie in req.cookies) {
+    req.clearCookie(cookie, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "strict", //"None"
+    });
+  }
 
-        // if (existingUserByUsername) {
-        //     return res.status(400).json({ success: false, message: "Username already exists" });
-        // }
+  return res
+    .status(codes.ok)
+    .json(
+      new ApiResponse(
+        `${req.user.userName} successfully logged out.`,
+        codes.ok
+      ).res()
+    );
+});
 
-        const hashedPassword = await bcrypt.hash(password, 10);
+///////////////////////////////////////////////
 
-        await User.create({
-            firstName,
-            lastName,
-            email,
-            password: hashedPassword
-        })
+export const updateProfile = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    return res
+      .status(codes.unauthorized)
+      .json(
+        new ApiErrorResponse(
+          "User not authorized,please login before updating profile.",
+          codes.unauthorized
+        ).res()
+      );
+  }
 
-        return res.status(201).json({
-            success: true,
-            message: "Account Created Successfully"
-        })
+  const userId = req.user._id;
 
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Failed to register"
-        })
+  const {
+    firstName,
+    lastName,
+    occupation,
+    bio,
+    instagram,
+    facebook,
+    linkedin,
+    github,
+  } = req.body;
+  const file = req.file;
 
-    }
-}
+  const fileUri = getDataUri(file);
+  let cloudResponse = await cloudinary.uploader.upload(fileUri);
 
-export const login = async(req, res) => {
-    try {
-        const {email,  password } = req.body;
-        if (!email && !password) {
-            return res.status(400).json({
-                success: false,
-                message: "All fields are required"
-            })
-        }
+  const user = await User.findById(userId);
 
-        let user = await User.findOne({email});
-        if(!user){
-            return res.status(400).json({
-                success:false,
-                message:"Incorrect email or password"
-            })
-        }
-       
-        const isPasswordValid = await bcrypt.compare(password, user.password)
-        if (!isPasswordValid) {
-            return res.status(400).json({ 
-                success: false, 
-                message: "Invalid Credentials" 
-            })
-        }
-        
-        const token = await jwt.sign({userId:user._id}, process.env.SECRET_KEY, { expiresIn: '1d' })
-        return res.status(200).cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpsOnly: true, sameSite: "strict" }).json({
-            success:true,
-            message:`Welcome back ${user.firstName}`,
-            user
-        })
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Failed to Login",           
-        })
-    }
-  
-}
+  if (!user) {
+    return res
+      .status(codes.notFound)
+      .json(new ApiErrorResponse("Account not found.", codes.notFound).res());
+  }
 
-export const logout = async (_, res) => {
-    try {
-        return res.status(200).cookie("token", "", { maxAge: 0 }).json({
-            message: "Logged out successfully.",
-            success: true
-        })
-    } catch (error) {
-        console.log(error);
-    }
-}
+  // updating data
+  if (user.firstName !== firstName) user.firstName = firstName;
+  if (user.lastName !== lastName) user.lastName = lastName;
+  if (user.occupation !== occupation) user.occupation = occupation;
+  if (user.instagram !== instagram) user.instagram = instagram;
+  if (user.facebook !== facebook) user.facebook = facebook;
+  if (user.linkedin !== linkedin) user.linkedin = linkedin;
+  if (user.github !== github) user.github = github;
+  if (user.bio !== bio) user.bio = bio;
+  if (user.photoUrl == file) user.photoUrl = cloudResponse.secure_url;
 
-export const updateProfile = async(req, res) => {
-    try {
-        const userId= req.id
-        const {firstName, lastName, occupation, bio, instagram, facebook, linkedin, github} = req.body;
-        const file = req.file;
+  await user.save();
+  return res
+    .status(codes.ok)
+    .json(new ApiResponse("User profile successfully updated", codes.ok).res());
+});
 
-        const fileUri = getDataUri(file)
-        let cloudResponse = await cloudinary.uploader.upload(fileUri)
+///////////////////////////////////////////////////
 
-        const user = await User.findById(userId).select("-password")
-        
-        if(!user){
-            return res.status(404).json({
-                message:"User not found",
-                success:false
-            })
-        }
-
-        // updating data
-        if(firstName) user.firstName = firstName
-        if(lastName) user.lastName = lastName
-        if(occupation) user.occupation = occupation
-        if(instagram) user.instagram = instagram
-        if(facebook) user.facebook = facebook
-        if(linkedin) user.linkedin = linkedin
-        if(github) user.github = github
-        if(bio) user.bio = bio
-        if(file) user.photoUrl = cloudResponse.secure_url
-
-        await user.save()
-        return res.status(200).json({
-            message:"profile updated successfully",
-            success:true,
-            user
-        })
-        
-    } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success: false,
-            message: "Failed to update profile"
-        })
-    }
-}
-
-export const getAllUsers = async (req, res) => {
-    try {
-      const users = await User.find().select('-password'); // exclude password field
-      res.status(200).json({
-        success: true,
-        message: "User list fetched successfully",
-        total: users.length,
-        users
-      });
-    } catch (error) {
-      console.error("Error fetching user list:", error);
-      res.status(500).json({
-        success: false,
-        message: "Failed to fetch users"
-      });
-    }
-  };
+export const getAllUsers = asyncHandler(async (req, res) => {
+  const users = await User.find();
+  if (!users) {
+    return res
+      .status(codes.notFound)
+      .json(new ApiErrorResponse("Users not found.", codes.notFound).res());
+  }
+  // exclude password field
+  return res.status(codes.found).json(
+    new ApiResponse("Users successfully found", codes.found, {
+      "Total users": users.length,
+    }).res()
+  );
+});

@@ -8,10 +8,10 @@ const About = () => {
         {/* Header Section */}
         <div className="text-center">
           <h1 className="md:text-5xl text-4xl font-extrabold  mb-4">
-            About Our Blog
+            About Our Blog...
           </h1>
           <p className="text-lg ">
-            A place to share thoughts, inspire others, and grow together.
+            A place to share thoughts, experiences, inspire others, and grow together to become better version of yourself.
           </p>
         </div>
 
@@ -24,10 +24,10 @@ const About = () => {
           />
           <div>
             <p className=" text-lg mb-4">
-              Welcome to our Blog App! We created this platform for readers,
+              Welcome to our Blog web app! This was created for readers,
               writers, and thinkers to connect through stories, tutorials, and
               creative insights. Whether you're a passionate blogger or someone
-              who loves reading, this space is built for you.
+              who loves reading, learning new this then space is built for you.
             </p>
             <p className=" text-lg mb-4">
               Our mission is to empower individuals to express themselves freely.
@@ -35,7 +35,7 @@ const About = () => {
               meaningful ways.
             </p>
             <p className=" text-lg">
-              Thank you for being a part of our growing community.
+              Thank you for being a part of our new yet growing community.
             </p>
           </div>
         </div>
@@ -43,7 +43,7 @@ const About = () => {
         {/* Footer Quote */}
         <div className="mt-16 text-center">
           <blockquote className="text-2xl italic text-gray-500">
-            "Words are powerful. Use them to inspire."
+            "Do everything in your life that later in your deathbed you have memories to remember"
           </blockquote>
         </div>
       </div>
