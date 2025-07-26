@@ -1,5 +1,5 @@
 import React from 'react'
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle,FaHeart } from "react-icons/fa";
 import { FaChevronRight } from 'react-icons/fa6';
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
@@ -7,12 +7,15 @@ import UserLogo from "../assets/user.jpg"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useSelector } from 'react-redux';
 
+
+//// redux data not get
+
 const ResponsiveMenu = ({ openNav, setOpenNav, logoutHandler }) => {
     const {user} = useSelector(store=>store.auth)
 
     return (
-        <div className={`${openNav ? "left-0" : "-left-[100%]"} fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between bg-white dark:bg-gray-800 px-8 pb-6 pt-16 text-black dark:text-gray-100 md:hidden rounded-r-xl shadow-md transition-all`}>
-            <div>
+        <div className={`${openNav ? "left-0" : "-left-[100%]"} fixed bottom-0 top-0 z-20 flex h-screen w-[75%] flex-col justify-between  bg-white/70 dark:bg-black/70 backdrop-blur-lg px-8 pb-6 pt-16 text-black dark:text-gray-100 md:hidden rounded-r-xl shadow-md transition-all`}>
+            <div >
                 <div className='flex items-center justify-start gap-3'>
                     {
                         user ? <Avatar className="w-14 h-14">
@@ -21,8 +24,8 @@ const ResponsiveMenu = ({ openNav, setOpenNav, logoutHandler }) => {
                     }
                     
                     <div>
-                        <h1 className=''>Hello, {user?.firstName || "User"}</h1>
-                        <h1 className='text-sm text-slate-500'>Premium User</h1>
+                        <h1 className=''>Hello, {user?.userName ?? "User"  }</h1>
+                        {/* <h1 className='text-sm text-slate-500'>Premium User</h1> */}
                     </div>
                 </div>
                 <nav className='mt-12'>
@@ -39,11 +42,14 @@ const ResponsiveMenu = ({ openNav, setOpenNav, logoutHandler }) => {
             </div>
             <div className='pb-20'>
                 <h1>
-                    Made with ❤️ by Rohit
+                    Made with <FaHeart/> by Nishan
                 </h1>
             </div>
         </div>
     )
 }
 
-export default ResponsiveMenu
+export default ResponsiveMenu;
+
+
+////////////////////////////////////

@@ -59,9 +59,6 @@ const Profile = () => {
         formData.append("lastName", input.lastName);
         formData.append("bio", input.bio);
         formData.append("occupation", input.occupation);
-        formData.append("facebook", input.facebook);
-        formData.append("linkedin", input.linkedin);
-        formData.append("instagram", input.instagram);
         formData.append("github", input.github);
         if (input?.file) {
             formData.append("file", input?.file)
@@ -69,7 +66,7 @@ const Profile = () => {
 
         try {
             setLoading(true)
-            const res = await axios.put(`https://${process.env.siteLink}/api/v1/user/profile/update`, formData, {
+            const res = await axios.put(`http://localhost:4000/api/v1/user/profile/update`, formData, {
                 headers: {
                     "Content-Type": "multipart/form-data"
                 },

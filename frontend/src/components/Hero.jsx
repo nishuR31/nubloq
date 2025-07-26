@@ -11,8 +11,9 @@ const Hero = () => {
         <div className="max-w-2xl">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 ">Explore the Latest Tech & Web Trends</h1>
         <p className="text-lg md:text-xl opacity-80 mb-6 ">
-          Stay ahead with in-depth articles, tutorials, and insights on web development, digital marketing, and tech innovations.
-        </p>
+        Stay ahead of the curve with expertly crafted articles, step-by-step tutorials, and deep-dive insights
+         covering the latest in web development, digital marketing strategies, and groundbreaking tech innovations. Whether you're a seasoned professional 
+         or just starting out, our content is designed to keep you informed, inspired, and always moving forward.        </p>
         <div className="flex space-x-4">
           <Link to={"/dashboard/write-blog"}><Button className="text-lg ">Get Started</Button></Link>
           <Link to={"/about"}><Button variant="outline" className="border-white px-6 py-3 text-lg">Learn More</Button></Link>
@@ -28,3 +29,6 @@ const Hero = () => {
 }
 
 export default Hero
+
+
+////////////////////////////////////////////////////

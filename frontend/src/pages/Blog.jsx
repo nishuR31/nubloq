@@ -66,18 +66,18 @@ const Blog = () => {
     const { blog } = useSelector(store => store.blog)
 
     useEffect(() => {
-        const getAllPublsihedBlogs = async () => {
+        const getAllBlogs = async () => {
             try {
-                const res = await axios.get(`https://${process.env.siteLink}/api/v1/blog/get-published-blogs`, { withCredentials: true })
+                const res = await axios.get(`http://localhost:4000/api/v1/blog/get-all-blogs`, { withCredentials: true })
                 if (res.data.success) {
-                    dispatch(setBlog(res.data.blogs))
+                    dispatch(setBlog(res.data.payload.blogs))
                 }
             } catch (error) {
                 console.log(error);
 
             }
         }
-        getAllPublsihedBlogs()
+        getAllBlogs()
     },[])
 
     return (

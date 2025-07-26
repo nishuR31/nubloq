@@ -4,6 +4,10 @@ export default {
     content: ["./index.html", "./src/**/*.{ts,tsx,js,jsx}"],
   theme: {
   	extend: {
+		backgroundImage: {
+        'light': "url('/src/assets/signupLight.jpg')",
+        'dark': "url('/src/assets/signupDark.jpg')",
+      },
   		borderRadius: {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
@@ -55,4 +59,3 @@ export default {
   },
   plugins: [require("tailwindcss-animate")],
 }
-

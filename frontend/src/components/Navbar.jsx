@@ -56,7 +56,7 @@ const Navbar = () => {
     const logoutHandler = async (e) => {
 
         try {
-            const res = await axios.get(`https://mern-blog-ha28.onrender.com/api/v1/user/logout`, { withCredentials: true });
+            const res = await axios.get(`http://localhost:4000/api/v1/user/logout`, { withCredentials: true });
             if (res.data.success) {
                 navigate("/")
                 dispatch(setUser(null))
@@ -81,14 +81,13 @@ const Navbar = () => {
         setOpenNav(!openNav)
     }
     return (
-        <div className='py-2 fixed w-full dark:bg-gray-800 dark:border-b-gray-600 border-b-gray-300 border-2 bg-white z-50'>
+        <div className='py-2 fixed w-full dark:bg-transparent dark:border-b-gray-600  backdrop-blur-sm border-b-gray-300 border-2 bg-white z-50'>
             <div className='max-w-7xl mx-auto flex justify-between items-center px-4 md:px-0'>
                 {/* logo section */}
                 <div className='flex gap-7 items-center'>
                     <Link to={'/'}>
                         <div className='flex gap-2 items-center'>
                             <img src={Logo} alt="" className='w-7 h-7 md:w-10 md:h-10 dark:invert' />
-                            <h1 className='font-bold text-3xl md:text-4xl'>Logo</h1>
                         </div>
                     </Link>
                     <div className='relative hidden md:block'>
@@ -104,10 +103,10 @@ const Navbar = () => {
                 {/* nav section */}
                 <nav className='flex md:gap-7 gap-4 items-center'>
                     <ul className='hidden md:flex gap-7 items-center text-xl font-semibold'>
-                        <NavLink to={'/'} className="cursor-pointer"><li>Home</li></NavLink>
-                        <NavLink to={'/blogs'} className={`cursor-pointer`}><li>Blogs</li></NavLink>
-                        <NavLink to={'/about'} className={`cursor-pointer`}><li>About</li></NavLink>
-                        {/* <NavLink to={'/write-blog'} className={`cursor-pointer`}><li>Write a Blog</li></NavLink> */}
+                        <NavLink to={'/'} className="cursor-pointer hover:underline "><li>Home</li></NavLink>
+                        <NavLink to={'/blogs'} className={`cursor-pointer hover:underline `}><li>Blogs</li></NavLink>
+                        <NavLink to={'/about'} className={`cursor-pointer hover:underline `}><li>About</li></NavLink>
+                        <NavLink to={'/write-blog'} className={`cursor-pointer hover:underline `}><li>Write a Blog</li></NavLink>
                     </ul>
                     <div className='flex'>
                         <Button onClick={() => dispatch(toggleTheme())} className="">
@@ -117,7 +116,7 @@ const Navbar = () => {
 
                         </Button>
                         {
-                            user ? <div className="ml-7 flex gap-3 items-center">
+                            user ? <div className="ml-7 flex gap-3 items-center ">
                                 {/* <Link to={'/profile'}> */}
                                 <DropdownMenu className="">
                                     <DropdownMenuTrigger asChild>

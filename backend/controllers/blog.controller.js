@@ -47,8 +47,8 @@ export const createBlog = asyncHandler(async (req, res) => {
   }
 
   return res
-    .status(codes.created)
-    .json(new ApiResponse("Blog successfully created.", codes.created).res());
+    .status(codes.ok)
+    .json(new ApiResponse("Blog successfully created.", codes.ok,{blog:blog}).res());
 });
 
 /////////////////////////////////////////////////////////////
@@ -97,8 +97,8 @@ export const updateBlog = asyncHandler(async (req, res) => {
   }
 
   return res
-    .status(codes.created)
-    .json(new ApiResponse("Blog successfully created.", codes.created).res());
+    .status(codes.ok)
+    .json(new ApiResponse("Blog successfully updated.", codes.ok).res());
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -129,8 +129,8 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
       );
   }
 
-  return res.status(codes.found).json(
-    new ApiResponse("All blogs found successfully", codes.found, {
+  return res.status(codes.ok).json(
+    new ApiResponse("All blogs found successfully", codes.ok, {
       blogs: blogs,
     }).res()
   );
@@ -158,8 +158,8 @@ export const getPublishedBlog = asyncHandler(async (req, res) => {
       );
   }
 
-  return res.status(codes.found).json(
-    new ApiResponse("Published blogs found successfully", codes.found, {
+  return res.status(codes.ok).json(
+    new ApiResponse("Published blogs found successfully", codes.ok, {
       blogs: blogs,
     }).res()
   );
@@ -220,14 +220,14 @@ export const getOwnBlogs = asyncHandler(async (req, res) => {
   if (!blogs) {
     return res.status(codes.notFound).json(
       new ApiErrorResponse("Your blogs are not found", codes.notFound, {
-        Blogs: [],
+        blogs: [],
       }).res()
     );
   }
 
-  return res.status(codes.found).json(
-    new ApiResponse("Your blogs are found successfully", codes.found, {
-      Blogs: blogs,
+  return res.status(codes.ok).json(
+    new ApiResponse("Your blogs are found successfully", codes.ok, {
+      blogs: blogs,
     }).res()
   );
 });
@@ -328,8 +328,8 @@ export const likeBlog = asyncHandler(async (req, res) => {
   await blog.updateOne({ $addToSet: { likes: liker } });
   await blog.save();
 
-  return res.status(codes.found).json(
-    new ApiResponse("Blog liked successfully", codes.found, {
+  return res.status(codes.ok).json(
+    new ApiResponse("Blog liked successfully", codes.ok, {
       Blog: blog,
     }).res()
   );
@@ -352,8 +352,8 @@ export const dislikeBlog = asyncHandler(async (req, res) => {
   await blog.save();
 
   return res
-    .status(codes.found)
-    .json(new ApiResponse("Blog disliked successfully", codes.found).res());
+    .status(codes.ok)
+    .json(new ApiResponse("Blog disliked successfully", codes.ok).res());
 });
 
 //////////////////////////////////
@@ -377,8 +377,8 @@ export const getMyTotalBlogLikes = asyncHandler(async (req, res) => {
         new ApiErrorResponse("Your liked blogs not found", codes.notFound).res()
       );
   }
-  return res.status(codes.found).json(
-    new ApiResponse("Your liked blogs found successfully", codes.found, {
+  return res.status(codes.ok).json(
+    new ApiResponse("Your liked blogs ok successfully", codes.ok, {
       totalBlogs: myBlogs.length,
       totalLikes: totalLikes,
     }).res()

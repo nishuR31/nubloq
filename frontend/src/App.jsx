@@ -10,6 +10,7 @@ import CreateBlog from './pages/CreateBlog'
 import Dashboard from './pages/Dashboard'
 import YourBlog from './pages/YourBlog'
 import BlogView from './pages/BlogView'
+import Contact from './pages/Contact'
 import Footer from './components/Footer'
 import About from './pages/About'
 import Comments from './pages/Comments'
@@ -18,6 +19,10 @@ import ProtectedRoute from './components/ProtectedRoute'
 import SearchList from './pages/SearchList'
 
 const router = createBrowserRouter([
+  {
+    path: "/contact",
+    element:<Contact/>
+  },
   {
     path: "/",
     element: <><Navbar/><Home /><Footer/></>
@@ -79,7 +84,7 @@ const router = createBrowserRouter([
         path: "profile",
         element:<Profile/>
       },
-      
+    
       
     ]
    },

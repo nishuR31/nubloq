@@ -36,7 +36,7 @@ export const register = asyncHandler(async (req, res) => {
       .status(codes.badRequest)
       .json(
         new ApiErrorResponse(
-          "Password must be atleast 8 characters long",
+          "Password must be atleast 8 characters long.",
           codes.badRequest
         ).res()
       );
@@ -144,11 +144,11 @@ export const register = asyncHandler(async (req, res) => {
 export const login = asyncHandler(async (req, res) => {
   if (req.user) {
     return res
-      .status(codes.found)
-      .json(new ApiErrorResponse("User already logged in.").res());
+      .status(codes.ok)
+      .json(new ApiResponse("User already logged in.",codes.ok,{_id:req.user._id,userName:req.user.userName}).res());
   }
-  const { email, userName, password } = req.body;
-  if (!(email || userName) && !password) {
+  const { emailUser, password } = req.body;
+  if (!emailUser && !password) {
     return res
       .status(codes.badRequest)
       .json(
@@ -159,7 +159,10 @@ export const login = asyncHandler(async (req, res) => {
       );
   }
 
-  let user = await User.findOne({ $or: [{ email }, { userName }] });
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+const field = emailRegex.test(emailUser)? "email":"userName" ;
+
+  let user = await User.findOne({ $or: [{ [field]:emailUser }] });
   if (!user) {
     return res
       .status(codes.notFound)
@@ -186,25 +189,27 @@ export const login = asyncHandler(async (req, res) => {
   res.cookie("refreshToken", refreshToken, tokenOptions("refresh"));
 
   return res
-    .status(codes.found)
+    .status(codes.ok)
     .json(
       new ApiResponse(
         `Welcome back ${user.userName}. Logging you in.`,
-        codes.found
+        codes.ok,{_id: user._id,
+      username: user.userName,
+      email: user.email,
+    accessToken:accessToken}
       ).res()
     );
 });
 
 
 /////////////////////////////////////////////////////////////
-
 export const logout = asyncHandler(async (req, res) => {
   if (!req.user) {
     return res
       .status(codes.unauthorized)
       .json(
         new ApiErrorResponse(
-          "User not authorized,please login before.",
+          "User not authorized, please login before.",
           codes.unauthorized
         ).res()
       );
@@ -214,28 +219,32 @@ export const logout = asyncHandler(async (req, res) => {
     $or: [{ userName: req.user.userName }, { _id: req.user._id }],
   });
 
-if(!user){return res.status(codes.internalServerError).json(new ApiErrorResponse("Error fetching the user.",codes.internalServerError).res())}
+  if (!user) {
+    return res
+      .status(codes.internalServerError)
+      .json(
+        new ApiErrorResponse("Error fetching the user.", codes.internalServerError).res()
+      );
+  }
 
   user.refreshToken = "";
- await user.save();
+  await user.save();
 
   for (let cookie in req.cookies) {
-    req.clearCookie(cookie, {
+    res.clearCookie(cookie, {
       httpOnly: true,
       secure: true,
-      sameSite: "strict", //"None"
+      sameSite: "None",
     });
   }
 
   return res
     .status(codes.ok)
     .json(
-      new ApiResponse(
-        `${req.user.userName} successfully logged out.`,
-        codes.ok
-      ).res()
+      new ApiResponse(`${req.user.userName} successfully logged out.`, codes.ok).res()
     );
 });
+
 
 ///////////////////////////////////////////////
 
@@ -303,8 +312,8 @@ export const getAllUsers = asyncHandler(async (req, res) => {
       .json(new ApiErrorResponse("Users not found.", codes.notFound).res());
   }
   // exclude password field
-  return res.status(codes.found).json(
-    new ApiResponse("Users successfully found", codes.found, {
+  return res.status(codes.ok).json(
+    new ApiResponse("Users successfully found", codes.ok, {
       "Total users": users.length,
     }).res()
   );

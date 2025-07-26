@@ -11,45 +11,57 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
+
+ 
+
 const CreateBlog = () => {
     const [loading, setLoading] = useState(false)
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const {blog} = useSelector(store=>store.blog)
+    console.log(blog)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const getSelectedCategory = (value) => {
         setCategory(value)
     }
     const createBlogHandler = async () => {
-        
-        try {
-            setLoading(true)
-            const res = await axios.post(`https://${process.env.siteLink}/api/v1/blog/`, { title, category }, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                withCredentials: true,
-            })
-            if (res.data.success) {
-                dispatch(setBlog([...blog, res.data.blog]))
-                navigate(`/dashboard/write-blog/${res.data.blog._id}`)
-                toast.success(res.data.message)
-            } else {
-                toast.error("Something went wrong");
-            }
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setLoading(false)
-        }
+  try {
+    setLoading(true);
+    const res = await axios.post(
+      `http://localhost:4000/api/v1/blog/create`,
+      { title, category },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
 
+    const createdBlog = res?.data?.payload?.blog;
+    const existingBlogs = Array.isArray(blog) ? blog : [];
+
+    if (res.data.success && createdBlog) {
+      dispatch(setBlog([...existingBlogs, createdBlog]));
+      navigate(`/dashboard/write-blog/${createdBlog._id}`);
+      toast.success(res.data.message);
+    } else {
+      toast.error("Something went wrong");
     }
+  } catch (error) {
+    console.log(error);
+    toast.error("Blog creation failed");
+  } finally {
+    setLoading(false);
+  }
+};
+
     return (
         <div className='p-4 md:pr-20 h-screen md:ml-[320px] pt-20'>
             <Card className="md:p-10 p-4 dark:bg-gray-800">
             <h1 className='text-2xl font-bold'>Lets create blog</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex eius necessitatibus fugit vel distinctio architecto, ut ratione rem nobis eaque?</p>
+            <p>Let others get insights from your knowledge and experience.</p>
             <div className='mt-10 '>
                 <div>
                     <Label>Title</Label>

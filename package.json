@@ -1,14 +1,16 @@
 {
-  "name": "backend",
+  "name": "blog",
   "version": "1.0.0",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "frontend": "npm run dev --prefix frontend",
     "backend": "nodemon backend/server.js",
-    "dev": "concurrently \"npm run frontend\" \"npm run backend\"",
+    "dev": "npx update-browserslist-db@latest && concurrently \"npm run frontend\" \"npm run backend\"",
     "build": "npm run build --prefix frontend",
-    "preview": "npm run preview --prefix frontend"
+    "preview": "npm run preview --prefix frontend",
+    "encrypt": "npx \"@dotenvx/dotenvx\" encrypt ./.env",
+    "decrypt": "npx \"@dotenvx/dotenvx\" decrypt ./.env"
   },
   "keywords": [],
   "author": "",

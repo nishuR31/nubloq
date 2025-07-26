@@ -3,19 +3,24 @@ import React, { useEffect, useState } from 'react'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
-import { setBlog } from '@/redux/blogSlice'
+import { setYourBlog } from '@/redux/blogSlice'
 
 const TotalProperty = () => {
     const { blog } = useSelector(store => store.blog)
     const [totalComments, setTotalComments] = useState(0)
     const [totalLikes, setTotalLikes] = useState(0)
+    const [totalBlogs, setTotalBlogs] = useState(0)
     const dispatch = useDispatch()
 
     const getOwnBlog = async () => {
         try {
-            const res = await axios.get(`https://mern-blog-ha28.onrender.com/api/v1/blog/get-own-blogs`, { withCredentials: true })
-            if (res.data.success) {
-                dispatch(setBlog(res.data.blogs))
+            const res = await axios.get(`http://localhost:4000/api/v1/blog/get-own-blogs`, { withCredentials: true })
+    const foundBlog = res?.data?.payload?.blogs;
+    const existingBlogs = Array.isArray(blogs) ? blogs : [];
+
+    if (res.data.success && foundBlog) {
+      dispatch(setBlog([...existingBlogs, foundBlog]));
+                setTotalBlogs(res.data.payload.blogs.length)
             }
         } catch (error) {
             console.log(error);
@@ -24,9 +29,9 @@ const TotalProperty = () => {
     }
     const getTotalComments = async()=>{
         try {
-          const res = await axios.get(`https://mern-blog-ha28.onrender.com/api/v1/comment/my-blogs/comments`,{withCredentials:true})
+          const res = await axios.get(`http://localhost:4000/api/v1/comment/my-blogs/comments`,{withCredentials:true})
           if(res.data.success){
-             setTotalComments(res.data.totalComments)
+             setTotalComments(res.data.payload.comments)
           }
         } catch (error) {
           console.log(error);
@@ -36,9 +41,9 @@ const TotalProperty = () => {
 
     const getTotalLikes = async()=>{
       try {
-        const res = await axios.get(`https://mern-blog-ha28.onrender.com/api/v1/blog/my-blogs/likes`,{withCredentials:true})
+        const res = await axios.get(`http://localhost:4000/api/v1/blog/my-blogs/likes`,{withCredentials:true})
         if(res.data.success){
-           setTotalLikes(res.data.totalLikes)
+           setTotalLikes(res.data.payload.totalLikes)
         }
       } catch (error) {
        console.log(error);
@@ -61,7 +66,8 @@ const TotalProperty = () => {
         },
         {
           title: "Total Blogs",
-          value: blog.length,
+          value: totalBlogs,
+          // value: blog,
           icon: BarChart3,
           change: "+4%",
           trend: "up",

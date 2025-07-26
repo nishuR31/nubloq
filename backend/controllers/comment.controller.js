@@ -6,7 +6,7 @@ import isEmpty from "../utils/isEmpty.js";
 
 export const createComment = asyncHandler(async (req, res) => {
   const postId = req.params.id;
-  const commenter = req.user.id;
+  const commenter = req.user._id;
   const { content } = req.body;
 
   const blog = await Blog.findById(postId);
@@ -38,8 +38,8 @@ export const createComment = asyncHandler(async (req, res) => {
   await blog.save();
   {
     return res
-      .status(codes.found)
-      .json(new ApiResponse("Comment added successfully.", codes.found).res());
+      .status(codes.ok)
+      .json(new ApiResponse("Comment added successfully.", codes.ok).res());
   }
 });
 
@@ -62,8 +62,8 @@ export const getCommentsOfPost = asyncHandler(async (req, res) => {
       );
   }
   {
-    return res.status(codes.found).json(
-      new ApiResponse("Comments found", codes.found, {
+    return res.status(codes.ok).json(
+      new ApiResponse("Comments found", codes.ok, {
         comments: comments,
       }).res()
     );

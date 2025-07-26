@@ -25,7 +25,7 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://nishu-blogs.vercel.app",
+    origin: "http://localhost:5173",
     credentials: true,
   })
 );
