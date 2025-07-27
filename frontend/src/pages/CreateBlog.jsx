@@ -19,7 +19,6 @@ const CreateBlog = () => {
     const [title, setTitle] = useState("")
     const [category, setCategory] = useState("")
     const {blog} = useSelector(store=>store.blog)
-    console.log(blog)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const getSelectedCategory = (value) => {
@@ -30,13 +29,13 @@ const CreateBlog = () => {
     setLoading(true);
     const res = await axios.post(
       `http://localhost:4000/api/v1/blog/create`,
-      { title, category },
+      { title, category,subtitle,description },
       {
         headers: {
           "Content-Type": "application/json",
         },
         withCredentials: true,
-      }
+      } 
     );
 
     const createdBlog = res?.data?.payload?.blog;
@@ -81,6 +80,11 @@ const CreateBlog = () => {
                                 <SelectItem value="Blogging">Blogging</SelectItem>
                                 <SelectItem value="Photography">Photography</SelectItem>
                                 <SelectItem value="Cooking">Cooking</SelectItem>
+                                <SelectItem value="Soft Development">Soft Development</SelectItem>
+                                <SelectItem value="Gaming">Gaming</SelectItem>
+                                <SelectItem value="Teaching">Teaching</SelectItem>
+                                <SelectItem value="Playing">Playing</SelectItem>
+                                <SelectItem value="Art">Art</SelectItem>
                             </SelectGroup>
                         </SelectContent>
                     </Select>

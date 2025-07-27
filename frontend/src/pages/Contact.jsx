@@ -3,8 +3,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
+import axios from "axios";
 
+import {useNavigate,Link} from "react-router-dom";
+
+const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const Contact = () => {
+  let navigate=useNavigate()
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -18,28 +23,52 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add logic to send form data (e.g., to backend or Formspree)
+
     if (!form.name || !form.email || !form.message) {
       return toast.error("All fields are required.");
     }
-    toast.success("Message sent successfully!");
-    setForm({ name: "", email: "", message: "" });
+
+    if(!emailRegex.test(form.email)){return toast.error("Invalid mail format!");
+}
+    console.log(form);
+
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/api/v1/user/contact",
+        form,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          }
+        }
+      );
+
+      if (res.data.success) {
+        toast.success("Mail sent successfully to our dev team!");
+        toast.success("Don't forget to check your spams later.");
+        setForm({ name: "", email: "", message: "" });
+      } else {
+        toast.error("Failed to send mail.");
+      }
+    } catch (error) {
+      console.error("Error sending contact form:", error?.response?.data);
+      toast.error(error?.response?.data?.message || "Something went wrong.");
+    }
   };
 
   return (
     <div className="px-4 md:px-0 py-10">
       <div className="max-w-screen h-screen px-10 mx-auto flex flex-col md:flex-row items-center gap-10">
-        {/* Left: Image */}
-
-
-        {/* Right: Form */}
         <div className="flex-1 w-full max-w-xl">
-          <h2 className="text-4xl font-bold mb-6 animate-bounce text-center">Get in Touch</h2>
+          <h2 className="text-4xl font-bold mb-6 animate-bounce text-center">
+            Get in Touch
+          </h2>
           <p className="text-lg opacity-80 mb-6">
-            We'd love to hear from you! Whether you have a question about our content,
-            want to collaborate, or just want to say hi — drop us a message and we'll get back to you.
+            We'd love to hear from you! Whether you have a question about our
+            content, want to collaborate, or just want to say hi — drop us a
+            message and we'll get back to you.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -67,8 +96,14 @@ const Contact = () => {
               onChange={handleChange}
               className="dark:border-gray-700 "
             />
-            <Button variant="ghost" type="submit" className="text-lg w-full">
+            <Button variant="secondary" type="submit" className="text-lg w-full">
               Send Message
+            </Button>
+            {/* <Button variant="ghost" type="button" onCLick={()=>{navigate(to="/")}} className="text-lg w-full">
+              <Link to="/">Home</Link>
+            </Button> */}
+            <Button variant="default" type="button" onClick={()=>{navigate("/")}} className="text-lg w-full">
+            Home
             </Button>
           </form>
         </div>
@@ -78,6 +113,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-
-

@@ -1,8 +1,14 @@
 import Blog from "../models/blog.model.js";
 import Comment from "../models/comment.model.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import ApiErrorResponse from "../utils/ApiErrorResponse.js";
+import ApiResponse from "../utils/ApiResponse.js";
 import codes from "../utils/codes.js";
 import isEmpty from "../utils/isEmpty.js";
+import mongoose from "mongoose";
+
+
+
 
 export const createComment = asyncHandler(async (req, res) => {
   const postId = req.params.id;
@@ -39,7 +45,7 @@ export const createComment = asyncHandler(async (req, res) => {
   {
     return res
       .status(codes.ok)
-      .json(new ApiResponse("Comment added successfully.", codes.ok).res());
+      .json(new ApiResponse("Comment added successfully.", codes.ok,{comment:comment}).res());
   }
 });
 
@@ -47,24 +53,28 @@ export const createComment = asyncHandler(async (req, res) => {
 
 export const getCommentsOfPost = asyncHandler(async (req, res) => {
   const blogId = req.params.id;
+if (!mongoose.Types.ObjectId.isValid(blogId)) {
+  return res.status(400).json({ error: "Invalid Blog ID" });
+}
+
   const comments = await Comment.find({ postId: blogId })
     .populate({ path: "userId", select: "firstName lastName photoUrl" })
     .sort({ createdAt: -1 });
 
-  if (!comments) {
-    return res
-      .status(codes.notFound)
-      .json(
-        new ApiErrorResponse(
-          "No comments found for this blog",
-          codes.notFound
-        ).res()
-      );
-  }
+  // if (!comments) {
+  //   return res
+  //     .status(codes.notFound) 
+  //     .json(
+  //       new ApiErrorResponse(
+  //         "No comments found for this blog",
+  //         codes.notFound
+  //       ).res()
+  //     );
+  // }
   {
     return res.status(codes.ok).json(
       new ApiResponse("Comments found", codes.ok, {
-        comments: comments,
+        comments: comments??[],
       }).res()
     );
   }
@@ -176,7 +186,7 @@ export const editComment = asyncHandler(async (req, res) => {
 
   return res
     .status(codes.ok)
-    .json(new ApiResponse("Comment updated successfully", codes.ok).res());
+    .json(new ApiResponse("Comment updated successfully", codes.ok,{comment:comment}).res());
 });
 
 /////////////////////////////////////////////////////////////////////////////////
@@ -209,7 +219,7 @@ export const likeComment = asyncHandler(async (req, res) => {
 
   return res.status(codes.ok).json(
     new ApiResponse(`Blog comment ${alreadyLiked} `, codes.ok, {
-      updatedComment: comment,
+      comment: comment,
     }).res()
   );
 });

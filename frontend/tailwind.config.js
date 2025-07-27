@@ -7,6 +7,12 @@ export default {
 		backgroundImage: {
         'light': "url('/src/assets/signupLight.jpg')",
         'dark': "url('/src/assets/signupDark.jpg')",
+        'footer-dark': "url('/src/assets/footer.jpg')",
+        'footer-light': "url('/src/assets/footer.light.jpg')",
+        'blog-light': "url('/src/assets/blogLight.jpg')",
+        'home-light': "url('/src/assets/homeLight.jpg')",
+        'home-dark': "url('/src/assets/homeDark.jpg')",
+        'popularAuthor': "url('/src/assets/popularAuthor.webp')",
       },
   		borderRadius: {
   			lg: 'var(--radius)',

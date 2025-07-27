@@ -12,7 +12,7 @@ const Comments = () => {
         try {
           const res = await axios.get(`http://localhost:4000/api/v1/comment/my-blogs/comments`,{withCredentials:true})
           if(res.data.success){
-            setAllComments(res.data.comments)
+            setAllComments(res.data.payload.comments)
           }
         } catch (error) {
           console.log(error);

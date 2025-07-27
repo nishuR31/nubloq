@@ -11,6 +11,8 @@ import cors from "cors";
 import path from "path";
 import logger from "../utils/logger.js";
 import codes from "../utils/codes.js";
+import ApiErrorResponse from "../utils/ApiErrorResponse.js";
+import sendContact from "../utils/sendContact.js";
 
 dotenvx.config();
 const app = express();
@@ -67,12 +69,12 @@ app.all(`/{*splat}`, (req, res) => {
     );
 });
 
-app.all(`/${baseRoute}{*splat}`, (req, res) => {
+app.all(`/${baseRoute}/{*splat}`, (req, res) => {
   return res
     .status(codes.notFound)
     .json(
       new ApiErrorResponse(
-        "The route you are trying to reach does not exist",
+        "The route you are trying to reach does not exist - heheh",
         codes.notFound
       ).res()
     );

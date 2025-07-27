@@ -98,7 +98,7 @@ export const updateBlog = asyncHandler(async (req, res) => {
 
   return res
     .status(codes.ok)
-    .json(new ApiResponse("Blog successfully updated.", codes.ok).res());
+    .json(new ApiResponse("Blog successfully updated.", codes.ok,{blog:blog}).res());
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -186,7 +186,7 @@ export const togglePublishBlog = asyncHandler(async (req, res) => {
   const statusMessage = blog.isPublished ? "Published" : "Unpublished";
   return res
     .status(codes.ok)
-    .json(new ApiResponse(`Blog is ${statusMessage}`, codes.ok).res());
+    .json(new ApiResponse(`Blog is ${statusMessage}`, codes.ok,{blog:blog}).res());
 });
 
 /////////////////////////
@@ -330,7 +330,7 @@ export const likeBlog = asyncHandler(async (req, res) => {
 
   return res.status(codes.ok).json(
     new ApiResponse("Blog liked successfully", codes.ok, {
-      Blog: blog,
+      blog: blog,
     }).res()
   );
 });
@@ -353,7 +353,7 @@ export const dislikeBlog = asyncHandler(async (req, res) => {
 
   return res
     .status(codes.ok)
-    .json(new ApiResponse("Blog disliked successfully", codes.ok).res());
+    .json(new ApiResponse("Blog disliked successfully", codes.ok,{blog:blog}).res());
 });
 
 //////////////////////////////////

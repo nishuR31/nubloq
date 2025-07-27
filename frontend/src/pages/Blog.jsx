@@ -4,7 +4,6 @@ import LMS from "../assets/LMS.png"
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBlog } from '@/redux/blogSlice'
-// import BlogCardList from '@/components/BlogCardList'
 
 export const blogJson = [
     {
@@ -12,7 +11,7 @@ export const blogJson = [
         "title": "The Ultimate Guide to Digital Marketing in 2025",
         "author": "Rohit Singh",
         "date": "2025-03-27",
-        "content": "Digital marketing is constantly evolving. In 2025, businesses must focus on AI-driven strategies, voice search optimization, and hyper-personalization. This guide covers the latest trends and strategies for success.",
+        "description": "Digital marketing is constantly evolving...",
         "tags": ["digital marketing", "SEO", "social media", "PPC"],
         "category": "Marketing",
         "image": LMS
@@ -22,7 +21,7 @@ export const blogJson = [
         "title": "Building a Full-Stack LMS with MERN Stack",
         "author": "Rohit Singh",
         "date": "2025-03-27",
-        "content": "A step-by-step guide to building a Learning Management System (LMS) using React, Tailwind CSS, Node.js, Express.js, and MongoDB. Learn how to create courses, manage users, and process payments.",
+        "description": "A step-by-step guide to building an LMS...",
         "tags": ["MERN stack", "LMS", "React", "Node.js"],
         "category": "Web Development",
         "image": LMS
@@ -32,7 +31,7 @@ export const blogJson = [
         "title": "Top 10 WordPress Plugins for 2025",
         "author": "Rohit Singh",
         "date": "2025-03-27",
-        "content": "WordPress remains the most popular CMS. This article covers the top 10 must-have plugins for security, SEO, performance, and customization in 2025.",
+        "description": "This article covers the top 10 must-have plugins...",
         "tags": ["WordPress", "plugins", "SEO", "website optimization"],
         "category": "WordPress",
         "image": LMS
@@ -42,7 +41,7 @@ export const blogJson = [
         "title": "How to Use Rest APIs in Web Development",
         "author": "Nishan Rajak",
         "date": "2025-07-25",
-        "content": "APIs play a crucial role in modern web development. Learn how to integrate third-party APIs, create RESTful APIs with Node.js, and use authentication methods like OAuth.",
+        "description": "APIs play a crucial role in modern web dev...",
         "tags": ["APIs", "web development", "Node.js", "RESTful API"],
         "category": "Web Development",
         "image": LMS
@@ -52,50 +51,53 @@ export const blogJson = [
         "title": "Search Engine Optimization: The Complete Beginner’s Guide",
         "author": "Rohit Singh",
         "date": "2025-03-27",
-        "content": "SEO is vital for ranking higher on Google. This guide explains keyword research, on-page and off-page SEO, technical SEO, and the latest trends.",
+        "description": "SEO is vital for ranking higher on Google...",
         "tags": ["SEO", "Google ranking", "keyword research", "backlinks"],
         "category": "Marketing",
         "image": LMS
     }
-]
-
+];
 
 const Blog = () => {
-
-    const dispatch = useDispatch()
-    const { blog } = useSelector(store => store.blog)
+    const dispatch = useDispatch();
+    const { blog } = useSelector(store => store.blog);
 
     useEffect(() => {
         const getAllBlogs = async () => {
             try {
-                const res = await axios.get(`http://localhost:4000/api/v1/blog/get-all-blogs`, { withCredentials: true })
-                if (res.data.success) {
-                    dispatch(setBlog(res.data.payload.blogs))
-                }
-            } catch (error) {
-                console.log(error);
+                const res = await axios.get(`http://localhost:4000/api/v1/blog/get-all-blogs`, { withCredentials: true });
 
+                const fetchedBlogs = res.data?.payload?.blogs || [];
+
+                // Combine static + fetched blogs
+                dispatch(setBlog([...blogJson, ...fetchedBlogs]));
+
+            } catch (error) {
+                console.log("Error fetching blogs:", error);
+                // Fallback to static if API fails
+                dispatch(setBlog(blogJson));
             }
-        }
-        getAllBlogs()
-    },[])
+        };
+
+        getAllBlogs();
+    }, [dispatch]);
 
     return (
         <div className='pt-16'>
             <div className='max-w-6xl mx-auto text-center flex flex-col space-y-4 items-center'>
                 <h1 className='text-4xl font-bold text-center pt-10 '>Our Blogs</h1>
                 <hr className=' w-24 text-center border-2 border-red-500 rounded-full' />
-
             </div>
+
             <div className='max-w-6xl mx-auto grid gap-10 grid-cols-1 md:grid-cols-3 py-10 px-4 md:px-0'>
                 {
-                    blog?.map((blog, index) => {
-                        return <BlogCard blog={blog} key={index} />
-                    })
+                    blog?.map((oneblog, index) => (
+                        <BlogCard blog={oneblog} key={index} />
+                    ))
                 }
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Blog
+export default Blog;

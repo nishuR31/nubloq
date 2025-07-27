@@ -10,9 +10,9 @@ const BlogCardList = ({ blog }) => {
         <div className="bg-white dark:bg-gray-700 dark:border-gray-600 flex flex-col md:flex-row md:gap-10 p-5 rounded-2xl mt-6 shadow-lg border  transition-all">
             <div>
             <img src={blog.thumbnail} alt="" className='rounded-lg md:w-[300px] hover:scale-105 transition-all' />
-            {/* <p className="text-xs  mt-2">
+            <p className="text-xs  mt-2">
                 By {blog.author.firstName} | {blog.category} | {formattedDate}
-            </p> */}
+            </p>
 
             </div>
             <div>

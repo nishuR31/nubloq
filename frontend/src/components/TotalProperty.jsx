@@ -16,7 +16,7 @@ const TotalProperty = () => {
         try {
             const res = await axios.get(`http://localhost:4000/api/v1/blog/get-own-blogs`, { withCredentials: true })
     const foundBlog = res?.data?.payload?.blogs;
-    const existingBlogs = Array.isArray(blogs) ? blogs : [];
+    const existingBlogs = Array.isArray(blogs) ? foundBlogs : [];
 
     if (res.data.success && foundBlog) {
       dispatch(setBlog([...existingBlogs, foundBlog]));

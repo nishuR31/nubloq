@@ -16,14 +16,17 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
    const user = useSelector((state) => state.auth.user);
-   const _id = useSelector((state) => state.auth._id);
 
-  useEffect(() => {
-    if (user || _id) {
-      navigate("/"); // Already logged in, redirect home
-    }
-  }, [user]);
+useEffect(() => {
+  if (user && (user.userName || user._id)) {
+    navigate("/"); // Already logged in, redirect home
+  } else {
+    navigate("/login");
+  }
+}, [user]);
 
+
+console.log("user",user);
 
 
   const [input, setInput] = useState({
@@ -50,17 +53,18 @@ const Login = () => {
       });
 
       
-if (response.data.success) {
-  dispatch(setUser(response.data.payload.userName))
-  toast.success(response.data.message)
-  navigate('/')  // ✅ do this last
+      if (response.data.success) {
+        dispatch(setUser(response.data.payload.user))
+        toast.success(response.data.message)
+        navigate('/')  // ✅ do this last
+      }
+
+} catch (error) {
+  console.error("Login error:", error?.response?.data || error.message);
+  toast.error(error?.response?.data?.message || "Something went wrong. Login failed.");
 }
 
-    } catch (error) {
-      console.log(error.response.data.message);
-      toast.error(error.response.data.message);
-
-    }
+    
 
   };
   const [showPassword, setShowPassword] = useState(false);

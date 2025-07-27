@@ -173,13 +173,18 @@ const UpdateBlog = () => {
                             </SelectTrigger>
                             <SelectContent>
                                 <SelectGroup>
-                                    <SelectLabel>Category</SelectLabel>
-                                    <SelectItem value="Web Development">Web Development</SelectItem>
-                                    <SelectItem value="Digital Marketing">Digital Marketing</SelectItem>
-                                    <SelectItem value="Blogging">Blogging</SelectItem>
-                                    <SelectItem value="Photgraphy">Photgraphy</SelectItem>
-                                    <SelectItem value="Cooking">Cooking</SelectItem>
-                                </SelectGroup>
+                                <SelectLabel>Category</SelectLabel>
+                                <SelectItem value="Web Development">Web Development</SelectItem>
+                                <SelectItem value="Digital Marketing">Digital Marketing</SelectItem>
+                                <SelectItem value="Blogging">Blogging</SelectItem>
+                                <SelectItem value="Photography">Photography</SelectItem>
+                                <SelectItem value="Cooking">Cooking</SelectItem>
+                                <SelectItem value="Soft Development">Soft Development</SelectItem>
+                                <SelectItem value="Gaming">Gaming</SelectItem>
+                                <SelectItem value="Teaching">Teaching</SelectItem>
+                                <SelectItem value="Playing">Playing</SelectItem>
+                                <SelectItem value="Art">Art</SelectItem>
+                                </SelectGroup> 
                             </SelectContent>
                         </Select>
                     </div>

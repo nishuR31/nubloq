@@ -11,9 +11,12 @@ const BlogCard = ({blog}) => {
             <p className="text-sm  mt-2">
                 By {blog.author.firstName} | {blog.category} | {formattedDate}
             </p>
-            <h2 className="text-xl font-semibold capitalize mt-1">{blog.title}</h2>
+            <h2 className="text-xl font-semibold capitalize mt-1 text-white">{blog.title}</h2>
             <h3 className='text-gray-500 mt-1'>{blog.subtitle}</h3>
-            {/* <p className=" mt-3">{blog.description.substring(0, 100)}...</p>  */}
+                <p className={`mt-3 ${blog?.description ? 'text-inherit' : 'text-gray-600'}`}>
+                {blog?.description ? blog.description.substring(0, 100) + "..." : "No description available..."}
+                </p>
+
              <div className="mt-3 flex flex-wrap gap-2">
 
                 {[blog.category].map((tag, index) => (
@@ -22,7 +25,7 @@ const BlogCard = ({blog}) => {
                     </span>
                 ))}
             </div> 
-            <Button onClick={()=>navigate(`/blogs/${blog._id}`)} className="mt-4   px-4 py-2 rounded-lg text-sm ">
+            <Button onClick={()=>navigate(`/blogs/${blog._id}`)} variant="secondary" className="mt-4   px-4 py-2 rounded-lg text-sm ">
                 Read More
             </Button>
         </div>

@@ -5,13 +5,10 @@ import codes from "../utils/codes.js";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
 
-const uploader = asyncHandler(async (req, res) => {
+const uploader = asyncHandler(async (req, res,next) => {
   const file = req.files?.file; // name="file" in form/input
 
-  if (!file || Array.isArray(file)) {
-    return res
-      .status(codes.notFound)
-      .json(new ApiErrorResponse("No file uploaded!", codes.notFound).res());
+  if (!file || Array.isArray(file)) {return next()
   }
 
   // Upload to Cloudinary using the temp path
@@ -33,15 +30,12 @@ const uploader = asyncHandler(async (req, res) => {
   // Optional: Delete local temp file after upload
   fs.unlinkSync(file.tempFilePath);
 
-  return res
-    .status(codes.internalServerError)
-    .json(
-      new ApiResponse(
-        "Image uploaded successfully.",
-        codes.internalServerError,
-        { cloudinaryUrl: result.secure_url, public_id: result.public_id }
-      ).res()
-    );
+  req.cloudinary = {
+    url: result.secure_url,
+    public_id: result.public_id,
+  };
+
+  next(); // move on to your profile update controller
 });
 
 export default uploader;

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 import required from "../utils/required.js";
-import bcrypt from "bcryptjs"
+import bcrypt from "bcrypt"
 const userSchema = new mongoose.Schema({
     userName: {
         type: String,
@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true,required("password")],
         trim:true,
+        // select:false
     },
     bio: {
         type: String,
@@ -37,12 +38,16 @@ const userSchema = new mongoose.Schema({
       occupation: {
         type: String,
         trim:true,
+        default: "",
+
       },
       photoUrl: {
         type: String,
         default: "",
         trim:true,
     },
+    refreshToken:{type: String,},
+    otp:{code:{ type: String,},verified:{ type: Boolean,},expiry:{ type: Date,}},
     instagram: { type: String, default: "" },
     linkedin: { type: String, default: "" },
     github: { type: String, default: "" },

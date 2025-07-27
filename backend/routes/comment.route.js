@@ -4,7 +4,7 @@ import  auth from "../middleware/auth.middleware.js";
 import {
   createComment,
   deleteComment,
-  editComment,
+  editComment, 
   getAllCommentsOnMyBlogs,
   getCommentsOfPost,
   likeComment,

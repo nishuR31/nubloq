@@ -2,7 +2,7 @@ import express from "express"
 
 import auth from "../middleware/auth.middleware.js"
 import uploader  from "../controllers/uploader.controller.js"
-import {createBlog, deleteBlog, dislikeBlog, getAllBlogs, getMyTotalBlogLikes, getOwnBlogs, getPublishedBlog, likeBlog, togglePublishBlog, updateBlog } from "../controllers/blog.controwller.js"
+import {createBlog, deleteBlog, dislikeBlog, getAllBlogs, getMyTotalBlogLikes, getOwnBlogs, getPublishedBlog, likeBlog, togglePublishBlog, updateBlog } from "../controllers/blog.controller.js"
 
 const router = express.Router()
 
