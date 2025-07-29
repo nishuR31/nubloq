@@ -76,9 +76,12 @@ const YourBlog = () => {
             const res = await axios.get(`http://localhost:4000/api/v1/blog/get-own-blogs`, { withCredentials: true })
             if (res.data.success) {
                 dispatch(setBlog(res.data.payload.blogs))
+                toast.success("Blogs fetched successfully.")
             }
         } catch (error) {
             console.log(error);
+                toast.error("Error in fetching blogs.")
+
 
         }
     }

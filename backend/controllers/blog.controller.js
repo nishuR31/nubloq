@@ -6,8 +6,10 @@ import codes from "../utils/codes.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiErrorResponse from "../utils/ApiErrorResponse.js";
 import ApiResponse from "../utils/ApiResponse.js";
+import mongoose from "mongoose";
 
 // Create a new blog post
+
 export const createBlog = asyncHandler(async (req, res) => {
   if (!req.user) {
     return res
@@ -20,8 +22,8 @@ export const createBlog = asyncHandler(async (req, res) => {
       );
   }
 
-  const { title, category } = req.body;
-  if (!title || !category) {
+  const { title  } = req.body;
+  if (!title ) {
     return res
       .status(codes.badRequest)
       .json(
@@ -31,7 +33,6 @@ export const createBlog = asyncHandler(async (req, res) => {
 
   const blog = await Blog.create({
     title,
-    category,
     author: req.user._id,
   });
 
@@ -46,9 +47,11 @@ export const createBlog = asyncHandler(async (req, res) => {
       );
   }
 
-  return res
-    .status(codes.ok)
-    .json(new ApiResponse("Blog successfully created.", codes.ok,{blog:blog}).res());
+  return res.status(codes.ok).json(
+    new ApiResponse("Blog successfully created.", codes.ok, {
+      blog: blog,
+    }).res()
+  );
 });
 
 /////////////////////////////////////////////////////////////
@@ -58,18 +61,13 @@ export const updateBlog = asyncHandler(async (req, res) => {
   const { title, subtitle, description, category } = req.body;
   const file = req.file;
 
-  let blog = await Blog.findById(blogId).populate("author");
+  let blog = await Blog.findById(blogId);
   if (!blog) {
     return res
       .status(codes.notFound)
       .json(new ApiErrorResponse("Blog not found.", codes.notFound).res());
   }
 
-  let thumbnail;
-  if (file) {
-    const fileUri = getDataUri(file);
-    thumbnail = await cloudinary.uploader.upload(fileUri);
-  }
 
   const updateData = {
     title,
@@ -77,13 +75,14 @@ export const updateBlog = asyncHandler(async (req, res) => {
     description,
     category,
     author: req.user._id,
-    thumbnail: thumbnail?.secure_url,
+    // thumbnail: req.file.url || "",
+...(req.file?.url && { thumbnail: req.file.url })
+
   };
   blog = await Blog.findByIdAndUpdate(
     blogId,
     { $set: updateData },
-    { $upsert: true },
-    { new: true }
+    { $upsert: true , new: true }
   );
   if (!blog) {
     return res
@@ -96,9 +95,11 @@ export const updateBlog = asyncHandler(async (req, res) => {
       );
   }
 
-  return res
-    .status(codes.ok)
-    .json(new ApiResponse("Blog successfully updated.", codes.ok,{blog:blog}).res());
+  return res.status(codes.ok).json(
+    new ApiResponse("Blog successfully updated.", codes.ok, {
+      blog: blog,
+    }).res()
+  );
 });
 
 //////////////////////////////////////////////////////////////////////
@@ -118,20 +119,36 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
         select: "firstName lastName photoUrl",
       },
     });
-  if (!blogs) {
-    return res
-      .status(codes.internalServerError)
-      .json(
-        new ApiErrorResponse(
-          "Blogs are not found.",
-          codes.internalServerError
-        ).res()
-      );
-  }
 
   return res.status(codes.ok).json(
     new ApiResponse("All blogs found successfully", codes.ok, {
-      blogs: blogs,
+      blogs: blogs ?? [],
+    }).res()
+  );
+});
+
+///////////////////////////////////////////////////////
+
+export const getBlog = asyncHandler(async (req, res) => {
+  let blogId = req.params.blogId;
+  const blog = await Blog.findById(blogId)
+    .sort({ createdAt: -1 })
+    .populate({
+      path: "author",
+      select: "firstName lastName photoUrl",
+    })
+    .populate({
+      path: "comments",
+      sort: { createdAt: -1 },
+      populate: {
+        path: "userId",
+        select: "firstName lastName photoUrl",
+      },
+    });
+
+  return res.status(codes.ok).json(
+    new ApiResponse("Blog found successfully", codes.ok, {
+      blog: blog ?? {},
     }).res()
   );
 });
@@ -150,17 +167,10 @@ export const getPublishedBlog = asyncHandler(async (req, res) => {
         select: "firstName lastName photoUrl",
       },
     });
-  if (!blogs) {
-    return res
-      .status(codes.notFound)
-      .json(
-        new ApiErrorResponse("Published blogs not found.", codes.notFound).res()
-      );
-  }
 
   return res.status(codes.ok).json(
     new ApiResponse("Published blogs found successfully", codes.ok, {
-      blogs: blogs,
+      blogs: blogs ?? [],
     }).res()
   );
 });
@@ -170,7 +180,6 @@ export const getPublishedBlog = asyncHandler(async (req, res) => {
 export const togglePublishBlog = asyncHandler(async (req, res) => {
   const { blogId } = req.params;
   const { publish } = req.query; // true, false
-  console.log(req.query);
 
   const blog = await Blog.findById(blogId);
   if (!blog) {
@@ -180,13 +189,15 @@ export const togglePublishBlog = asyncHandler(async (req, res) => {
   }
 
   // publish status based on the query paramter
-  blog.isPublished = !blog.isPublished;
+  blog.isPublished = publish==="true";
   await blog.save();
 
   const statusMessage = blog.isPublished ? "Published" : "Unpublished";
-  return res
-    .status(codes.ok)
-    .json(new ApiResponse(`Blog is ${statusMessage}`, codes.ok,{blog:blog}).res());
+  return res.status(codes.ok).json(
+    new ApiResponse(`Blog is ${statusMessage}`, codes.ok, {
+      blog: blog,
+    }).res()
+  );
 });
 
 /////////////////////////
@@ -217,17 +228,9 @@ export const getOwnBlogs = asyncHandler(async (req, res) => {
       },
     });
 
-  if (!blogs) {
-    return res.status(codes.notFound).json(
-      new ApiErrorResponse("Your blogs are not found", codes.notFound, {
-        blogs: [],
-      }).res()
-    );
-  }
-
   return res.status(codes.ok).json(
     new ApiResponse("Your blogs are found successfully", codes.ok, {
-      blogs: blogs,
+      blogs: blogs ?? [],
     }).res()
   );
 });
@@ -235,19 +238,21 @@ export const getOwnBlogs = asyncHandler(async (req, res) => {
 ///////////////////////////////////////////////////////////
 
 // Delete a blog post
+
 export const deleteBlog = asyncHandler(async (req, res) => {
-  const blogId = req.params.id;
-  const authorId = req.user._id;
   if (!req.user) {
     return res
       .status(codes.unauthorized)
       .json(
         new ApiErrorResponse(
-          "User not authorized,please login before deleting a blog.",
+          "User not authorized, please login before deleting a blog.",
           codes.unauthorized
         ).res()
       );
   }
+
+  const blogId = req.params.id;
+  const authorId = req.user._id.toString();
 
   const blog = await Blog.findById(blogId);
   if (!blog) {
@@ -261,85 +266,70 @@ export const deleteBlog = asyncHandler(async (req, res) => {
       .status(codes.unauthorized)
       .json(
         new ApiErrorResponse(
-          "User not authorized to delete the blog, Users mismatch",
+          "User not authorized to delete this blog (author mismatch).",
           codes.unauthorized
         ).res()
       );
   }
 
   // Delete blog
- let deleted= await Blog.findByIdAndDelete(blogId);
-   if (!deleted) {
-    return res
-      .status(codes.internalServerError)
-      .json(
-        new ApiErrorResponse(
-          "Error deleting blog.",
-          codes.internalServerError
-        ).res()
-      );
-  }
+  const deleted = await Blog.findByIdAndDelete(blogId);
+  // No need to check `if (!deleted)` — already fetched `blog` above
 
-  // Delete related comments
-  let commented=await Comment.deleteMany({ postId: blogId });
-  if (!commented) {
-    return res
-      .status(codes.internalServerError)
-      .json(
-        new ApiErrorResponse(
-          "Error deleting comments.",
-          codes.internalServerError
-        ).res()
-      );
-  }
-
-
+  // Delete associated comments
+  await Comment.deleteMany({ postId: blogId });
 
   return res
     .status(codes.ok)
-    .json(new ApiResponse("Blog successfully deleted", codes.ok).res());
+    .json(
+      new ApiResponse(
+        "Blog and its comments successfully deleted",
+        codes.ok
+      ).res()
+    );
 });
 
-///////////////////////////////////////////////////////
-
+/////////////////////////////////////////////////////////
 export const likeBlog = asyncHandler(async (req, res) => {
-  const blogId = req.params.id;
-  const liker = req.user.id;
-  const blog = await Blog.findById(blogId).populate({ path: "likes" });
+  const blogId = req.params.blogId;
+  const likerId = req.user._id;
+
+  if (!mongoose.Types.ObjectId.isValid(blogId)) {
+    return res
+      .status(codes.badRequest)
+      .json(new ApiErrorResponse("Invalid blog ID", codes.badRequest).res());
+  }
+
+  let blog = await Blog.findById(blogId);
   if (!blog) {
     return res
       .status(codes.notFound)
-      .json(
-        new ApiErrorResponse("Blog not found to like.", codes.notFound).res()
-      );
+      .json(new ApiErrorResponse("Blog not found", codes.notFound).res());
   }
 
-  // Check if user already liked the blog
-  const alreadyLiked = blog.likes.includes(liker);
-  if (alreadyLiked) {
-    return res.status(codes.conflict).json(
-      new ApiErrorResponse("Blog already liked.", codes.conflict, {
-        Blog: blog,
-      }).res()
-    );
-  }
+  // Add user ID only if not already present
+  blog=await Blog.updateOne({ _id: blogId }, { $addToSet: { likes: likerId } });
 
-  //like logic started
-  await blog.updateOne({ $addToSet: { likes: liker } });
-  await blog.save();
+  const updatedBlog = await Blog.findById(blogId);
 
   return res.status(codes.ok).json(
     new ApiResponse("Blog liked successfully", codes.ok, {
-      blog: blog,
+      likes: updatedBlog.likes,
     }).res()
   );
 });
 
 ///////////////////////////////////////////////
-
 export const dislikeBlog = asyncHandler(async (req, res) => {
-  const liker = req.user.id;
-  const blogId = req.params.id;
+  const blogId = req.params.blogId;
+  const dislikerId = req.user._id;
+
+  if (!mongoose.Types.ObjectId.isValid(blogId)) {
+    return res
+      .status(codes.badRequest)
+      .json(new ApiErrorResponse("Invalid blog ID", codes.badRequest).res());
+  }
+
   const blog = await Blog.findById(blogId);
   if (!blog) {
     return res
@@ -347,40 +337,73 @@ export const dislikeBlog = asyncHandler(async (req, res) => {
       .json(new ApiErrorResponse("Blog not found", codes.notFound).res());
   }
 
-  //dislike logic started
-  await blog.updateOne({ $pull: { likes: liker } });
+  // const alreadyLiked = blog.likes.some(
+  //     (id) => id.toString() === dislikerId.toString()
+  //   );
+
+  //   if (!alreadyLiked) {
+  //     return res.status(400).json({
+  //       success: false,
+  //       message: "You haven't liked this blog",
+  //     });
+  //   }
+  // Corrected logic for removing the user from likes
+blog.likes = blog.likes.filter(
+  (id) => id.toString() !== dislikerId.toString()
+);
+  // blog.likes.pull(dislikerId);
+
   await blog.save();
 
-  return res
-    .status(codes.ok)
-    .json(new ApiResponse("Blog disliked successfully", codes.ok,{blog:blog}).res());
+
+  return res.status(codes.ok).json(
+    new ApiResponse("Blog disliked successfully", codes.ok, {
+      likes: blog.likes,
+    }).res()
+  );
 });
 
 //////////////////////////////////
 
 export const getMyTotalBlogLikes = asyncHandler(async (req, res) => {
-  const userId = req.user.id; // assuming you use authentication middleware
+  if (!req.user) {
+    return res
+      .status(codes.unauthorized)
+      .json(
+        new ApiErrorResponse(
+          "Login required to get your own blogs with likes",
+          codes.unauthorized
+        ).res()
+      );
+  }
 
-  // Step 1: Find all blogs authored by the logged-in user
+  const userId = req.user._id;
+
+  // Step 1: Find blogs authored by the user and select only 'likes'
   const myBlogs = await Blog.find({ author: userId }).select("likes");
 
-  // Step 2: Sum up the total likes
+  // Safety check (optional)
+  if (!myBlogs || myBlogs.length === 0) {
+    return res
+      .status(codes.notFound)
+      .json(
+        new ApiErrorResponse(
+          "No blogs found for this user",
+          codes.notFound
+        ).res()
+      );
+  }
+
+  // Step 2: Sum all likes across user's blogs
   const totalLikes = myBlogs.reduce(
     (acc, blog) => acc + (blog.likes?.length || 0),
     0
   );
 
-  if (!myBlogs) {
-    return res
-      .status(codes.notFound)
-      .json(
-        new ApiErrorResponse("Your liked blogs not found", codes.notFound).res()
-      );
-  }
   return res.status(codes.ok).json(
-    new ApiResponse("Your liked blogs ok successfully", codes.ok, {
+    new ApiResponse("Fetched total likes successfully", codes.ok, {
       totalBlogs: myBlogs.length,
-      totalLikes: totalLikes,
+      totalLikes,
     }).res()
   );
 });

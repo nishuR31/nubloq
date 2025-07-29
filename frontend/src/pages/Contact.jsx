@@ -59,7 +59,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="px-4 md:px-0 py-10">
+    <div className="px-5 md:px-0 py-20">
       <div className="max-w-screen h-screen px-10 mx-auto flex flex-col md:flex-row items-center gap-10">
         <div className="flex-1 w-full max-w-xl">
           <h2 className="text-4xl font-bold mb-6 animate-bounce text-center">

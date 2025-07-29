@@ -3,6 +3,8 @@ import dotenvx from "@dotenvx/dotenvx";
 import userRoute from "../routes/user.route.js";
 import blogRoute from "../routes/blog.route.js";
 import commentRoute from "../routes/comment.route.js";
+// import commentRoute from "../routes/comment.route.js";
+import forgotRoute from "../routes/forgot.route.js";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -51,12 +53,16 @@ let baseRoute = "/api/v1/";
 app.use(`${baseRoute}user`, userRoute);
 app.use(`${baseRoute}blog`, blogRoute);
 app.use(`${baseRoute}comment`, commentRoute);
+app.use(`${baseRoute}forgot`, forgotRoute);
 
-app.use(express.static(path.join(_dirname, `/frontend/dist`)));
+app.use(express.static(path.join(_dirname, `/frontend`)));
 
 app.get("/{*splat}", (_, res) => {
-  res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+  res.sendFile(path.resolve(_dirname, "frontend", "index.html"));
 });
+// app.get("/{*splat}", (_, res) => {
+//   res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
+// });
 
 app.all(`/{*splat}`, (req, res) => {
   return res

@@ -5,6 +5,8 @@ import { FaGithub,FaEnvelope } from 'react-icons/fa'
 import footer from "../assets/footer.jpg"
 import axios from 'axios'
 import { toast } from "sonner";
+import blog from "../assets/blog.png"
+import ScrollToTop from "./scrollToTop"
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
@@ -69,7 +71,7 @@ let navigate=useNavigate();
         <div className='my-6 md:mb-0'>
             <Link to='/' className='flex gap-3 items-center'>
               {/* <img src={Logo} alt="" className='w-32'/> */}
-              <img src={Logo} alt="" className='animate-bounce dark:invert w-20 h-20'/>
+              <img src={blog} alt="" className='animate-bounce w-20 h-20 '/>
             </Link>
             <p className='mt-2'>Sharing insights, tutorials, and ideas on software development and tech fields.</p>
             <p className='mt-2 text-sm font-bold tight'>Vinita Nest, Near Lieven's School of Excellence, Daladali chowk,Ranchi, Jharkhand, 835222</p>
@@ -121,6 +123,7 @@ let navigate=useNavigate();
       <div className='py-4 border-none  text-center text-sm backdrop-blur-sm'>
         <p className="animate-bounce">&copy; {new Date().getFullYear()} <span className='text-red-500'>Nishu Blog</span>. All rights reserved</p>
       </div>
+      <ScrollToTop />
     </footer>
   )
 }

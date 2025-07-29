@@ -1,6 +1,5 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import ApiErrorResponse from "../utils/ApiErrorResponse.js";
-import ApiResponse from "../utils/ApiResponse.js";
 import codes from "../utils/codes.js";
 import { v2 as cloudinary } from "cloudinary";
 import fs from "fs";
@@ -30,7 +29,7 @@ const uploader = asyncHandler(async (req, res,next) => {
   // Optional: Delete local temp file after upload
   fs.unlinkSync(file.tempFilePath);
 
-  req.cloudinary = {
+  req.file = {
     url: result.secure_url,
     public_id: result.public_id,
   };

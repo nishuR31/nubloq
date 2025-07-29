@@ -1,5 +1,8 @@
 import React,{useState,useEffect} from 'react';
-import aboutImg from "../assets/About-blog.avif"
+import about from "../assets/About-blog.avif"
+import blog from "../assets/Blog-about.avif"
+import blog2 from "../assets/Blog-about.webp"
+import LMS from "../assets/LMS.png"
 
 const About = () => {
 
@@ -32,7 +35,18 @@ const blogTopics = [
   "Infinite Scroll in React with IntersectionObserver",
 ];
 
-let [fields,setFields]=useState("")
+let [fields,setFields]=useState("Welcome to our about section.")
+let pics=[blog,about,LMS,blog2]
+let [src,setSrc]=useState(about);
+useEffect(()=>{
+  let i=0;
+    let interval=setInterval(() => {
+      setSrc(pics[i%pics.length]);i+=1;
+    }, 3000);
+   return ()=>clearInterval(interval)
+
+},[])
+
 useEffect(()=>{
   let i=0;
     let interval=setInterval(() => {
@@ -44,7 +58,7 @@ useEffect(()=>{
 
 
   return (
-    <div className=" min-h-screen pt-28 px-4 md:px-0 mb-7 ">
+    <div className="transition-all delay-3000 ease-in-out min-h-screen pt-28 px-4 md:px-0 mb-7 ">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center">
@@ -62,9 +76,9 @@ useEffect(()=>{
         {/* Image + Text Section */}
         <div className="mt-12 grid md:grid-cols-2 gap-10 items-center">
           <img
-            src={aboutImg}
+            src={src}
             alt="Blog Illustration"
-            className="w-full h-72 object-cover rounded-2xl shadow-lg"
+            className="w-full h-72 object-cover rounded-2xl shadow-lg "
           />
           <div>
             <p className=" text-lg mb-4">

@@ -72,7 +72,7 @@ console.log("user",user);
     <div className="flex items-center h-screen md:pt-14 md:h-[760px] bg-light dark:bg-dark ">
 
       <div className='flex justify-center items-center flex-1 px-4 md:px-0'>
-      <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl dark:bg-gray-800 dark:border-gray-600 bg-transparent backdrop-blur-sm ">
+      <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl  dark:border-gray-600 bg-transparent backdrop-blur-sm ">
         <CardHeader >
           <CardTitle className=" text-center text-xl font-semibold">Login into your account</CardTitle>
           <p className='text-gray-800 dark:text-gray-200 mt-2 text-sm font-serif text-center'>Enter your details below to login your account</p>
@@ -98,7 +98,7 @@ console.log("user",user);
                 value={input.password}
                 onChange={handleChange}
                 className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900 "
-              />
+              /> 
               <button
                 type="button"
                 className="absolute right-3 top-8 text-gray-300 "
@@ -106,6 +106,7 @@ console.log("user",user);
               >
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
+              <p className='text-center text-gray-300'> <Link to={'/forgot'}><span className='underline cursor-pointer text-gray-300'>Forgot Password?</span></Link></p>
             </div>
 
             <Button type="submit" className="w-full">Login</Button>

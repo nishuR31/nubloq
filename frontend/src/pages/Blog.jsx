@@ -9,52 +9,52 @@ export const blogJson = [
     {
         "id": 1,
         "title": "The Ultimate Guide to Digital Marketing in 2025",
-        "author": "Rohit Singh",
-        "date": "2025-03-27",
+        "author": "Nishan Rajak",
+        "formattedDate": "2025-03-27",
         "description": "Digital marketing is constantly evolving...",
         "tags": ["digital marketing", "SEO", "social media", "PPC"],
         "category": "Marketing",
-        "image": LMS
+        "thumbnail": "https://placehold.co/700x400?text=Marketing"
     },
     {
         "id": 2,
         "title": "Building a Full-Stack LMS with MERN Stack",
-        "author": "Rohit Singh",
-        "date": "2025-03-27",
+        "author": "Aman Kumar",
+        "formattedDate": "2025-03-27",
         "description": "A step-by-step guide to building an LMS...",
         "tags": ["MERN stack", "LMS", "React", "Node.js"],
         "category": "Web Development",
-        "image": LMS
+        "thumbnail": "https://placehold.co/700x400?text=Web+Dev"
     },
     {
         "id": 3,
         "title": "Top 10 WordPress Plugins for 2025",
-        "author": "Rohit Singh",
-        "date": "2025-03-27",
+        "author": "Daksh Veer",
+        "formattedDate": "2025-03-27",
         "description": "This article covers the top 10 must-have plugins...",
         "tags": ["WordPress", "plugins", "SEO", "website optimization"],
         "category": "WordPress",
-        "image": LMS
+        "thumbnail": "https://placehold.co/700x400?text=WordPress"
     },
     {
         "id": 4,
         "title": "How to Use Rest APIs in Web Development",
-        "author": "Nishan Rajak",
-        "date": "2025-07-25",
+        "author": "Akash Munda",
+        "formattedDate": "2025-07-25",
         "description": "APIs play a crucial role in modern web dev...",
         "tags": ["APIs", "web development", "Node.js", "RESTful API"],
         "category": "Web Development",
-        "image": LMS
+        "thumbnail": "https://placehold.co/700x400?text=Web+Dev"
     },
     {
         "id": 5,
         "title": "Search Engine Optimization: The Complete Beginner’s Guide",
         "author": "Rohit Singh",
-        "date": "2025-03-27",
+        "formattedDate": "2025-03-27",
         "description": "SEO is vital for ranking higher on Google...",
         "tags": ["SEO", "Google ranking", "keyword research", "backlinks"],
         "category": "Marketing",
-        "image": LMS
+        "thumbnail": "https://placehold.co/700x400?text=SEO"
     }
 ];
 

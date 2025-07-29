@@ -100,8 +100,8 @@ const RecentBlog = () => {
 
       <div className=' max-w-7xl mx-auto gap-6'>
         <div className='mt-10 flex flex-wrap justify-around '>
-          {blog?.slice(0, 4)?.map((blog, index) => (
-            <BlogCardList key={index} blog={blog} />
+          {blog?.slice(0, 4)?.map((oneblog, index) => (
+            <BlogCardList key={index} blog={oneblog} />
           ))}
         </div>
 

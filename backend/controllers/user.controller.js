@@ -12,8 +12,8 @@ import tokenOptions from "../utils/tokenOptions.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 export const register = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password,userName } = req.body;
-  if (isEmpty([ email, password,userName])) {
+  const { firstName, lastName, email, password, userName } = req.body;
+  if (isEmpty([email, password, userName])) {
     return res
       .status(codes.badRequest)
       .json(
@@ -125,7 +125,7 @@ export const register = asyncHandler(async (req, res) => {
     lastName,
     email,
     password,
-    userName
+    userName,
   });
 
   return res
@@ -143,9 +143,11 @@ export const register = asyncHandler(async (req, res) => {
 
 export const login = asyncHandler(async (req, res) => {
   if (req.user) {
-    return res
-      .status(codes.ok)
-      .json(new ApiResponse("User already logged in.",codes.ok,{user:{_id:req.user._id,userName:req.user.userName}}).res());
+    return res.status(codes.ok).json(
+      new ApiResponse("User already logged in.", codes.ok, {
+        user: { _id: req.user._id, userName: req.user.userName },
+      }).res()
+    );
   }
   const { emailUser, password } = req.body;
   if (!emailUser && !password) {
@@ -159,10 +161,12 @@ export const login = asyncHandler(async (req, res) => {
       );
   }
 
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const field = emailRegex.test(emailUser)? "email":"userName" ;
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const field = emailRegex.test(emailUser) ? "email" : "userName";
 
-  let user = await User.findOne({ $or: [{ [field]:emailUser }] }).select(" -refreshToken -otp");
+  let user = await User.findOne({ $or: [{ [field]: emailUser }] }).select(
+    " -refreshToken -otp "
+  );
   if (!user) {
     return res
       .status(codes.notFound)
@@ -188,16 +192,32 @@ const field = emailRegex.test(emailUser)? "email":"userName" ;
   res.cookie("accessToken", accessToken, tokenOptions("access"));
   res.cookie("refreshToken", refreshToken, tokenOptions("refresh"));
 
-  return res
-    .status(codes.ok)
-    .json(
-      new ApiResponse(
-        `Welcome back ${user.userName}. Logging you in.`,
-        codes.ok,{user:user}
-      ).res()
-    );
+  return res.status(codes.ok).json(
+    new ApiResponse(
+      `Welcome back ${user.userName}. Logging you in.`,
+      codes.ok,
+      {
+        user: {
+          _id: user._id,
+          userName: user.userName,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          bio: user.bio,
+          occupation: user.occupation,
+          photoUrl: user.photoUrl,
+          instagram: user.instagram,
+          linkedin: user.linkedin,
+          github: user.github,
+          facebook: user.facebook,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        },
+        accessToken: accessToken,
+      }
+    ).res()
+  );
 });
-
 
 /////////////////////////////////////////////////////////////
 export const logout = asyncHandler(async (req, res) => {
@@ -220,7 +240,10 @@ export const logout = asyncHandler(async (req, res) => {
     return res
       .status(codes.internalServerError)
       .json(
-        new ApiErrorResponse("Error fetching the user.", codes.internalServerError).res()
+        new ApiErrorResponse(
+          "Error fetching the user.",
+          codes.internalServerError
+        ).res()
       );
   }
 
@@ -238,10 +261,12 @@ export const logout = asyncHandler(async (req, res) => {
   return res
     .status(codes.ok)
     .json(
-      new ApiResponse(`${req.user.userName} successfully logged out.`, codes.ok).res()
+      new ApiResponse(
+        `${req.user.userName} successfully logged out.`,
+        codes.ok
+      ).res()
     );
 });
-
 
 ///////////////////////////////////////////////
 
@@ -324,7 +349,9 @@ export const updateProfile = asyncHandler(async (req, res) => {
     github,
   } = req.body;
 
-  const user = await User.findById(userId).select("-password -refreshToken -otp");
+  const user = await User.findById(userId).select(
+    "-password -refreshToken -otp"
+  );
 
   if (!user) {
     return res
@@ -333,15 +360,33 @@ export const updateProfile = asyncHandler(async (req, res) => {
   }
 
   // Update fields if changed
-  if (firstName && user.firstName !== firstName) {user.firstName = firstName;}
-  if (lastName && user.lastName !== lastName) {user.lastName = lastName;}
-  if (occupation && user.occupation !== occupation) {user.occupation = occupation.split(" ").map((e,i)=>e[0].toUpperCase()+e.slice(1)).join(" ");}
-  if (bio && user.bio !== bio) {user.bio = bio;}
-  if (instagram && user.instagram !== instagram) {user.instagram = instagram;}
-  if (facebook && user.facebook !== facebook) {user.facebook = facebook;}
-  if (linkedin && user.linkedin !== linkedin) {user.linkedin = linkedin;}
-  if (github && user.github !== github) {user.github = github;}
-
+  if (firstName && user.firstName !== firstName) {
+    user.firstName = firstName;
+  }
+  if (lastName && user.lastName !== lastName) {
+    user.lastName = lastName;
+  }
+  if (occupation && user.occupation !== occupation) {
+    user.occupation = occupation
+      .split(" ")
+      .map((e, i) => e[0].toUpperCase() + e.slice(1))
+      .join(" ");
+  }
+  if (bio && user.bio !== bio) {
+    user.bio = bio;
+  }
+  if (instagram && user.instagram !== instagram) {
+    user.instagram = instagram;
+  }
+  if (facebook && user.facebook !== facebook) {
+    user.facebook = facebook;
+  }
+  if (linkedin && user.linkedin !== linkedin) {
+    user.linkedin = linkedin;
+  }
+  if (github && user.github !== github) {
+    user.github = github;
+  }
 
   if (req.cloudinary?.url) {
     user.photoUrl = req.cloudinary.url;
@@ -349,15 +394,11 @@ export const updateProfile = asyncHandler(async (req, res) => {
 
   await user.save();
 
-  return res
-    .status(codes.ok)
-    .json(
-      new ApiResponse(
-        "User profile successfully updated",
-        codes.ok,
-        { user:user }
-      ).res()
-    );
+  return res.status(codes.ok).json(
+    new ApiResponse("User profile successfully updated", codes.ok, {
+      user: user,
+    }).res()
+  );
 });
 
 ///////////////////////////////////////////////////
@@ -368,7 +409,7 @@ export const getAllUsers = asyncHandler(async (req, res) => {
   return res.status(codes.ok).json(
     new ApiResponse("Users successfully found", codes.ok, {
       totalUsers: users?.length,
-      users:users??[]
+      users: users ?? [],
     }).res()
   );
 });

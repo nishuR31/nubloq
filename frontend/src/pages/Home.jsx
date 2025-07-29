@@ -2,15 +2,21 @@ import Hero from '@/components/Hero'
 import React from 'react'
 import RecentBlog from '@/components/RecentBlog'
 import PopularAuthors from '@/components/PopularAuthors'
+import FramerMotion from '@/components/framerMotion'
 
 const Home = () => {
+  
   return (
-    <div className='pt-20'>
-      <Hero/>
-      <RecentBlog/>
-      <PopularAuthors/>
+    <div >
+      <FramerMotion> 
+        <Hero/>
+
+        <RecentBlog/>
+
+        <PopularAuthors/>
+      </FramerMotion>
     </div>
   )
 }
-
+ 
 export default Home

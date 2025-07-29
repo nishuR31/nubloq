@@ -29,7 +29,7 @@ const CreateBlog = () => {
     setLoading(true);
     const res = await axios.post(
       `http://localhost:4000/api/v1/blog/create`,
-      { title, category,subtitle,description },
+      { title },
       {
         headers: {
           "Content-Type": "application/json",
@@ -48,7 +48,7 @@ const CreateBlog = () => {
     } else {
       toast.error("Something went wrong");
     }
-  } catch (error) {
+  } catch (error) {  
     console.log(error);
     toast.error("Blog creation failed");
   } finally {

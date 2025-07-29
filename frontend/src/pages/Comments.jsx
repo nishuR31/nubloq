@@ -4,6 +4,7 @@ import axios from 'axios'
 import { Edit, Eye, Trash2 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import {toast} from "sonner"
 
 const Comments = () => {
     const [allComments, setAllComments] = useState([])
@@ -15,7 +16,8 @@ const Comments = () => {
             setAllComments(res.data.payload.comments)
           }
         } catch (error) {
-          console.log(error);
+          console.log(error); 
+          toast.error("Failed to fetch for comments")
           
         }
     }
@@ -45,7 +47,6 @@ const Comments = () => {
                         <TableRow key={index}>
                             {/* <TableCell className="font-medium">{item.author.firstName}</TableCell> */}
                             <TableCell className="flex gap-4 items-center">
-                                {/* <img src={item.thumbnail} alt="" className='w-20 rounded-md hidden md:block' /> */}
                                 {comment.postId.title}
                             </TableCell>
                             <TableCell>{comment.content}</TableCell>

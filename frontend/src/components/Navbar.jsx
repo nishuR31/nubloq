@@ -3,7 +3,10 @@ import { Button } from './ui/button'
 import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { Input } from './ui/input'
 import Logo from "../assets/logo.png"
+import blog from "../assets/blog.png"
+
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import avatarFallback from './avatarFallback'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'sonner'
 import axios from 'axios'
@@ -11,10 +14,10 @@ import { setUser } from '@/redux/authSlice'
 import userLogo from "../assets/user.jpg"
 import { HiMenuAlt1, HiMenuAlt3 } from "react-icons/hi";
 import {
-    ChartColumnBig,
+    ChartColumnBig, 
     Cloud,
     CreditCard,
-    Github,
+    Github, 
     Keyboard,
     LifeBuoy,
     LogOut,
@@ -81,19 +84,19 @@ const Navbar = () => {
         setOpenNav(!openNav)
     }
     return (
-        <div className='py-2 fixed w-full dark:bg-transparent dark:border-b-gray-600  backdrop-blur-sm border-b-gray-300 border-2 bg-white z-50'>
+        <div className='py-2 fixed w-full bg-transparent dark:border-b-gray-600  backdrop-blur-sm border-b-gray-300 border-2 z-50'>
             <div className='max-w-7xl mx-auto flex justify-between items-center px-4 md:px-0'>
                 {/* logo section */}
                 <div className='flex gap-7 items-center'>
                     <Link to={'/'}>
                         <div className='flex gap-2 items-center'>
-                            <img src={Logo} alt="" className='w-7 h-7 md:w-10 md:h-10 dark:invert' />
+                            <img src={blog} alt="" className='w-7 h-7 md:w-10 md:h-10 invert dark:invert-0' />
                         </div>
                     </Link>
                     <div className='relative hidden md:block'>
                         <Input type="text"
                             placeholder="Search"
-                            className="border border-gray-700 dark:bg-gray-900 bg-gray-300 w-[300px] hidden md:block"
+                            className="border border-gray-700  bg-gray-300 sm:w-[400px]  md:w-[200px]  lg:w-[500px] hidden sm:block bg-transparent "
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
                         />
@@ -117,12 +120,13 @@ const Navbar = () => {
                         </Button>
                         {
                             user ? <div className="ml-7 flex gap-3 items-center ">
-                                {/* <Link to={'/profile'}> */}
+                             {/* <Link to={'dashboard/profile'} /> */}
                                 <DropdownMenu className="">
                                     <DropdownMenuTrigger asChild>
                                         <Avatar className="cursor-pointer">
-                                            <AvatarImage src={user.photoUrl || userLogo} />
-                                            <AvatarFallback>CN</AvatarFallback>
+
+                                            <AvatarImage src={user.photoUrl } />
+                                            <AvatarFallback>{avatarFallback(user)}</AvatarFallback>
                                         </Avatar>
                                     </DropdownMenuTrigger>
                                     <DropdownMenuContent className="w-56 dark:bg-gray-800">
@@ -144,7 +148,7 @@ const Navbar = () => {
                                                 <span>Comments</span>
                                                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                                             </DropdownMenuItem>
-                                            <DropdownMenuItem onClick={() => navigate('/dashboard/write-blog')}>
+                                            <DropdownMenuItem onClick={() => navigate('/write-blog')}>
                                                 <FaRegEdit />
                                                 <span>Write Blog</span>
                                                 <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>

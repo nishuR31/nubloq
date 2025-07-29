@@ -1,16 +1,18 @@
 // utils/mailer.js
 import nodemailer from "nodemailer";
-import "./config.env.js";
+import dotenv from "dotenv";
+import path from "path";
+dotenv.config({ path: path.resolve("backend/.env") });
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: process.env.MAIL_USER,
+    user: process.env.MAIL,
     pass: process.env.MAIL_PASS,
   },
 });
 
-const sendMail = async (email, userName = "User", data) => {
+const sendOtp = async (email, userName = "User", data) => {
   const info = await transporter.sendMail({
     from: `Team <${process.env.MAIL_USER}>`,
     to: email,
@@ -82,4 +84,4 @@ const sendMail = async (email, userName = "User", data) => {
   console.log(`Email sent : ${info.messageId}`);
 };
 
-export default sendMail;
+export default sendOtp;

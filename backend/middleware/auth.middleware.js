@@ -7,7 +7,7 @@ import User from "../models/user.model.js";
 let  auth = (need = true) =>
   asyncHandler(async (req, res, next) => {
     const accessToken = req.header.authorizatinon
-      ? req.header.authorizatinon.split(" ")[1]
+      ? req.header.authorizatinon.split(" ")[1] 
       : req.cookies.accessToken;
     const refreshToken = req.cookies.refreshToken;
     
