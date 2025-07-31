@@ -93,9 +93,10 @@ console.log("Redux blog state is:", blog);
   }, [])
 
   return (
-    <div className="transition-all delay-3000 ease-in-out  bg-cover bg-center bg-no-repeat bg-blog-light  pb-10">
+    <div className="transition-all delay-3000 ease-in-out  bg-transparent pb-10">
+{/*     <div className="transition-all delay-3000 ease-in-out  bg-cover bg-center bg-no-repeat bg-blog-light  pb-10"> */}
       <div className='max-w-6xl mx-auto flex flex-col space-y-4 items-center'>
-        <h1 className='text-4xl font-bold pt-10 mt-10 text-black/80'>Recent Blogs</h1>
+        <h1 className='text-4xl font-bold pt-10 mt-10 text-white dark:text-black/80'>Recent Blogs</h1>
         <hr className='w-24 text-center border-2 border-red-500 rounded-full' />
       </div>
 
