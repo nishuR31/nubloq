@@ -7,7 +7,7 @@ import Mouse from "./mouse"
 const Hero = () => {
 
   return (
-    <div className="transition-all delay-3000 ease-in-out h-screen bg-home-light dark:bg-home-dark bg-fixed bg-no-repeat bg-fit bg-bottom dark:bg-center px-4 ">
+    <div className="transition-all delay-3000 ease-in-out max-h-screen bg-transparent px-4 ">
 {/*     <div className="transition-all delay-3000 ease-in-out h-screen bg-home-light dark:bg-home-dark  bg-no-repeat bg-fit bg-bottom dark:bg-center px-4 "> */}
     {/* <div className=" transition-all delay-3000 ease-in-out  bg-home-light dark:bg-home-dark bg-no-repeat bg-fit bg-bottom dark:bg-center px-4 h-screen "> */}
 <div className='max-w-7xl mx-auto flex flex-col md:flex-row items-center h-[600px] '>
