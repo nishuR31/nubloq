@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import about from "../assets/About-blog.avif";
-import blog from "../assets/Blog-about.avif";
+import blog from "../assets/blog-about.avif";
 import blog2 from "../assets/blog1.png";
 import blog3 from "../assets/blog2.png";
 import LMS from "../assets/LMS.png";
