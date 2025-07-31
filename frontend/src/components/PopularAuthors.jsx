@@ -22,7 +22,7 @@ const PopularAuthors = () => {
     }, [])
     return (
         <div>
-            <div className="transition-all delay-3000 ease-in-out w-auto mx-auto bg-popularAuthor  bg-cover bg-no-repeat h-full ">
+            <div className="transition-all delay-3000 ease-in-out w-auto mx-auto bg-transparent h-full ">
                 <div className='flex flex-col space-y-4 items-center bg-transparent'>
                     <h1 className='text-3xl md:text-4xl font-bold pt-10 dark:text-black text-white bg-transparent '>Popular Authors <span className="text-red-500">- {totalUser}</span></h1>
                     <hr className=' w-24 text-center border-2 border-red-500 rounded-full animate-pulse' />
