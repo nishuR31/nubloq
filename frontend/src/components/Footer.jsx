@@ -66,7 +66,7 @@ let navigate=useNavigate();
 
   return (
     <footer className={` transition-all delay-3000 ease-in-out  text-gray-900 dark:text-gray-100 py-5 bg-cover bg-no-repeat bg-bottom dark:bg-footer-dark bg-footer-light`}>
-      <div className='flex flex-wrap flex-row justify-around  mx-auto px-4  md:justify-between'>
+      <div className='flex flex-wrap flex-row justify-around   px-4  md:justify-between'>
         {/*  info */}
         <div className='my-6 md:mb-0'>
             <Link to='/' className='flex gap-3 items-center'>
