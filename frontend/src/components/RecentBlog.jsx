@@ -93,7 +93,7 @@ console.log("Redux blog state is:", blog);
   }, [])
 
   return (
-    <div className="transition-all delay-3000 ease-in-out animate-slideInLeft bg-transparent md:pb-10 pb-20">
+    <div className="transition-all delay-3000 ease-in-out animate-slideInLeft bg-transparent pb-10">
 {/*     <div className="transition-all delay-3000 ease-in-out  bg-cover bg-center bg-no-repeat bg-blog-light  pb-10"> */}
       <div className='max-w-6xl mx-auto flex flex-col space-y-4 items-center'>
         <h1 className='text-4xl font-bold pt-10 mt-10 text-black dark:text-white'>Recent Blogs</h1>
