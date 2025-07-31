@@ -24,7 +24,7 @@ const PopularAuthors = () => {
         <div>
             <div className="transition-all delay-3000 ease-in-out w-auto mx-auto bg-transparent h-full ">
                 <div className='flex flex-col space-y-4 items-center bg-transparent'>
-                    <h1 className='text-3xl md:text-4xl font-bold pt-10 dark:text-black text-white bg-transparent '>Popular Authors <span className="text-red-500">- {totalUser}</span></h1>
+                    <h1 className='text-3xl md:text-4xl font-bold pt-10 dark:text-white text-black bg-transparent '>Popular Authors <span className="text-red-500">- {totalUser}</span></h1>
                     <hr className=' w-24 text-center border-2 border-red-500 rounded-full animate-pulse' />
                 </div>
                 <div className=' bg-transparent flex items-center justify-around my-10 px-4 md:px-0'>
@@ -32,7 +32,7 @@ const PopularAuthors = () => {
                         popularUser?.slice(0,10)?.map((user, index) => {
                             return <div key={index} className='flex pb-5 flex-wrap flex-row bg-transparent justify-around '>
                                 <img src={user.photoUrl || userLogo} alt={user.userName}  className='rounded-full h-16 w-16 md:w-32 md:h-32' />
-                                <p className='font-semibold pb-5  dark:text-black text-white bg-transparent'>{user.firstName} {user.lastName}</p>
+                                <p className='font-semibold pb-5  dark:text-white text-black bg-transparent'>{user.firstName} {user.lastName}</p>
                             </div>
 
                         })
