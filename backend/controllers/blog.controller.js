@@ -22,17 +22,15 @@ export const createBlog = asyncHandler(async (req, res) => {
       );
   }
 
-  const { title  } = req.body;
-  if (!title ) {
+  const { title } = req.body;
+  if (!title) {
     return res
       .status(codes.badRequest)
-      .json(
-        new ApiErrorResponse("All fields are mandatory", codes.badRequest).res()
-      );
+      .json(new ApiErrorResponse("Title is mandatory", codes.badRequest).res());
   }
 
   const blog = await Blog.create({
-    title,
+    title: title,
     author: req.user._id,
   });
 
@@ -58,7 +56,7 @@ export const createBlog = asyncHandler(async (req, res) => {
 
 export const updateBlog = asyncHandler(async (req, res) => {
   const blogId = req.params.blogId;
-  const { title, subtitle, description, category } = req.body;
+  const { title, subtitle, bio, category } = req.body;
   const file = req.file;
 
   let blog = await Blog.findById(blogId);
@@ -68,21 +66,19 @@ export const updateBlog = asyncHandler(async (req, res) => {
       .json(new ApiErrorResponse("Blog not found.", codes.notFound).res());
   }
 
-
   const updateData = {
     title,
     subtitle,
-    description,
+    bio,
     category,
     author: req.user._id,
     // thumbnail: req.file.url || "",
-...(req.file?.url && { thumbnail: req.file.url })
-
+    ...(req.file?.url && { thumbnail: req.file.url }),
   };
   blog = await Blog.findByIdAndUpdate(
     blogId,
     { $set: updateData },
-    { $upsert: true , new: true }
+    { $upsert: true, new: true }
   );
   if (!blog) {
     return res
@@ -109,14 +105,14 @@ export const getAllBlogs = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .populate({
       path: "author",
-      select: "firstName lastName photoUrl",
+      select: "firstName lastName photoUrl userName",
     })
     .populate({
       path: "comments",
       sort: { createdAt: -1 },
       populate: {
         path: "userId",
-        select: "firstName lastName photoUrl",
+        select: "firstName lastName photoUrl userName",
       },
     });
 
@@ -135,14 +131,14 @@ export const getBlog = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .populate({
       path: "author",
-      select: "firstName lastName photoUrl",
+      select: "firstName lastName photoUrl userName",
     })
     .populate({
       path: "comments",
       sort: { createdAt: -1 },
       populate: {
         path: "userId",
-        select: "firstName lastName photoUrl",
+        select: "firstName lastName photoUrl userName",
       },
     });
 
@@ -158,13 +154,13 @@ export const getBlog = asyncHandler(async (req, res) => {
 export const getPublishedBlog = asyncHandler(async (req, res) => {
   const blogs = await Blog.find({ isPublished: true })
     .sort({ createdAt: -1 })
-    .populate({ path: "author", select: "firstName lastName photoUrl" })
+    .populate({ path: "author", select: "firstName lastName photoUrl userName" })
     .populate({
       path: "comments",
       sort: { createdAt: -1 },
       populate: {
         path: "userId",
-        select: "firstName lastName photoUrl",
+        select: "firstName lastName photoUrl userName",
       },
     });
 
@@ -178,8 +174,21 @@ export const getPublishedBlog = asyncHandler(async (req, res) => {
 ////////////////////////////////////////////////////
 
 export const togglePublishBlog = asyncHandler(async (req, res) => {
-  const { blogId } = req.params;
-  const { publish } = req.query; // true, false
+  const publish = req.query.q; // true, false
+const blogId = new mongoose.Types.ObjectId(req.params.blogId);
+
+   if (!mongoose.Types.ObjectId.isValid(blogId)) {
+    return res
+      .status(codes.badRequest)
+      .json(new ApiErrorResponse("Invalid Blog ID", codes.badRequest).res());
+  }
+
+ // Validate publish param
+  if (publish !== "true" && publish !== "false") {
+    return res
+      .status(codes.badRequest)
+      .json(new ApiErrorResponse("Invalid publish value. Use true or false.", codes.badRequest).res());
+  }
 
   const blog = await Blog.findById(blogId);
   if (!blog) {
@@ -189,12 +198,13 @@ export const togglePublishBlog = asyncHandler(async (req, res) => {
   }
 
   // publish status based on the query paramter
-  blog.isPublished = publish==="true";
+  blog.isPublished = publish === "true"?true:false;
+  console.log(blog)
   await blog.save();
 
   const statusMessage = blog.isPublished ? "Published" : "Unpublished";
   return res.status(codes.ok).json(
-    new ApiResponse(`Blog is ${statusMessage}`, codes.ok, {
+    new ApiResponse(`Blog is successfully ${statusMessage}`, codes.ok, {
       blog: blog,
     }).res()
   );
@@ -217,14 +227,14 @@ export const getOwnBlogs = asyncHandler(async (req, res) => {
   const blogs = await Blog.find({ author: req.user._id })
     .populate({
       path: "author",
-      select: "firstName lastName photoUrl",
+      select: "firstName lastName photoUrl userName",
     })
     .populate({
       path: "comments",
       sort: { createdAt: -1 },
       populate: {
         path: "userId",
-        select: "firstName lastName photoUrl",
+        select: "firstName lastName photoUrl userName",
       },
     });
 
@@ -253,6 +263,7 @@ export const deleteBlog = asyncHandler(async (req, res) => {
 
   const blogId = req.params.id;
   const authorId = req.user._id.toString();
+  // const authorId = req.user._id.toString();
 
   const blog = await Blog.findById(blogId);
   if (!blog) {
@@ -308,7 +319,10 @@ export const likeBlog = asyncHandler(async (req, res) => {
   }
 
   // Add user ID only if not already present
-  blog=await Blog.updateOne({ _id: blogId }, { $addToSet: { likes: likerId } });
+  blog = await Blog.updateOne(
+    { _id: blogId },
+    { $addToSet: { likes: likerId } }
+  );
 
   const updatedBlog = await Blog.findById(blogId);
 
@@ -348,13 +362,12 @@ export const dislikeBlog = asyncHandler(async (req, res) => {
   //     });
   //   }
   // Corrected logic for removing the user from likes
-blog.likes = blog.likes.filter(
-  (id) => id.toString() !== dislikerId.toString()
-);
+  blog.likes = blog.likes.filter(
+    (id) => id.toString() !== dislikerId.toString()
+  );
   // blog.likes.pull(dislikerId);
 
   await blog.save();
-
 
   return res.status(codes.ok).json(
     new ApiResponse("Blog disliked successfully", codes.ok, {

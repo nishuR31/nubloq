@@ -75,7 +75,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="  flex items-center h-screen md:pt-14 md:h-[760px] bg-light dark:bg-dark">
+    <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-light dark:bg-dark">
       <div className="flex justify-center items-center flex-1 px-4 md:px-0">
         <Card className="bg-transparent w-full max-w-md p-6 shadow-lg rounded-2xl  dark:border-gray-600 backdrop-blur-sm">
           <CardHeader>

@@ -127,7 +127,7 @@ const passwordErrors = [];
     return (
         <div className={`flex h-screen md:pt-14 bg-light dark:bg-dark `}>
 
-            <div className="flex justify-center items-center  flex-1 px-4 md:px-0">
+            <div className="animate-slideInLeft flex justify-center items-center  flex-1 px-4 md:px-0">
                 <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl bg-transparent backdrop-blur-sm dark:border-gray-800">
                     <CardHeader>
                         <CardTitle>

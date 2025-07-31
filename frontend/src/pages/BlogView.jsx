@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useMemo  } from "react";
 import moment from "moment";
 import {
   Breadcrumb,
@@ -23,7 +23,7 @@ import axios from "axios";
 import { setBlog } from "@/redux/blogSlice";
 import { toast } from "sonner";
 // import { useForceUpdate } from "framer-motion";
-
+import capitalize from "../components/capitalize";
 const BlogView = () => {
   const { blogId } = useParams();
   const { blog } = useSelector((store) => store.blog);
@@ -36,42 +36,66 @@ const BlogView = () => {
   const [blogLikes, setBlogLikes] = useState(0); //num
   const [liked, setLiked] = useState(false);
 
-  useEffect(() => {
-    const found = blog.find((b) => b._id === blogId);
 
-    if (found) {
-      setSelectedBlog(found);
-      setBlogLikes(found.likes.length);
-      setLiked(Boolean(found.likes.includes(user._id)));
-    } else {
-      axios
-        .get(`http://localhost:4000/api/v1/blog/${blogId}`, {
-          withCredentials: true,
-        })
-        .then((res) => {
-          const fetchedBlog = res.data.payload.blog;
-          toast.success("One Blog fetched.");
-          console.log("One Blog fetched.");
-          setSelectedBlog(fetchedBlog);
-          setBlogLikes(fetchedBlog.likes.length);
-          setLiked(Boolean(fetchedBlog.likes.includes(user?._id)));
-          dispatch(setBlog([...blog, fetchedBlog]));
-        })
-        .catch((err) => {
-          toast.error("Blog not found.");
-          console.error("Error fetching blog by ID:", err);
-        });
-    }
-  }, [blog, blogId, user?._id, dispatch]);
+//   const found = blog.find((b) => b._id === blogId);
+// useEffect(() => {
+
+//   if (found) {
+//     setSelectedBlog(found);
+//     setBlogLikes(found.likes.length);
+//     setLiked(Boolean(found.likes.includes(user?._id)));
+//   } else {
+//     axios
+//       .get(`http://localhost:4000/api/v1/blog/${blogId}`)
+//       .then((res) => {
+//         const fetchedBlog = res.data.payload.blog;
+//         toast.success("One Blog fetched.");
+//         setSelectedBlog(fetchedBlog);
+//         setBlogLikes(fetchedBlog.likes.length);
+//         setLiked(Boolean(fetchedBlog.likes.includes(user?._id)));
+//         dispatch(setBlog((prev) => [...prev, fetchedBlog])); // ✅ use callback
+//       })
+//       .catch((err) => {
+//         toast.error("Blog not found.");
+//         console.error("Error fetching blog by ID:", err);
+//       });
+//   }
+// }, []);
+
+const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
+
+useEffect(() => {
+  if (found) {
+    setSelectedBlog(found);
+    setBlogLikes(found.likes.length);
+    setLiked(Boolean(found.likes.includes(user?._id)));
+  } else {
+    axios
+      .get(`http://localhost:4000/api/v1/blog/${blogId}`)
+      .then((res) => {
+        const fetchedBlog = res.data.payload.blog;
+        toast.success("One Blog fetched.");
+        setSelectedBlog(fetchedBlog);
+        setBlogLikes(fetchedBlog.likes.length);
+        setLiked(Boolean(fetchedBlog.likes.includes(user?._id)));
+        dispatch(setBlog((prev) => [...prev, fetchedBlog]));
+      })
+      .catch((err) => {
+        toast.error("Blog not found.");
+        console.error("Error fetching blog by ID:", err);
+      });
+  }
+}, [found]); 
+// only rerun if `found` changes
+
 
   const likeHandler = async () => {
     if (!user) {
       toast.error("Please login to like the blog");
       console.error("Please login to like the blog");
-      return;
+      return; 
     }
 
-    console.log("liked before fetch: ", liked);
     try {
       const response = await axios.get(
         `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
@@ -79,11 +103,12 @@ const BlogView = () => {
         }`,
         { withCredentials: true }
       );
-      console.log("liked after fetch: ", !liked);
 
       const updatedBlog = response.data.payload;
       setLiked(Boolean(updatedBlog.likes.includes(user._id)));
       setBlogLikes(updatedBlog.likes.length);
+      toast.success(`${!liked?"Liked":"Disliked"} blog.`); //////////////////////
+
     } catch (err) {
       toast.error("Failed to like/dislike blog.");
       console.error("Like handler error:", err);
@@ -116,14 +141,14 @@ const BlogView = () => {
 
   if (!selectedBlog) {
     return (
-      <div className="pt-20 text-xl font-semibold text-center">
+      <div className="pt-20 text-xl font-semibold text-center transition-all ease-in animate-slideInLeft delay-3000">
         Loading blog post...
       </div>
     );
   }
 
   return (
-    <div className="pt-14 transition-all delay-3000 ease-in-out ">
+    <div className="transition-all ease-in animate-slideInLeft pt-14 delay-3000 ">
       <div className="max-w-6xl p-10 mx-auto">
         {/* Breadcrumb */}
         <Breadcrumb>
@@ -149,8 +174,9 @@ const BlogView = () => {
         {/* Title & Author Info */}
         <div className="my-8">
           <h1 className="mb-4 text-4xl font-bold tracking-tight">
-            {selectedBlog?.title}
+            {capitalize(selectedBlog?.title)}
           </h1>
+
           <div className="flex flex-wrap items-center justify-between gap-4">
             <div className="flex items-center space-x-4">
               <Avatar>
@@ -163,24 +189,28 @@ const BlogView = () => {
                 </AvatarFallback>
               </Avatar>
               <div>
-                <p className="font-medium">
-                  {selectedBlog?.author?.firstName}{" "}
-                  {selectedBlog?.author?.lastName}
-                </p>
+                {selectedBlog?.author && (<p className="font-medium">
+                  {capitalize(selectedBlog?.author?.firstName)}{" "}
+                  {capitalize(selectedBlog?.author?.lastName)}
+                </p>)}
                 <p className="text-sm text-muted-foreground">
-                  {selectedBlog?.author?.occupation}
+                  Occupation : {selectedBlog?.author?.occupation ?? "Unspecified"}
                 </p>
               </div>
             </div>
             <div className="text-sm text-muted-foreground">
-              Published on {changeTimeFormat(selectedBlog?.createdAt)} •{" "}
-              {moment(selectedBlog?.createdAt).fromNow()}
+              {selectedBlog.isPublished &&
+                `Published on ${changeTimeFormat(
+                  selectedBlog?.createdAt
+                )}`}{" "}
+              • {moment(selectedBlog?.createdAt).fromNow()}
             </div>
           </div>
         </div>
+        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl"/>
 
         {/* Thumbnail & Subtitle */}
-        <div className="mb-8 overflow-hidden justify-center flex rounded-lg">
+        <div className="flex justify-center mb-8 overflow-hidden rounded-lg">
           <img
             src={
               selectedBlog?.thumbnail ||
@@ -193,20 +223,22 @@ const BlogView = () => {
             height={250}
             className="w-cover rounded-xl"
           />
-          <p className="mt-2 text-sm italic text-muted-foreground">
-            {selectedBlog?.subtitle}
-          </p>
         </div>
 
         {/* Blog Content */}
-        <p dangerouslySetInnerHTML={{ __html: selectedBlog?.description }} />
+        <p className="my-2 text-lg italic text-muted-foreground">
+          {capitalize(selectedBlog?.subtitle)}
+        </p>
+        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl"/>
+        <p dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }} />
+        <p>{selectedBlog?.category || "category" } </p>
 
         {/* Tags and Reactions */}
         <div className="mt-10">
           <div className="flex flex-wrap gap-2 mb-8">
-            {(selectedBlog?.tags?.length
-              ? selectedBlog.tags
-              : ["React", "Express", "MongoDB"]
+            {(selectedBlog?.category
+              ? [selectedBlog.category]
+              : ["React", "Express", "MongoDB", "Blogging"]
             ).map((tag, i) => (
               <Badge key={i} variant="secondary">
                 {tag}

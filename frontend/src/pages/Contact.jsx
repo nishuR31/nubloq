@@ -5,11 +5,11 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import axios from "axios";
 
-import {useNavigate,Link} from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const Contact = () => {
-  let navigate=useNavigate()
+  let navigate = useNavigate();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -30,8 +30,9 @@ const Contact = () => {
       return toast.error("All fields are required.");
     }
 
-    if(!emailRegex.test(form.email)){return toast.error("Invalid mail format!");
-}
+    if (!emailRegex.test(form.email)) {
+      return toast.error("Invalid mail format!");
+    }
     console.log(form);
 
     try {
@@ -41,7 +42,7 @@ const Contact = () => {
         {
           headers: {
             "Content-Type": "application/json",
-          }
+          },
         }
       );
 
@@ -59,10 +60,10 @@ const Contact = () => {
   };
 
   return (
-    <div className="px-5 md:px-0 py-20">
-      <div className="max-w-screen h-screen px-10 mx-auto flex flex-col md:flex-row items-center gap-10">
+    <div className="animate-slideInLeft py-10 transition-all delay-3000 ease-in-out justify-center flex bg-cover bg-no-repeat dark:bg-center dark:bg-cover h-screen bg-contact-light dark:bg-contact-dark ">
+      <div className="mt-10 bg-transparent backdrop-blur-md max-w-screen px-10 mx-auto outline outline-1 outline-gray-500 dark:outline dark:outline-1 rounded-lg dark:outline-gray-500  bg-gray-300 flex flex-col md:flex-row items-center gap-5">
         <div className="flex-1 w-full max-w-xl">
-          <h2 className="text-4xl font-bold mb-6 animate-bounce text-center">
+          <h2 className=" pt-10 text-4xl font-bold mb-6  animate-bounce text-center">
             Get in Touch
           </h2>
           <p className="text-lg opacity-80 mb-6">
@@ -96,15 +97,26 @@ const Contact = () => {
               onChange={handleChange}
               className="dark:border-gray-700 "
             />
-            <Button variant="secondary" type="submit" className="text-lg w-full">
+            <Button
+              variant="secondary"
+              type="submit"
+              className="text-lg w-full"
+            >
               Send Message
             </Button>
-            {/* <Button variant="ghost" type="button" onCLick={()=>{navigate(to="/")}} className="text-lg w-full">
-              <Link to="/">Home</Link>
-            </Button> */}
-            <Button variant="default" type="button" onClick={()=>{navigate("/")}} className="text-lg w-full">
+ 
+            <Link to="/">
+              <Button
+                variant="ghost"
+                type="button"
+                className="mt-2 text-lg w-full"
+              >
+                Home
+              </Button>
+            </Link>
+            {/* <Link to="/"><Button variant="default" type="button" onClick={()=>{navigate("/")}} className="text-lg w-full">
             Home
-            </Button>
+            </Button></Link> */}
           </form>
         </div>
       </div>

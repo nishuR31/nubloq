@@ -1,4 +1,5 @@
 import BlogCard from '@/components/BlogCard';
+import BlogCardList from '@/components/BlogCardList';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -17,14 +18,17 @@ const SearchList = () => {
     return <div className="pt-32 text-center text-lg">No search query provided.</div>;
   }
 
+  
   const filteredBlogs = blog?.filter((blog) =>
     blog?.title?.toLowerCase().includes(query.toLowerCase()) ||
     blog?.subtitle?.toLowerCase().includes(query.toLowerCase()) ||
-    blog?.category?.toLowerCase() === query.toLowerCase()
+    blog?.bio?.toLowerCase().substring(5).includes(query.toLowerCase()) ||
+    blog?.category?.toLowerCase() === query.toLowerCase()||
+    blog?.category?.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
-    <div className="pt-32">
+    <div className={`animate-slideInLeft pt-32 `}>
       <div className="max-w-6xl mx-auto">
         <h2 className="mb-5 text-2xl font-semibold">
           Search Results for: "<span className="text-blue-600">{query}</span>"
@@ -45,6 +49,7 @@ const SearchList = () => {
 };
 
 export default SearchList;
+
 
 
 ////////////////////////////////////////////////////

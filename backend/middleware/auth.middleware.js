@@ -4,81 +4,80 @@ import ApiErrorResponse from "../utils/ApiErrorResponse.js";
 import { verifyAccess, verifyRefresh } from "../utils/tokenization.js";
 import User from "../models/user.model.js";
 
-let  auth = (need = true) =>
+let auth = (need = true) =>
   asyncHandler(async (req, res, next) => {
-    const accessToken = req.header.authorizatinon
-      ? req.header.authorizatinon.split(" ")[1] 
-      : req.cookies.accessToken;
-    const refreshToken = req.cookies.refreshToken;
-    
-    req.user = null;
+      const accessToken = req.header.authorization
+        ? req.header.authorization.split(" ")[1]
+        : req.cookies.accessToken;
 
-    if (!(accessToken || refreshToken)) {
-      return need
-        ? res
-            .status(codes.unauthorized)
-            .json(
-              new ApiErrorResponse(
-                "Auth tokens are not provided",
-                codes.unauthorized
-              ).res()
-            )
-        : next();
-    }
+      const refreshToken = req.cookies.refreshToken;
 
-    let decodedAccess, decodedRefresh;
-    if (accessToken) {
-      decodedAccess = verifyAccess(accessToken);
-    }
-    if (!decodedAccess) {
-      return need
-        ? res
-            .status(codes.unauthorized)
-            .json(
-              new ApiErrorResponse(
-                "Invalid access token",
-                codes.unauthorized
-              ).res()
-            )
-        : next();
-    }
+      req.user = null;
 
-    if (refreshToken) {
-      decodedRefresh = verifyRefresh(refreshToken);
-    }
-    if (!decodedRefresh) {
-      return need
-        ? res
-            .status(codes.unauthorized)
-            .json(
-              new ApiErrorResponse(
-                "Invalid refresh token",
-                codes.unauthorized
-              ).res()
-            )
-        : next();
-    }
+      if (!accessToken || !refreshToken) {
+        return need
+          ? res
+              .status(codes.unauthorized)
+              .json(
+                new ApiErrorResponse(
+                  "Auth tokens are not provided",
+                  codes.unauthorized
+                ).res()
+              )
+          : next();
+      }
 
-    if (decodedAccess._id !== decodedRefresh._id) {
-      return need
-        ? res
-            .status(codes.unauthorized)
-            .json(
-              new ApiErrorResponse(
-                "Auth tokens mismatch.",
-                codes.unauthorized
-              ).res()
-            )
-        : next();
-    }
+      let decodedAccess, decodedRefresh;
+      if (accessToken) {
+        decodedAccess = verifyAccess(accessToken);
+      }
+      if (!decodedAccess) {
+        return need
+          ? res
+              .status(codes.unauthorized)
+              .json(
+                new ApiErrorResponse(
+                  "Invalid access token",
+                  codes.unauthorized
+                ).res()
+              )
+          : next();
+      }
 
-    let user = await User.findById(decodedAccess._id);
+      if (refreshToken) {
+        decodedRefresh = verifyRefresh(refreshToken);
+      }
+      if (!decodedRefresh) {
+        return need
+          ? res
+              .status(codes.unauthorized)
+              .json(
+                new ApiErrorResponse(
+                  "Invalid refresh token",
+                  codes.unauthorized
+                ).res()
+              )
+          : next();
+      }
 
-    let payload = { userName: user.userName, _id: user._id };
+      if (decodedAccess._id !== decodedRefresh._id) {
+        return need
+          ? res
+              .status(codes.unauthorized)
+              .json(
+                new ApiErrorResponse(
+                  "Auth tokens mismatch.",
+                  codes.unauthorized
+                ).res()
+              )
+          : next();
+      }
 
-    req.user = payload || decodedAccess;
-    next();
-  });
+      let user = await User.findById(decodedAccess._id);
 
+      let payload = { userName: user.userName, _id: user._id };
 
-  export default auth
+      req.user = payload;
+      next();});
+
+export default auth;

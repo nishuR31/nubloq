@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from 'react'
+// import React ,{useState,useEffect} from 'react'
 import heroImg from "../assets/blog2.png"
 import { Button } from './ui/button'
 import { Link } from 'react-router-dom'
@@ -24,7 +24,7 @@ const Hero = () => {
          <hr className="w-full h-0.5 bg-gradient-to-r from-[#00000020] via-[#000000] to-[#00000020] dark:from-[#00000020] dark:via-[#ffffff] dark:to-[#00000020]  rounded-xl"/>
          <br />
         <div className="flex space-x-4 justify-center md:justify-start">
-          <Link to={"/dashboard/write-blog"}><Button className="text-lg ">Get Started</Button></Link>
+          <Link to={"/write-blog"}><Button className="text-lg ">Get Started</Button></Link>
           <Link to={"/about"}><Button variant="outline" className="border-white px-6 py-3 text-lg">Learn More</Button></Link>
         </div>
       </div>

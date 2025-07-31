@@ -31,6 +31,10 @@ export default {
         'home-light': "url('/src/assets/homeLight.jpg')",
         'home-dark': "url('/src/assets/homeDark.jpg')",
         'popularAuthor': "url('/src/assets/popularAuthor.webp')",
+		'contact-dark': "url('/src/assets/contactDark.jpg')",
+		'contact-light':"url('/src/assets/contactLight.webp')",
+		'blogs-dark':"url('/src/assets/blogsDark.png')",
+		'blogs-light':"url('/src/assets/blogsLight.webp')",
       },
   		borderRadius: {
   			lg: 'var(--radius)',

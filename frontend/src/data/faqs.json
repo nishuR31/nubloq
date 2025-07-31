@@ -1,0 +1,46 @@
+[
+  {
+    "question": "What is BlogPaglu?",
+    "answer": "BlogPaglu is your personal blogging platform built with React, Node.js, Express, and MongoDB. It allows users to write, edit, publish, and manage their blogs efficiently."
+  },
+  {
+    "question": "Do I need to sign in to read blogs?",
+    "answer": "No. Anyone can read public blogs without signing in. However, account creation is required for writing, editing, or managing your own blogs."
+  },
+  {
+    "question": "Can I switch between dark and light mode?",
+    "answer": "Yes. BlogPaglu offers both dark and light themes with a seamless switch, enhanced by a modern glassmorphism UI design."
+  },
+  {
+    "question": "Where are blog images stored?",
+    "answer": "Blog images and profile pictures are securely stored and served via Cloudinary's optimized cloud media services."
+  },
+  {
+    "question": "Is my personal data secure?",
+    "answer": "Absolutely. All routes and APIs are protected using JWT-based authentication and follow modern web security best practices. Your password is also encrypted securely for security."
+  },
+  {
+    "question": "Who is behind BlogPaglu?",
+    "answer": "BlogPaglu is a solo full-stack development project, built from scratch as a personal portfolio by an individual developer using ui components."
+  },
+  {
+    "question": "Will BlogPaglu be deployed publicly?",
+    "answer": "Yes. The frontend will be deployed on Vercel, and the backend will be hosted using a suitable cloud service like Render, Railway, or Cyclic."
+  },
+  {
+    "question": "Can I edit or delete my own blogs?",
+    "answer": "Yes. Once you're signed in, you can fully manage your blogs — including editing, updating thumbnails, publishing, unpublishing, or deleting them."
+  },
+  {
+    "question": "Does BlogPaglu have a profile or dashboard section?",
+    "answer": "Yes. Every user has access to a personal dashboard to manage blogs, view profile information, and toggle settings like theme preference with minimal stats."
+  },
+  {
+    "question": "Is this an open-source project?",
+    "answer": "No. BlogPaglu is a personal, non-collaborative portfolio project and is not open to public contributions at this stage. But we will open source it in future."
+  },
+  {
+    "question": "Does BlogPaglu support mobile and responsive design?",
+    "answer": "Yes. The UI is fully responsive and works across desktops, tablets, and mobile devices for a smooth reading and writing experience."
+  }
+]

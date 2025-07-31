@@ -2,7 +2,7 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Card } from "@/components/ui/card";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import userLogo from "../assets/user.jpg";
+// import userLogo from "../assets/user.jpg";
 import { FaFacebook, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
 import { Label } from "@/components/ui/label";
 import {
@@ -57,7 +57,7 @@ const Profile = () => {
     firstName: "",
     lastName: "",
     occupation: "",
-    description: "",
+    bio: "",
     facebook: "",
     linkedin: "",
     github: "",
@@ -71,7 +71,7 @@ const Profile = () => {
         firstName: user.firstName || "",
         lastName: user.lastName || "",
         occupation: user.occupation || "",
-        description: user.description || "",
+        bio: user.bio || "",
         facebook: user.facebook || "",
         linkedin: user.linkedin || "",
         github: user.github || "",
@@ -109,7 +109,7 @@ const Profile = () => {
       firstName: input.firstName,
       lastName: input.lastName,
       occupation: input.occupation,
-      description: input.description,
+      bio: input.bio,
       facebook: input.facebook,
       linkedin: input.linkedin,
       github: input.github,
@@ -143,11 +143,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="md:h-fit pt-20 md:ml-[320px]  bg-gray-200 dark:bg-gray-700">
+    <div className="animate-slideInLeft md:h-fit pt-20 md:ml-[320px]  bg-gray-200 dark:bg-gray-700">
       <div className="max-w-6xl mx-auto mt-8 ">
         <Card className=" flex md:flex-row flex-col gap-10 p-6 md:p-10 dark:bg-gray-800  mx-4 md:mx-0 bg-[#D0D0DD]">
           <div className="flex flex-col items-center justify-center md:w-[400px]">
-            <Avatar className="w-40 h-40 border-2">
+            <Avatar className="w-40 h-40 border-2 rounded-full outline outline-1 outline-gray-1">
               <AvatarImage
                 src={
                   user?.photoUrl ||
@@ -188,18 +188,19 @@ const Profile = () => {
           <div>
             <h1 className="font-bold text-center md:text-start text-4xl mb-5">
               Welcome {user?.userName}!
-            </h1>
+            </h1>{user?.firstName &&  
+
             <p className="px-10 w-fit font-bold text-center md:text-start text-lg py-2 mb-3 dark:bg-black/40 bg-white/40 rounded-lg">
-              {/* {capitalize(user?.firstName + " " + user?.lastName)} */}
-            </p>
-            <p>
+            {capitalize(user?.firstName)}
+            </p>}
+            <p> 
               <span className="font-semibold">Email : </span>
               {user?.email}
             </p>
             <div className="flex flex-col gap-2 items-start justify-start my-5">
               <Label>About Me</Label>
               <p className="border dark:border-gray-600 p-6 rounded-lg">
-                {user?.description ||
+                {user?.bio ||
                   "I'm a passionate web developer and content creator focused on frontend technologies. When I'm not coding, you can find me writing about tech, hiking, or experimenting with new recipes."}
               </p>
             </div>
@@ -272,12 +273,12 @@ const Profile = () => {
                     />
                   </div>
                   <div>
-                    <Label>Description</Label>
+                    <Label>Bio</Label>
                     <Textarea
-                      id="description"
+                      id="bio"
                       value={input.description}
                       onChange={changeEventHandler}
-                      name="description"
+                      name="bio"
                       placeholder="Enter a description"
                       className="col-span-3 text-gray-500"
                     />

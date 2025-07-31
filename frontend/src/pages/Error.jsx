@@ -24,7 +24,7 @@ let [remaining, setRemaining]=useState(10);
 
 
   return (
-    <div className={`transition-all delay-3000 ease-in-out  h-screen flex flex-col items-center justify-center bg-cover bg-no-repeat bg-center  text-center px-4 invert dark:invert-0 `}  style={{ backgroundImage: `url(${error})` }} > 
+    <div className={`animate-slideInLeft transition-all delay-3000 ease-in-out  h-screen flex flex-col items-center justify-center bg-cover bg-no-repeat bg-center  text-center px-4 invert dark:invert-0 `}  style={{ backgroundImage: `url(${error})` }} > 
       <h1 className=" justify-center w-full text-6xl md:text-8xl font-extrabold tracking-wider dark:text-[#D4AF37] text-white flex gap-2 items-center">
         <span className="flex flex-col gap-6 md:gap-10 ">
           <span className="border-t-4 dark:border-[#ff0000] w-[40px] md:w-[60px] rotate-180 block"></span>

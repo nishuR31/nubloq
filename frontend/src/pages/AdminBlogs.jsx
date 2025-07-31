@@ -2,7 +2,7 @@ import React from 'react'
 
 const AdminBlogs = () => {
   return (
-    <div>
+    <div className="animate-slideInLeft">
       AdminBlogs
     </div>
   )

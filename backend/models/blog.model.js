@@ -11,7 +11,7 @@ const blogSchema = new mongoose.Schema(
       // required: true
       default: "",
     },
-    description: {
+    bio: {
       type: String,
       // required:true
       default: "",
@@ -26,6 +26,7 @@ const blogSchema = new mongoose.Schema(
     },
     category: {
       type: String,
+      default:""
     },
     likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],

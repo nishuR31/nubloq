@@ -13,10 +13,16 @@ const Mouse = ({ xcolor = "#000000", color = "#ff0000" }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  if (!visible) return null;
+ const scrollToTop = () => {
+    window.scrollTo({ top:document.body.scrollHeight, behavior: 'smooth' }); 
+  };
 
+  if (!visible) return null;
+ 
   return (
-    <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50">
+    <div      
+    onClick={scrollToTop}
+     className="fixed cursor-pointer bottom-6 left-1/2 -translate-x-1/2 z-50">
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

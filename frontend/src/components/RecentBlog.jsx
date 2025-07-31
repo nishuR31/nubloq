@@ -30,6 +30,7 @@ const RecentBlog = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { blog } = useSelector(store => store.blog)
+console.log("Redux blog state is:", blog);
 
   const [email, setEmail] = useState({ email: "" })
 
@@ -100,7 +101,7 @@ const RecentBlog = () => {
 
       <div className=' max-w-7xl mx-auto gap-6'>
         <div className='mt-10 flex flex-wrap justify-around '>
-          {blog?.slice(0, 4)?.map((oneblog, index) => (
+          {Array.isArray(blog) && blog?.slice(0, 4)?.map((oneblog, index) => (
             <BlogCardList key={index} blog={oneblog} />
           ))}
         </div>

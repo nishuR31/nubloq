@@ -27,7 +27,7 @@ const Comments = () => {
     console.log(allComments);
     
   return (
-    <div className='pb-10 pt-20 md:ml-[320px] h-screen'>
+    <div className='animate-slideInLeft pb-10 pt-20 md:ml-[320px] h-screen'>
     <div className='max-w-6xl mx-auto mt-8 '>
         <Card className="w-full p-5 space-y-2 dark:bg-gray-800">
 

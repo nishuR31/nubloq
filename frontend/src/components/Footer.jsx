@@ -66,7 +66,7 @@ let navigate=useNavigate();
 
   return (
     <footer className={` transition-all delay-3000 ease-in-out  text-gray-900 dark:text-gray-100 py-5 bg-cover bg-no-repeat bg-bottom dark:bg-footer-dark bg-footer-light`}>
-      <div className='flex flex-wrap flex-row justify-around  mx-auto px-4 md:flex md:justify-between'>
+      <div className='flex flex-wrap flex-row justify-around  mx-auto px-4  md:justify-between'>
         {/*  info */}
         <div className='my-6 md:mb-0'>
             <Link to='/' className='flex gap-3 items-center'>
@@ -86,6 +86,8 @@ let navigate=useNavigate();
                 <li><Link to="/about">About Us</Link></li>
                 <li><Link to="/contact">Contact Us</Link></li>
                 <li><Link to="/faqs">FAQs</Link></li>
+                <li><Link to="/privacy">Privacy Policy</Link></li>
+                <li><Link to="/code-of-conduct">Code of Conduct</Link></li>
             </ul>
         </div>
         {/* social media links */}

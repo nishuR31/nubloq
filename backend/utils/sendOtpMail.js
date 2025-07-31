@@ -2,7 +2,8 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
 import path from "path";
-dotenv.config({ path: path.resolve("backend/.env") });
+dotenv.config();
+// dotenv.config({ path: path.resolve("backend/.env") });
 
 const transporter = nodemailer.createTransport({
   service: "gmail",

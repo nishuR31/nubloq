@@ -25,6 +25,7 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cookieParser());
+app.use(cookieParser()); // required
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
