@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import about from "../assets/About-blog.avif";
 import blog from "../assets/Blog-about.avif";
-import blog2 from "../assets/Blog-about.webp";
+import blog2 from "../assets/blog1.png";
+import blog3 from "../assets/blog2.png";
 import LMS from "../assets/LMS.png";
 
 const About = () => {
@@ -52,7 +53,7 @@ const About = () => {
   ];
 
   let [fields, setFields] = useState("Welcome to our about section.");
-  let pics = [blog, about, LMS, blog2];
+  let pics = [blog, about,blog3, LMS, blog2];
   let [skill, setSkill] = useState([skills[0]]);
 
   let [src, setSrc] = useState(about);
