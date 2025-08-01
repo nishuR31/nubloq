@@ -261,6 +261,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import capitalize from "../components/capitalize"
+let api=import.meta.env.VITE_URL;
 const invoices = [
   {
     invoice: "INV001",
@@ -314,7 +315,8 @@ const YourBlog = () => {
   const getOwnBlog = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/v1/blog/get-own-blogs`,
+        `${api}/blog/get-own-blogs`,
+        // `http://localhost:4000/api/v1/blog/get-own-blogs`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -329,7 +331,8 @@ const YourBlog = () => {
   const deleteBlog = async (id) => {
     try {
       const res = await axios.delete(
-        `http://localhost:4000/api/v1/blog/delete/${id}`,
+        `${api}/blog/delete/${id}`,
+        // `http://localhost:4000/api/v1/blog/delete/${id}`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -355,7 +358,7 @@ const YourBlog = () => {
   };
 
   return (
-    <div className="animate-slideInLeft pb-10  md:ml-[250px] min-h-screen py-6 bg-transparent">
+    <div className="animate-slideInLeft pb-10  md:ml-[250px] min-h-screen  object-fill py-6 bg-transparent">
       <div className="max-w-6xl mx-auto mt-8 ">
         <Card className="w-full p-5 space-y-2 flex justify-between dark:bg-white/10 bg-black/10 ">
           <Table>
@@ -363,21 +366,21 @@ const YourBlog = () => {
             <TableHeader>
               <TableRow className=" ">
                 <TableHead className="text-gray-800 animate-fadeIn text-center ">Author</TableHead>
-                <TableHead className="text-gray-800 animate-fadeIn hidden lg:flex text-center">Thumbnail</TableHead>
+                <TableHead className="text-gray-800 animate-fadeIn hidden lg:block text-center">Thumbnail</TableHead>
                 <TableHead className="text-gray-800 animate-fadeIn text-center">Title</TableHead>
                 <TableHead className="text-gray-800 animate-fadeIn text-center">Category</TableHead>
                 <TableHead className="text-gray-800 animate-fadeIn text-center">Date</TableHead>
                 <TableHead className="text-gray-800 animate-fadeIn text-center">Action</TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="overflow-x-auto  outline outline-1 outline-gray-700 dark:outline-gray-300 ">
+            <TableBody className="overflow-x-auto flex-col flex-wrap justify-between  outline outline-1 outline-gray-700 dark:outline-gray-300 ">
               {Array.isArray(blog) &&
                 blog?.map((item, index) => (
-                  <TableRow key={index}>
-                    <TableCell className="font-medium  ">
+                  <TableRow key={index} >
+                    <TableCell className="font-medium   ">
                       {item.author?.userName??capitalize(item.author?.firstName)}
                     </TableCell>
-                    <TableCell className="flex items-center  ">
+                    <TableCell className="flex flex-wrap flex-row justify-around  ">
                       <img
                         src={
                           item.thumbnail ||
@@ -385,10 +388,10 @@ const YourBlog = () => {
                         }
                        
                         alt={item.title}
-                        className="hidden md:rounded-full md:w-10 lg:block rounded-md outline outline-1 outline-gray-700 dark:outline-gray-300 "
+                        className="hidden md:rounded-full md:w-20 md:h-20 lg:block rounded-md outline outline-1 outline-gray-700 dark:outline-gray-300 "
                       />
                       <TableCell
-                        className="hover:underline p-auto cursor-pointer"
+                        className="flex flex-wrap flex-row hover:underline p-auto cursor-pointer "
                         onClick={() => navigate(`/blogs/${item._id}`)}
                       >
                         {capitalize(item.title)}
@@ -412,9 +415,9 @@ const YourBlog = () => {
                         onClick={() => deleteBlog(item._id)}
                       />
 
-                      <DropdownMenu className="flex lg:hidden  ">
+                      <DropdownMenu className="flex md:hidden  ">
                         <DropdownMenuTrigger >
-                          <EllipsisVertical  />
+                          <EllipsisVertical className="flex md:hidden  " />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent className="w-[180px]  lg:hidden backdrop-blur-sm  bg-transparent">
                           <DropdownMenuItem className="text-blue-500"

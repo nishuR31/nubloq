@@ -53,8 +53,8 @@ useEffect(()=>{
     try {
       setLoading(true);
       const res = await axios.post(
-        // `${api}/blog/create`,
-        `http://localhost:4000/api/v1/blog/create`,
+        `${api}/blog/create`,
+        // `http://localhost:4000/api/v1/blog/create`,
         { title: title },
         {
           headers: {

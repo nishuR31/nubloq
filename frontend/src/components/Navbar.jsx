@@ -31,7 +31,10 @@ import {
   User,
   UserPlus,
   Users,
-  Sun,Moon,MessageCircle ,Pencil
+  Sun,
+  Moon,
+  MessageCircle,
+  Pencil,
 } from "lucide-react";
 
 import {
@@ -48,9 +51,6 @@ import { toggleTheme } from "@/redux/themeSlice";
 import ResponsiveMenu from "./ResponsiveMenu";
 const api = import.meta.env.VITE_URL;
 
-
-
-
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const { theme } = useSelector((store) => store.theme);
@@ -62,8 +62,8 @@ const Navbar = () => {
 
   const logoutHandler = async (e) => {
     try {
-      const res = await axios.get(`http://localhost:4000/api/v1/user/logout`, {
-      // const res = await axios.get(`${api}/user/logout`, {
+      // const res = await axios.get(`http://localhost:4000/api/v1/user/logout`, {
+      const res = await axios.get(`${api}/user/logout`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -137,7 +137,10 @@ const Navbar = () => {
               to={"/write-blog"}
               className={`cursor-pointer hover:underline `}
             >
-              <li>Write a Blog</li>
+              <li>
+                <Pencil className="hidden lg:inline" /> Write{" "}
+                <span className="hidden lg:inline ">a Blog</span>{" "}
+              </li>
             </NavLink>
           </ul>
           <div className="flex">
@@ -149,12 +152,12 @@ const Navbar = () => {
                 {/* <Link to={'dashboard/profile'} /> */}
                 <DropdownMenu className="">
                   <DropdownMenuTrigger asChild>
-                      <Avatar className="cursor-pointer ">
-                        <AvatarImage src={user.photoUrl}  />
-                        <AvatarFallback>{avatarFallback(user)}</AvatarFallback>
-                      </Avatar>
+                    <Avatar className="cursor-pointer ">
+                      <AvatarImage src={user.photoUrl} />
+                      <AvatarFallback>{avatarFallback(user)}</AvatarFallback>
+                    </Avatar>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 dark:bg-gray-800">
+                  <DropdownMenuContent className="text-white w-56 bg-transparent backdrop-blur-md">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
@@ -175,7 +178,7 @@ const Navbar = () => {
                       <DropdownMenuItem
                         onClick={() => navigate("/dashboard/comments")}
                       >
-                        <MessageCircle  />
+                        <MessageCircle />
                         <span>Comments</span>
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                       </DropdownMenuItem>
@@ -194,8 +197,11 @@ const Navbar = () => {
                   </DropdownMenuContent>
                 </DropdownMenu>
                 {/* </Link> */}
-                <Button className="hidden md:block track-tighter lg:flex lg:w-20 " onClick={logoutHandler}>
-                  <LogOut className="hidden lg:block"/>
+                <Button
+                  className="hidden md:block track-tighter lg:flex lg:w-20 "
+                  onClick={logoutHandler}
+                >
+                  <LogOut className="hidden lg:block" />
                   Logout
                 </Button>
               </div>

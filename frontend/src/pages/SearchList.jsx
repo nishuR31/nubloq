@@ -28,7 +28,7 @@ const SearchList = () => {
   );
 
   return (
-    <div className={`animate-slideInLeft pt-32 `}>
+    <div className={`bg-transparent min-h-screen`}>
       <div className="max-w-6xl mx-auto">
         <h2 className="mb-5 text-2xl font-semibold">
           Search Results for: "<span className="text-blue-600">{query}</span>"

@@ -17,16 +17,21 @@ const BlogCardList = ({ blog }) => {
           className=" rounded-4xl mt-2 h-[150px] w-[200px] hover:scale-105  transition-all delay-3000 ease-in-out"
         />
 
-        <p className="text-xs  mt-2">
+        <p className="text-xs text-white dark:text-black  mt-2">
           {/* By {"Unknown"} | {blog.category} | {formattedDate} */}
-          By {blog.author?.userName??blog.author.firstName??"Unknown"} | {blog.category??"Unspecified"} |{" "}
-          {formattedDate}
+          By {blog.author?.userName ??
+            blog.author.firstName ??
+            "Unknown"} | {blog.category ?? "Unspecified"} | {formattedDate}
         </p>
       </div>
-      <div >
-        <h2 className="text-2xl font-semibold mt-3 md:mt-1">{blog.title}</h2>
-        <h3 className="text-gray-500 mt-1 ">{blog.subtitle}</h3>
-        <h4 className="text-gray-500 mt-1 ">{blog.bio}</h4>
+      <div>
+        <h2 className="text-2xl font-semibold text-white dark:text-gray-300 mt-3 md:mt-1">
+          {blog.title}
+        </h2>
+        <h3 className="text-gray-400 dark:text-gray-400 mt-1 ">
+          {blog.subtitle}
+        </h3>
+        <h4 className="text-gray-300 mt-1 dark:text-gray-300 ">{blog.bio}</h4>
         {/* ///////////////////////////////////// */}
         <Button
           onClick={() => navigate(`blogs/${blog._id}`)}

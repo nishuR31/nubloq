@@ -48,7 +48,7 @@ let sendSubscribe= async (req, res) => {
     return res.status(codes.ok).json(new ApiResponse("Mail posted successfully",codes.ok,{id: info.messageId }).res());
   } catch (error) {
     console.error("Error sending mail:", error);
-    return res.status(codes.internalServerError).json(new ApiErrorResponse("Error posting mail.",codes.internalServerError,{},err).res());
+    return res.status(codes.internalServerError).json(new ApiErrorResponse("Error posting mail.",codes.internalServerError,{},error).res());
   }
 };
 

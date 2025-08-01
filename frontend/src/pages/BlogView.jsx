@@ -74,8 +74,8 @@ useEffect(() => {
     setLiked(Boolean(found.likes.includes(user?._id)));
   } else {
     axios
-      // .get(`${api}/blog/${blogId}`)
-      .get(`http://localhost:4000/api/v1/blog/${blogId}`)
+      .get(`${api}/blog/${blogId}`)
+      // .get(`http://localhost:4000/api/v1/blog/${blogId}`)
       .then((res) => {
         const fetchedBlog = res.data.payload.blog;
         toast.success("One Blog fetched.");
@@ -102,8 +102,8 @@ useEffect(() => {
 
     try {
       const response = await axios.get(
-        `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
-        // `${api}/blog/${selectedBlog._id}/${
+        // `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
+        `${api}/blog/${selectedBlog._id}/${
           liked ? "dislike" : "like"
         }`,
         { withCredentials: true }

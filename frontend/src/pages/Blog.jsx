@@ -68,8 +68,8 @@ const Blog = () => {
     useEffect(() => {
         const getAllBlogs = async () => {
             try {
-                // const res = await axios.get(`${api}/blog/get-all-blogs`, { withCredentials: true });
-                const res = await axios.get(`http://localhost:4000/api/v1/blog/get-all-blogs`, { withCredentials: true });
+                const res = await axios.get(`${api}/blog/get-all-blogs`, { withCredentials: true });
+                // const res = await axios.get(`http://localhost:4000/api/v1/blog/get-all-blogs`, { withCredentials: true });
 
                 const fetchedBlogs = res.data?.payload?.blogs || [];
 

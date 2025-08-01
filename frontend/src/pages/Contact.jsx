@@ -13,6 +13,7 @@ const api = import.meta.env.VITE_URL;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const Contact = () => {
   let navigate = useNavigate();
+  const [mail,setMail]=useState("")
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -51,9 +52,23 @@ const Contact = () => {
       );
 
       if (res.data.success) {
+        setMail(form.email)
+        console.log(mail);
+        
         toast.success("Mail sent successfully to our dev team!");
+        const con = await axios.post(
+          `${api}/user/confirmation`,
+          form, // ✅ Wrap it as an object
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+            withCredentials: true,
+          }
+        );
+        if (con.data.success){
         toast.success("Don't forget to check your spams later.");
-        setForm({ name: "", email: "", message: "" });
+        setForm({ name: "", email: "", message: "" });}
       } else {
         toast.error("Failed to send mail.");
       }

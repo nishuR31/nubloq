@@ -887,7 +887,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { setBlog } from "@/redux/blogSlice";
 
-
+let api=import.meta.env.VITE_URL
 
 const UpdateBlog = () => {
   const editor = useRef(null);
@@ -902,13 +902,14 @@ const UpdateBlog = () => {
   const dispatch = useDispatch();
   const { blog } = useSelector((store) => store.blog);
   const selectBlog = blog.find((b) => b._id === id);
+  
 
   const [blogData, setBlogData] = useState({
-    title: blog.title,
-    subtitle: blog.subtitle,
-    bio: blog.bio,
-    category: blog.category,
-    thumbnail:blog.thumbnail?? null,
+    title: "",
+    subtitle: "",
+    bio: "",
+    category: "",
+    thumbnail:"",
   });
 
   const [previewThumbnail, setPreviewThumbnail] = useState("");
@@ -957,23 +958,24 @@ const UpdateBlog = () => {
     }
   };
 
+
   const updateBlogHandler = async () => {
     const formData = new FormData();
     formData.append("title", blogData.title);
     formData.append("subtitle", blogData.subtitle);
     formData.append("bio", blogData.bio);
     formData.append("category", blogData.category);
+    console.log("Sending data:", blogData,formData);
     if (blogData.thumbnail) {
       formData.append("file", blogData.thumbnail);
     }
 
-    console.log("Sending data:", blogData);
 
     try {
       setLoading(true);
       const res = await axios.patch(
-        // `${api}blog/${id}`,
-        `http://localhost:4000/api/v1/blog/${id}`,
+        `${api}/blog/${id}`,
+        // `http://localhost:4000/api/v1/blog/${id}`,
         formData,
         { withCredentials: true }
       );
@@ -998,8 +1000,8 @@ const UpdateBlog = () => {
   const togglePublishUnpublish = async (action) => {
     try {
       const res = await axios.get(
-        // `${api}blog/${id}/publish?q=${action}`
-        `http://localhost:4000/api/v1/blog/${id}/publish?q=${action}`
+        `${api}/blog/${id}/publish?q=${action}`
+        // `http://localhost:4000/api/v1/blog/${id}/publish?q=${action}`
       );
       if (res.data.success) {
         setPublish(!publish);
@@ -1018,8 +1020,8 @@ const UpdateBlog = () => {
   const deleteBlog = async () => {
     try {
       const res = await axios.delete(
-        // `${api}blog/delete/${id}`,
-        `http://localhost:4000/api/v1/blog/delete/${id}`,
+        `${api}/blog/delete/${id}`,
+        // `http://localhost:4000/api/v1/blog/delete/${id}`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -1094,8 +1096,9 @@ const UpdateBlog = () => {
               onChange={(newContent) =>
                 setBlogData((prev) => ({ ...prev, bio: newContent }))
               }
+
               onBlur={(e) => {
-                const content = editor.current?.value || "";
+                const content = editor.current?.value || e.current.value || "";
                 setBlogData((prev) => ({ ...prev, bio: content }));
               }}
               className="jodit_toolbar"
@@ -1113,6 +1116,7 @@ const UpdateBlog = () => {
                 <SelectGroup>
                   <SelectLabel>Category</SelectLabel>
                   {[
+                    "Uncategorized",
                     "Web Development",
                     "Digital Marketing",
                     "Blogging",

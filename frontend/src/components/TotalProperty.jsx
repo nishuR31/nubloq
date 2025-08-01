@@ -21,8 +21,8 @@ const TotalProperty = () => {
     try {
       const res = await axios.get(
         `${api}/blog/get-own-blogs`,
-        `http://localhost:4000/api/v1/blog/get-own-blogs`,
-        // { withCredentials: true }
+        // `http://localhost:4000/api/v1/blog/get-own-blogs`,
+        { withCredentials: true }
       );
       const foundBlog = res?.data?.payload?.blogs;
       const existingBlogs = Array.isArray(foundBlog) ? foundBlog : [];
@@ -39,8 +39,8 @@ const TotalProperty = () => {
   const getTotalComments = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/v1/comment/my-blogs/comments`,
-        // `${api}/comment/my-blogs/comments`,
+        // `http://localhost:4000/api/v1/comment/my-blogs/comments`,
+        `${api}/comment/my-blogs/comments`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -54,8 +54,8 @@ const TotalProperty = () => {
   const getTotalLikes = async () => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/v1/blog/my-blogs/likes`,
-        // `${api}/blog/my-blogs/likes`,
+        // `http://localhost:4000/api/v1/blog/my-blogs/likes`,
+        `${api}/blog/my-blogs/likes`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -104,12 +104,12 @@ const TotalProperty = () => {
     },
   ];
   return (
-    <div className=" bg-[#D0D0DD] dark:bg-gray-700  md:p-10 p-4">
+    <div className=" bg-transparent backdrop-blur-md md:p-10 p-4">
       <div className="flex flex-col md:flex-row justify-around gap-3 md:gap-7">
         {stats.map((stat) => (
           <Card
             key={stat.title}
-            className="w-full dark:bg-gray-800 bg-gray-200"
+            className="w-full bg-transparent "
           >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">

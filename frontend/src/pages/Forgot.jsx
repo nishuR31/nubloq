@@ -24,8 +24,8 @@ const ForgotPassword = () => {
     console.log("email:", email);
     try {
       const res = await axios.post(
-        // `${api}/forgot/send-otp`,
-        "http://localhost:4000/api/v1/forgot/send-otp",
+        `${api}/forgot/send-otp`,
+        // "http://localhost:4000/api/v1/forgot/send-otp",
         { email: email },
         {
           headers: {
@@ -47,8 +47,8 @@ const ForgotPassword = () => {
   const verifyOtpHandler = async () => {
     try {
       const res = await axios.post(
-        // `${api}/forgot/verify-otp`,
-        "http://localhost:4000/api/v1/forgot/verify-otp",
+        `${api}/forgot/verify-otp`,
+        // "http://localhost:4000/api/v1/forgot/verify-otp",
         { email, otp }
       );
       if (res.data.success) {
@@ -64,8 +64,8 @@ const ForgotPassword = () => {
   const resetPasswordHandler = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/v1/forgot/reset-password",
-        // `${api}/forgot/reset-password`,
+        // "http://localhost:4000/api/v1/forgot/reset-password",
+        `${api}/forgot/reset-password`,
         {
           email,
           password,

@@ -208,12 +208,14 @@ const App = () => {
             </>
           }
         />
-        <Route
+        <Route 
           path="/search"
           element={
-            <>
+            <> 
+              <div className="animate-slideInLeft transition-all delay-2000 ease-in-out pt-16 bg-blogs-light dark:bg-blogs-dark  bg-fixed bg-no-repeat bg-center bg-cover">
+
               <SearchList />
-              <Footer />
+              <Footer /></div>
             </>
           }
         />

@@ -11,6 +11,7 @@ import  auth from "../middleware/auth.middleware.js";
 import uploader from "../controllers/uploader.controller.js";
 import sendContact from "../utils/sendContact.js";
 import sendSubscribe from "../utils/sendSubscribe.js";
+import sendConfirmation from "../utils/sendConfirmation.js";
 
 const router = express.Router();
 
@@ -20,7 +21,9 @@ router.route("/logout").get(auth(),logout);
 router.route("/contact").post(sendContact);
 router.route("/profile/:id").get(profile);
 router.route("/subscribe").post(sendSubscribe);
-router.route("/profile/update").put(auth(), uploader, updateProfile);
+// router.route("/subscribe").post(sendConfirmation);
+router.route("/confirmation").post(sendConfirmation);
+router.route("/profile/update").patch(auth(), uploader, updateProfile);
 router.route("/all-users").get(getAllUsers);
 
 export default router;

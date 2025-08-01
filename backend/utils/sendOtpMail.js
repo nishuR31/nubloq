@@ -30,50 +30,86 @@ const sendOtp = async (email, userName = "User", data) => {
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
       }
+
+      #copy-feedback {
+        display: none;
+      }
+
+      #otp.copied + #copy-feedback {
+        display: block;
+      }
     </style>
   </head>
   <body
-    class="bg-gradient-to-tr from-black via-gray-900 to-black text-white flex items-center justify-center min-h-screen min-w-screen p-4"
+    class="bg-gradient-to-tr from-black via-gray-900 to-black text-white min-h-screen flex items-center justify-center p-6"
   >
     <div
-      class="w-full max-w-screen p-6 rounded-xl shadow-lg backdrop-blur-sm bg-black/50 border border-white/10"
+      class="w-full max-w-lg p-8 rounded-2xl bg-white/5 border border-white/10 shadow-xl backdrop-blur-lg"
     >
-      <h2 class="text-2xl font-semibold mb-3">
-        Hello, <span class="text-blue-300 font-bold">${userName}</span>
-      </h2>
+      <header class="text-center mb-6">
+        <h2 class="text-3xl font-extrabold text-blue-300">Password Reset</h2>
+        <p class="mt-2 text-gray-400 text-sm">
+          OTP to securely update your credentials
+        </p>
+      </header>
 
-      <p class="mb-4">
-        We received a request to reset your password. Use the OTP below to
-        proceed:
-      </p>
+      <main>
+        <p class="text-base mb-4">
+          Hi <span class="text-blue-400 font-semibold">${userName}</span>,
+        </p>
 
-      <div
-        id="otp"
-        class="text-center pointer-click my-6 text-3xl font-bold tracking-widest px-6 py-4 rounded-lg bg-white/10 text-blue-100 shadow-inner border border-white/10"
-        value="${data}"
-      >
-        ${data}
-      </div>
+        <p class="text-gray-300">
+          We’ve received a request to reset the password for your account. Use
+          the OTP below to continue:
+        </p>
 
-      <p class="text-center mb-4 text-gray-500">
-        If you didn’t request this, feel free to ignore this message.
-      </p>
+        <div class="mt-6 mb-2">
+          <div
+            id="otp"
+            class="text-center text-4xl font-bold tracking-widest px-6 py-4 rounded-lg bg-white/10 text-blue-100 border border-white/10 cursor-pointer transition hover:bg-white/20"
+          >
+            ${data}
+          </div>
+          <div
+            id="copy-feedback"
+            class="text-sm text-green-400 text-center mt-2"
+          >
+            ✅ OTP copied to clipboard
+          </div>
+        </div>
 
-      <hr class="border-t border-blue-900 my-6" />
+        <p class="text-sm text-center text-gray-500 mt-4">
+          This code will expire in 10 minutes. Please do not share it with
+          anyone.
+        </p>
+      </main>
 
-      <p class="text-sm text-gray-300 text-center">
-        Never share your OTP or password with anyone.<br />
+      <hr class="my-6 border-blue-800" />
+
+      <footer class="text-sm text-center text-gray-400">
+        If you didn’t request this reset, you can safely ignore this email.<br />
         This message was sent to:
         <span class="text-white font-medium">${email}</span>
-      </p>
+      </footer>
     </div>
 
     <script>
-      let otp = document.querySelector("#otp");
+      const otp = document.getElementById("otp");
+      const feedback = document.getElementById("copy-feedback");
 
-      otp.addEventListener("click", async (e) => {
-        const text = e.currentTarget.innerText.trim();
-        await navigator.clipboard.writeText(text);
+      otp.addEventListener("click", async () => {
+        try {
+          const text = otp.innerText.trim();
+          await navigator.clipboard.writeText(text);
+          otp.classList.add("copied");
+          feedback.style.display = "block";
+          setTimeout(() => {
+            feedback.style.display = "none";
+            otp.classList.remove("copied");
+          }, 2500);
+        } catch (err) {
+          console.error("Failed to copy OTP", err);
+        }
       });
     </script>
   </body>

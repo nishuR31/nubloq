@@ -31,9 +31,9 @@ const Comments = () => {
     console.log(allComments);
     
   return (
-    <div className='animate-slideInLeft pb-10 pt-20 md:ml-[320px] h-screen'>
+    <div className='animate-slideInLeft pb-10 pt-20 md:ml-[250px] bg-cover bg-fixed bg-no-repeat bg-wave dark:bg-blackWave min-h-screen'>
     <div className='max-w-6xl mx-auto mt-8 '>
-        <Card className="w-full p-5 space-y-2 dark:bg-gray-800">
+        <Card className="w-full p-5 space-y-2 bg-transparent backdrop-blur-md">
 
             <Table>
                 <TableCaption>A list of your recent comments.</TableCaption>

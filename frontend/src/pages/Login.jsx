@@ -45,8 +45,8 @@ const Login = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `http://localhost:4000/api/v1/user/login`,
-        // `${api}/user/login`,
+        // `http://localhost:4000/api/v1/user/login`,
+        `${api}/user/login`,
         input,
         {
           headers: {

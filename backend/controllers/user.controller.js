@@ -220,33 +220,36 @@ export const login = asyncHandler(async (req, res) => {
 
 ////////////////////////////////////////////////////////////////////////////
 
-export const profile=asyncHandler(async(req,res)=>{
-  let id=req.params.id;
-  let user=await User.findById(id);
-  if(!user){return 
+export const profile = asyncHandler(async (req, res) => {
+  let id = req.params.id;
+  let user = await User.findById(id);
+  if (!user) {
+    return;
     res
-    .status(codes.notFound)
-    .json(new ApiErrorResponse("No user found.",codes.notFound)
-    .res())}
-  return res.status(codes.ok)
-  .json(new ApiResponse(`User ${user.userName} found successfully.`,
-    codes.ok,{ user: {
-          _id: user._id,
-          userName: user.userName,
-          firstName: user.firstName,
-          lastName: user.lastName,
-          email: user.email,
-          bio: user.bio,
-          occupation: user.occupation,
-          photoUrl: user.photoUrl,
-          instagram: user.instagram,
-          linkedin: user.linkedin,
-          github: user.github,
-          facebook: user.facebook,
-          createdAt: user.createdAt,
-          updatedAt: user.updatedAt,
-        }}).res())
-})
+      .status(codes.notFound)
+      .json(new ApiErrorResponse("No user found.", codes.notFound).res());
+  }
+  return res.status(codes.ok).json(
+    new ApiResponse(`User ${user.userName} found successfully.`, codes.ok, {
+      user: {
+        _id: user._id,
+        userName: user.userName,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        bio: user.bio,
+        occupation: user.occupation,
+        photoUrl: user.photoUrl,
+        instagram: user.instagram,
+        linkedin: user.linkedin,
+        github: user.github,
+        facebook: user.facebook,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+    }).res()
+  );
+});
 /////////////////////////////////////////////////////////////
 export const logout = asyncHandler(async (req, res) => {
   if (!req.user) {
@@ -364,60 +367,64 @@ export const updateProfile = asyncHandler(async (req, res) => {
       );
   }
 
-  const userId = req.user._id;
-
-  const {
+  let {
     firstName,
+    email,
     lastName,
     occupation,
     bio,
-    instagram,
     facebook,
     linkedin,
     github,
+    instagram,
   } = req.body;
 
-  const user = await User.findById(userId).select(
+  const user = await User.findById(req.user._id).select(
     "-password -refreshToken -otp"
   );
 
-  if (!user) {
+  if (!req.user._id) {
     return res
       .status(codes.notFound)
-      .json(new ApiErrorResponse("Account not found.", codes.notFound).res());
+      .json(
+        new ApiErrorResponse("User Account not found.", codes.notFound).res()
+      );
   }
 
   // Update fields if changed
   if (firstName && user.firstName !== firstName) {
     user.firstName = firstName;
   }
-  if (lastName && user.lastName !== lastName) {
+  if (email && user.email !== email) {
+    user.email = email;
+  }
+  if (lastName!== undefined && user.lastName !== lastName) {
     user.lastName = lastName;
   }
-  if (occupation && user.occupation !== occupation) {
-    user.occupation = occupation
+  if (occupation!== undefined && user.occupation !== occupation) {
+    user.occupation = occupation? occupation
       .split(" ")
       .map((e, i) => e[0].toUpperCase() + e.slice(1))
-      .join(" ");
+      .join(" "): ""
   }
-  if (bio && user.bio !== bio) {
+  if (bio!== undefined && user.bio !== bio) {
     user.bio = bio;
   }
-  if (instagram && user.instagram !== instagram) {
+  if (instagram!== undefined && user.instagram !== instagram) {
     user.instagram = instagram;
   }
-  if (facebook && user.facebook !== facebook) {
+  if (facebook!== undefined && user.facebook !== facebook) {
     user.facebook = facebook;
   }
-  if (linkedin && user.linkedin !== linkedin) {
+  if (linkedin!== undefined && user.linkedin !== linkedin) {
     user.linkedin = linkedin;
   }
-  if (github && user.github !== github) {
+  if (github!== undefined && user.github !== github) {
     user.github = github;
   }
 
-  if (req.cloudinary?.url) {
-    user.photoUrl = req.cloudinary.url;
+  if (req.file?.url!== undefined && user.photoUrl !== req.file.url) {
+    user.photoUrl = req.file.url;
   }
 
   await user.save();
