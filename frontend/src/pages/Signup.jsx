@@ -7,7 +7,8 @@ import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { toast } from 'sonner'
-import auth from "../assets/auth.jpg"
+const api = import.meta.env.VITE_URL;
+
 
 
 const Signup = () => {
@@ -79,6 +80,7 @@ const passwordErrors = [];
 
         try {
             const response = await axios.post(`http://localhost:4000/api/v1/user/register`, user, {
+            // const response = await axios.post(`${api}/user/register`, user, {
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -125,7 +127,7 @@ const passwordErrors = [];
     const [showPassword, setShowPassword] = useState(false);
 
     return (
-        <div className={`flex h-screen md:pt-14 bg-light dark:bg-dark `}>
+        <div className={`flex h-screen md:pt-14 bg-login-light dark:bg-login-dark `}>
 
             <div className="animate-slideInLeft flex justify-center items-center  flex-1 px-4 md:px-0">
                 <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl bg-transparent backdrop-blur-sm dark:border-gray-800">

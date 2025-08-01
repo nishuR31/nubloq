@@ -16,14 +16,17 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import avatarFallback from "@/components/avatarFallback";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Bookmark, MessageSquare, Share2 } from "lucide-react";
-import { FaHeart, FaRegHeart } from "react-icons/fa6";
+import { Bookmark, MessageSquare, Share2, Heart } from "lucide-react";
 // import CommentBox from '@/components/CommentBox';
 import axios from "axios";
 import { setBlog } from "@/redux/blogSlice";
 import { toast } from "sonner";
 // import { useForceUpdate } from "framer-motion";
 import capitalize from "../components/capitalize";
+const api = import.meta.env.VITE_URL;
+
+
+
 const BlogView = () => {
   const { blogId } = useParams();
   const { blog } = useSelector((store) => store.blog);
@@ -71,6 +74,7 @@ useEffect(() => {
     setLiked(Boolean(found.likes.includes(user?._id)));
   } else {
     axios
+      // .get(`${api}/blog/${blogId}`)
       .get(`http://localhost:4000/api/v1/blog/${blogId}`)
       .then((res) => {
         const fetchedBlog = res.data.payload.blog;
@@ -99,6 +103,7 @@ useEffect(() => {
     try {
       const response = await axios.get(
         `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
+        // `${api}/blog/${selectedBlog._id}/${
           liked ? "dislike" : "like"
         }`,
         { withCredentials: true }
@@ -255,9 +260,9 @@ useEffect(() => {
                 className="flex items-center gap-1"
               >
                 {liked ? (
-                  <FaHeart size={24} className="text-red-600 cursor-pointer" />
+                  <Heart size={24} className="text-red-600 cursor-pointer" />
                 ) : (
-                  <FaRegHeart
+                    <Heart
                     size={24}
                     className="text-white cursor-pointer hover:text-gray-600"
                   />

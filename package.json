@@ -4,20 +4,15 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "frontend": "npm run dev --prefix frontend",
-    "backend": "nodemon backend/server.js",
     "dev": "npx update-browserslist-db@latest && concurrently \"npm run frontend\" \"npm run backend\"",
-    "build": "npm run build --prefix frontend",
-    "preview": "npm run preview --prefix frontend",
-    "encrypt": "npx \"@dotenvx/dotenvx\" encrypt ./.env",
-    "decrypt": "npx \"@dotenvx/dotenvx\" decrypt ./.env"
+    "frontend": "npm run dev --prefix frontend",
+    "backend": "npm run backend --prefix backend"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@dotenvx/dotenvx": "^1.48.3",
     "bcrypt": "^6.0.0",
     "cloudinary": "^2.6.0",
     "cookie-parser": "^1.4.7",

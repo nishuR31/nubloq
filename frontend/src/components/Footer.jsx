@@ -1,14 +1,14 @@
 import React,{useState,useEffect} from 'react'
 import { Link,useNavigate } from 'react-router-dom'
-import Logo from '../assets/logo.png'
-import { FaGithub,FaEnvelope } from 'react-icons/fa'
-import footer from "../assets/footer.jpg"
+import { Github,Mail } from 'lucide-react'
 import axios from 'axios'
 import { toast } from "sonner";
 import blog from "../assets/blog.png"
 import ScrollToTop from "./scrollToTop"
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+const api = import.meta.env.VITE_URL;
+
 
 
 const Footer = () => {
@@ -37,6 +37,7 @@ let navigate=useNavigate();
 
     try {
       const res = await axios.post(
+        // `${api}/user/subscribe`,
         "http://localhost:4000/api/v1/user/subscribe",
             { email: email.email }, // ✅ Wrap it as an object
             {headers: {
@@ -65,8 +66,9 @@ let navigate=useNavigate();
 
 
   return (
-    <footer className={` transition-all delay-3000 ease-in-out  text-gray-900 dark:text-gray-100 py-5 bg-cover bg-no-repeat bg-bottom dark:bg-footer-dark bg-footer-light`}>
-      <div className='flex flex-wrap flex-row justify-around   px-4  md:justify-between'>
+    <footer className={` transition-all delay-3000 ease-in-out min-h-fit bg-transparent text-black dark:text-white  `}>
+      <div className=" bg-black/50 dark:bg-black/50 h-3 w-full backdrop-blur-md  "></div>
+      <div className='flex flex-wrap flex-row justify-around px-4 md:justify-between'>
         {/*  info */}
         <div className='my-6 md:mb-0'>
             <Link to='/' className='flex gap-3 items-center'>
@@ -94,8 +96,8 @@ let navigate=useNavigate();
         <div className='my-6 md:mb-0'>
             <h3 className='text-xl font-semibold '>Follow Us</h3>
             <div className='flex space-x-4 mt-2'>
-                <a href="https://www.github.com/nishuR31" target="_black" ><FaGithub/></a>
-                <a href="mailto:bloggernishu31@gmail.com"><FaEnvelope/></a>
+                <a href="https://www.github.com/nishuR31" target="_black" ><Github/></a>
+                <a href="mailto:bloggernishu31@gmail.com"><Mail/></a>
             </div>
         </div>
         {/* newsletter subscription */}
@@ -123,7 +125,7 @@ let navigate=useNavigate();
       </div>
       {/* bottom section */}
       <div className='py-4 border-none  text-center text-sm backdrop-blur-sm'>
-        <p className="animate-bounce">&copy; {new Date().getFullYear()} <span className='text-red-500'>Nishu Blog</span>. All rights reserved</p>
+        <p className="animate-bounce">&copy; {new Date().getFullYear()} <span className='font-bold'>Nishu Blog</span>. All rights reserved</p>
       </div>
       <ScrollToTop />
     </footer>

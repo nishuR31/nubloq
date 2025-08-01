@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setYourBlog } from "@/redux/blogSlice";
 import { toast } from "sonner";
+const api = import.meta.env.VITE_URL;
+
 
 
 
@@ -18,8 +20,9 @@ const TotalProperty = () => {
   const getOwnBlog = async () => {
     try {
       const res = await axios.get(
+        `${api}/blog/get-own-blogs`,
         `http://localhost:4000/api/v1/blog/get-own-blogs`,
-        { withCredentials: true }
+        // { withCredentials: true }
       );
       const foundBlog = res?.data?.payload?.blogs;
       const existingBlogs = Array.isArray(foundBlog) ? foundBlog : [];
@@ -37,6 +40,7 @@ const TotalProperty = () => {
     try {
       const res = await axios.get(
         `http://localhost:4000/api/v1/comment/my-blogs/comments`,
+        // `${api}/comment/my-blogs/comments`,
         { withCredentials: true }
       );
       if (res.data.success) {
@@ -51,6 +55,7 @@ const TotalProperty = () => {
     try {
       const res = await axios.get(
         `http://localhost:4000/api/v1/blog/my-blogs/likes`,
+        // `${api}/blog/my-blogs/likes`,
         { withCredentials: true }
       );
       if (res.data.success) {

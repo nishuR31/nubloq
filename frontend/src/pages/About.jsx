@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import about from "../assets/About-blog.avif";
-import blog from "../assets/blog-about.avif";
-import blog2 from "../assets/blog1.png";
-import blog3 from "../assets/blog2.png";
-import LMS from "../assets/LMS.png";
+import img6 from "../assets/LMS.png";
+import img7 from "../assets/pen.jpg"
+import img1 from "../assets/laptopWrite.jpg";
+import img2 from "../assets/bulbDark.png";
+import img3 from "../assets/keyboard.jpg";
+import img4 from "../assets/typingLaptop.avif";
+import img5 from "../assets/typingLaptop2.avif"
 
 const About = () => {
   const blogTopics = [
@@ -53,25 +55,27 @@ const About = () => {
   ];
 
   let [fields, setFields] = useState("Welcome to our about section.");
-  let pics = [blog, about,blog3, LMS, blog2];
+  let pics = [img1,img2,img3,img4,img5,img6,img7];
   let [skill, setSkill] = useState([skills[0]]);
 
-  let [src, setSrc] = useState(about);
+  let [src, setSrc] = useState(pics[0]);
   useEffect(() => {
-    let i = 0;
+    let ipic = 0;
+    let iblog = 0;
+    let iskill = 0;
     let intervalPics = setInterval(() => {
-      setSrc(pics[i % pics.length]);
-      i += 1;
+      setSrc(pics[ipic % pics.length]);
+      ipic += 1;
     }, 3000);
 
     let intervalBlogs = setInterval(() => {
-      setFields(blogTopics[i % blogTopics.length]);
-      i += 1;
+      setFields(blogTopics[iblog % blogTopics.length]);
+      iblog += 1;
     }, 2000);
 
     let intervalSkills = setInterval(() => {
-      setSkill(skills[i % skills.length]);
-      i += 1;
+      setSkill(skills[iskill % skills.length]);
+      iskill += 1;
     }, 2000);
     return () => {
       clearInterval(intervalPics);
@@ -81,14 +85,14 @@ const About = () => {
   }, []);
 
   return (
-    <div className="animate-slideInLeft transition-all delay-3000 ease-in-out min-h-screen pt-28 px-4 md:px-0 mb-7 ">
+    <div className="animate-slideInLeft ease-in-out  pt-28 px-4 md:px-0 mb-7  text-white">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center">
           <h1 className="md:text-5xl text-4xl font-extrabold  mb-4 animate-bounce">
             About Our Blog...
           </h1>
-          <h2 className="dark:text-gray-400 font-bold my-4 transition-opacity duration-500 ease-in-out">
+          <h2 className="text-white font-bold my-4 transition-opacity duration-500 ease-in-out">
             {fields}
           </h2>
           <p className="text-lg ">
@@ -106,7 +110,7 @@ const About = () => {
           />
           <div>
             <p className=" text-lg mb-4">
-              Welcome to our Blog web app <strong>Blog Paglu</strong>! This was
+              Welcome to our Blog web app <strong>Nishu Blogs</strong>! This was
               created for readers, writers, and thinkers to connect through
               stories, tutorials, and creative insights. Whether you're a{" "}
               <i>

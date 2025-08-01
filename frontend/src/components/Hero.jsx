@@ -1,10 +1,25 @@
-// import React ,{useState,useEffect} from 'react'
-import heroImg from "../assets/blog2.png"
+import React ,{useState,useEffect} from 'react'
+import img1 from "../assets/svg.png"
+import img2 from "../assets/svg2.png"
 import { Button } from './ui/button'
 import { Link } from 'react-router-dom'
 import Mouse from "./mouse"
 
 const Hero = () => {
+let img = [img1, img2];
+let [src, setSrc] = useState(img[0]);
+
+useEffect(() => {
+  let i = 1;
+  const interval = setInterval(() => {
+    setSrc(img[i % img.length]);
+    i++;
+  }, 3000);
+
+  return () => clearInterval(interval); // proper cleanup function
+}, []);
+
+
 
   return (
     <div className="transition-all delay-3000 ease-in-out max-h-screen bg-transparent px-4 ">
@@ -31,7 +46,7 @@ const Hero = () => {
       </div>
         {/* image section */}
         <div className=' flex items-center justify-center '>
-            <img src={heroImg} alt="" className='hidden sm:block md:h-[350px] md:w-[350px] lg:h-[550px] lg:w-[550px]'/>
+            <img src={src } alt="" className='hidden sm:block md:h-[350px] md:w-[350px] lg:h-[550px] lg:w-[550px]'/>
         </div>
       </div>
       {/* scroll effect icon */}
@@ -39,6 +54,7 @@ const Hero = () => {
 
           <Mouse />
       </div>
+
     </div>
   )
 }

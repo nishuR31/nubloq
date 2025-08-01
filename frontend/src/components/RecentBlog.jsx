@@ -9,6 +9,9 @@ import { setBlog } from '@/redux/blogSlice'
 import axios from 'axios'
 import { toast } from "sonner";
 
+const api = import.meta.env.VITE_URL;
+
+
 const tags = [
   { category: "Blogging" },
   { category: "Web Development" },
@@ -23,6 +26,7 @@ const tags = [
   { category: "Developing" },
   { category: "Studying" },
 ]
+
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
 
@@ -55,7 +59,8 @@ console.log("Redux blog state is:", blog);
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/v1/user/subscribe",
+        // "http://localhost:4000/api/v1/user/subscribe",
+        // `${api}/user/subscribe`,
     { email: email.email }, // ✅ Wrap it as an object
             {headers: {
                     "Content-Type": "application/json",
@@ -80,6 +85,7 @@ console.log("Redux blog state is:", blog);
     const getAllPublsihedBlogs = async () => {
       try {
         const res = await axios.get(`http://localhost:4000/api/v1/blog/get-published-blogs`, {
+        // const res = await axios.get(`${api}/blog/get-published-blogs`, {
           withCredentials: true,
         })
         if (res.data.success) {
@@ -100,14 +106,14 @@ console.log("Redux blog state is:", blog);
         <hr className='w-24 text-center border-2 border-red-500 rounded-full' />
       </div>
 
-      <div className=' max-w-7xl mx-auto gap-6'>
-        <div className='mt-10 flex flex-wrap justify-around '>
+      <div className=' max-w-7xl mx-auto gap-6 '>
+        <div className='mt-10 flex flex-wrap justify-around  '>
           {Array.isArray(blog) && blog?.slice(0, 4)?.map((oneblog, index) => (
             <BlogCardList key={index} blog={oneblog} />
           ))}
         </div>
 
-        <div className=' bg-white/10 backdrop-blur-md dark:bg-black/50 hidden md:block  w-[350px] p-5 rounded-lg mx-auto mt-10'>
+        <div className=' bg-white/10 backdrop-blur-md dark:bg-black/50 hidden md:block  w-[350px] p-5 rounded-lg mx-auto mt-20'>
           <h1 className='text-2xl font-semibold text-black dark:text-white'>Popular categories</h1>
           <div className='my-5 flex flex-wrap gap-3'>
             {tags.map((item, index) => (

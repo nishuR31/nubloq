@@ -112,7 +112,8 @@
 
 // export default App
 
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Signup from "./pages/Signup";
@@ -137,19 +138,26 @@ import SearchList from "./pages/SearchList";
 import Faqs from "./pages/Faqs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CodeOfConduct from "./pages/CodeOfConduct";
+import blackWave from "./assets/blackWave.jpg"
+import homePage from "./assets/homePage.webp"
+import pen from "./assets/pen.jpg"
 
 const App = () => {
+
+ 
+
   return (
-    <Router>
+    <Router >
       <Navbar />
 
       <Routes>
-        <Route
+        <Route  
           path="/"
           element={
-            <>
-              <Home />
-              <Footer />
+            <><div className="transition-all delay-3000 ease-in-out min-h-screen  bg-fixed bg-no-repeat  bg-center" style={{backgroundImage:`url(${homePage})`}}>
+            {/* <><div className="transition-all delay-3000 ease-in-out min-h-screen bg-home-light dark:bg-home-dark bg-fixed bg-no-repeat  bg-bottom dark:bg-center"> */}
+              <Home  />
+              <Footer /></div>
             </>
           }
         />
@@ -182,8 +190,10 @@ const App = () => {
           path="/about"
           element={
             <>
+              <div className={` transition-all delay-2000 ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top   bg-center`} style={{ backgroundImage:`url(${pen})`}}>
               <About />
-              <Footer />
+              <Footer  />
+              </div>
             </>
           }
         />
@@ -191,8 +201,10 @@ const App = () => {
           path="/blogs"
           element={
             <>
+        <div className="animate-slideInLeft transition-all delay-2000 ease-in-out pt-16 bg-blogs-light dark:bg-blogs-dark min-h-screen bg-fixed bg-no-repeat bg-center bg-cover">
               <Blog />
               <Footer />
+        </div>
             </>
           }
         />
@@ -216,17 +228,23 @@ const App = () => {
         <Route
           path="/write-blog"
           element={
+            <>
+        <div className="animate-slideInLeft transition-all delay-2000 ease-in-out pt-16 bg-blogs-light dark:bg-blogs-dark min-h-screen  bg-fixed bg-no-repeat bg-center bg-cover">
             <ProtectedRoute>
               <CreateBlog />
             </ProtectedRoute>
+            </div>
+            </>
           }
         />
         <Route
           path="/profile"
           element={
+            <>
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
+            </>
           }
         />
         <Route path="/signup" element={<Signup />} />
@@ -254,7 +272,8 @@ const App = () => {
             path="your-blog"
             element={
               <ProtectedRoute>
-                <YourBlog />
+        <div className="animate-slideInLeft transition-all delay-2000 ease-in-out bg-wave dark:bg-blackWave min-h-screen  bg-fixed bg-no-repeat bg-center bg-cover">
+                <YourBlog /></div>
               </ProtectedRoute>
             }
           />

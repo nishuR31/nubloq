@@ -6,8 +6,7 @@ export default function PrivacyPolicy() {
   return (
     <>
       <div
-        className="flex flex-col animate-slideInLeft py-10 transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover h-content bg-contact-light dark:bg-contact-dark
-    w-full mx-auto p-6 text-gray-800 dark:text-gray-200"
+        className="flex flex-col animate-slideInLeft py-10 transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover min-h-content bg-wave dark:bg-blackWave w-full mx-auto p-6 text-gray-800 dark:text-gray-200"
       >
         <h1 className="pt-10 text-3xl font-bold mb-4">Privacy Policy</h1>
         <p className="mb-4">
@@ -67,7 +66,7 @@ export default function PrivacyPolicy() {
         </p>
         <div className="">
           <Link to="/" className="">
-            <Button variant="outline" className="w-full mt-5">
+            <Button variant="ghost" className="w-full mt-5">
               Home
             </Button>
           </Link>

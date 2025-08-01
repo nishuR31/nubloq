@@ -1,6 +1,10 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import userLogo from "../assets/user.jpg"
+const api = import.meta.env.VITE_URL;
+
+
+
 
 const PopularAuthors = () => {
     const [popularUser, setPopularUser] = useState([])
@@ -8,6 +12,7 @@ const PopularAuthors = () => {
     const getAllUsers = async () => {
         try {
             const res = await axios.get(`http://localhost:4000/api/v1/user/all-users`)
+            // const res = await axios.get(`${api}/user/all-users`)
             if (res.data.success) {
                 setPopularUser(res.data.payload.users)
                 setTotalUser(res.data.payload.totalUsers)
@@ -20,10 +25,11 @@ const PopularAuthors = () => {
     useEffect(() => {
         getAllUsers()
     }, [])
+
     return (
-        <div>
-            <div className="transition-all delay-3000 ease-in-out w-auto mx-auto bg-transparent h-full ">
-                <div className='flex flex-col space-y-4 items-center bg-transparent'>
+         <div>
+            {popularUser && <div className="transition-all delay-3000 ease-in-out w-auto mx-auto bg-transparent h-full ">
+                <div className='flex flex-col flex-wrap space-y-4 items-center bg-transparent'>
                     <h1 className='text-3xl md:text-4xl font-bold pt-10 dark:text-white text-black bg-transparent '>Popular Authors <span className="text-red-500">- {totalUser}</span></h1>
                     <hr className=' w-24 text-center border-2 border-red-500 rounded-full animate-pulse' />
                 </div>
@@ -38,7 +44,7 @@ const PopularAuthors = () => {
                         })
                     }
                 </div>
-            </div>
+            </div>}
         </div>
     )
 }

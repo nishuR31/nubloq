@@ -5,13 +5,17 @@ import { Edit, Eye, Trash2 } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {toast} from "sonner"
+const api = import.meta.env.VITE_URL;
+
+
 
 const Comments = () => {
     const [allComments, setAllComments] = useState([])
     const navigate = useNavigate()
     const getTotalComments = async()=>{
         try {
-          const res = await axios.get(`http://localhost:4000/api/v1/comment/my-blogs/comments`,{withCredentials:true})
+        //   const res = await axios.get(`http://localhost:4000/api/v1/comment/my-blogs/comments`,{withCredentials:true})
+          const res = await axios.get(`${api}/comment/my-blogs/comments`,{withCredentials:true})
           if(res.data.success){
             setAllComments(res.data.payload.comments)
           }

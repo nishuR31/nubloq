@@ -2,15 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import avatarFallback from './avatarFallback.js';
 import { Textarea } from './ui/textarea';
-import { FaHeart, FaRegHeart } from "react-icons/fa6";
-import { LuSend } from "react-icons/lu";
 import { Button } from './ui/button';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setBlog } from '@/redux/blogSlice';
 import { setComment } from '@/redux/commentSlice';
-import { Edit, Trash2 } from 'lucide-react';
-import { BsThreeDots } from "react-icons/bs";
+import { EllipsisVertical,Edit, Trash2,Heart ,sedn} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -18,6 +15,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { toast } from "sonner";
+
+const api = import.meta.env.VITE_URL;
+
+
+
 
 const CommentBox = ({ selectedBlog }) => {
   const { user } = useSelector(state => state.auth);
@@ -36,7 +38,8 @@ const CommentBox = ({ selectedBlog }) => {
     const getAllCommentsOfBlog = async () => {
       if (!selectedBlog?._id) return;
       try {
-        const res = await axios.get(`http://localhost:4000/api/v1/comment/${selectedBlog._id}/comment/all`);
+        // const res = await axios.get(`http://localhost:4000/api/v1/comment/${selectedBlog._id}/comment/all`);
+        const res = await axios.get(`${api}/${selectedBlog._id}/comment/all`);
         dispatch(setComment(res.data.payload.comments));
         toast.success("Comments fetched successfully.");
       } catch (error) {
@@ -54,7 +57,8 @@ const CommentBox = ({ selectedBlog }) => {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/api/v1/comment/${selectedBlog._id}/create`,
+        `${api}/comment/${selectedBlog._id}/create`,
+        // `http://localhost:4000/api/v1/comment/${selectedBlog._id}/create`,
         { content },
         {
           headers: { "Content-Type": "application/json" },
@@ -85,7 +89,8 @@ const CommentBox = ({ selectedBlog }) => {
 
     try {
       const res = await axios.post(
-        `http://localhost:4000/api/v1/comment/${selectedBlog._id}/create`,
+        `${api}/comment/${selectedBlog._id}/create`,
+        // `http://localhost:4000/api/v1/comment/${selectedBlog._id}/create`,
         { content: replyText, parentCommentId },
         {
           headers: { "Content-Type": "application/json" },
@@ -109,7 +114,8 @@ const CommentBox = ({ selectedBlog }) => {
   const deleteCommentHandler = async (commentId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:4000/api/v1/comment/${commentId}/delete`,
+        `${api}/comment/${commentId}/delete`,
+        // `http://localhost:4000/api/v1/comment/${commentId}/delete`,
         { withCredentials: true }
       );
 
@@ -128,7 +134,8 @@ const CommentBox = ({ selectedBlog }) => {
   const editCommentHandler = async (commentId) => {
     try {
       const res = await axios.put(
-        `http://localhost:4000/api/v1/comment/${commentId}/edit`,
+        // `http://localhost:4000/api/v1/comment/${commentId}/edit`,
+        `${api}/comment/${commentId}/edit`,
         { content: editedContent },
         {
           headers: { "Content-Type": "application/json" },
@@ -157,7 +164,8 @@ const CommentBox = ({ selectedBlog }) => {
   const likeCommentHandler = async (commentId) => {
     try {
       const res = await axios.get(
-        `http://localhost:4000/api/v1/comment/${commentId}/like`,
+        // `http://localhost:4000/api/v1/comment/${commentId}/like`,
+        `${api}/comment/${commentId}/like`,
         { withCredentials: true }
       );
 
@@ -192,7 +200,7 @@ const CommentBox = ({ selectedBlog }) => {
           onChange={(e) => setContent(e.target.value)}
           value={content}
         />
-        <Button onClick={commentHandler}><LuSend /></Button>
+        <Button onClick={commentHandler}><Send  /></Button>
       </div>
 
       {/* Comments section */}
@@ -233,8 +241,8 @@ const CommentBox = ({ selectedBlog }) => {
                         onClick={() => likeCommentHandler(item._id)}
                       >
                         {item.likes?.includes(user?._id)
-                          ? <FaHeart fill="red" />
-                          : <FaRegHeart />}
+                          ? <Heart  fill="red" />
+                          : <HeartOff  />}
                         <span>{item.numberOfLikes}</span>
                       </div>
                       <p onClick={() => setActiveReplyId(item._id)} className="text-sm cursor-pointer">Reply</p>
@@ -245,7 +253,7 @@ const CommentBox = ({ selectedBlog }) => {
                 {/* Edit/Delete dropdown */}
                 {user?._id === item?.userId?._id && (
                   <DropdownMenu>
-                    <DropdownMenuTrigger><BsThreeDots /></DropdownMenuTrigger>
+                    <DropdownMenuTrigger><EllipsisVertical /></DropdownMenuTrigger>
                     <DropdownMenuContent className="w-[180px]">
                       <DropdownMenuItem onClick={() => {
                         setEditingCommentId(item._id);
@@ -269,7 +277,7 @@ const CommentBox = ({ selectedBlog }) => {
                     onChange={(e) => setReplyText(e.target.value)}
                     value={replyText}
                   />
-                  <Button onClick={() => replyHandler(item._id)}><LuSend /></Button>
+                  <Button onClick={() => replyHandler(item._id)}><Send  /></Button>
                 </div>
               )}
             </div>

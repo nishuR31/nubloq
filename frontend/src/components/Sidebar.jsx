@@ -1,12 +1,11 @@
 import { ChartColumnBig, FolderPlus, SquareUser } from "lucide-react";
-import { LiaCommentSolid } from "react-icons/lia";
+import { MessageCircle,Pencil } from "lucide-react";
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { FaEdit, FaRegEdit } from "react-icons/fa";
 
 const Sidebar = () => {
   return (
-    <div className="hidden mt-10 fixed md:block border-r-2 dark:bg-gray-800 bg-white border-gray-300 dark:border-gray-600 0 w-[300px] p-10 space-y-2 h-screen z-10">
+    <div className="hidden animate-slideInLeft transition-all delay-2000 ease-in  fixed md:block border-r-2 bg-fixed bg-no-repeat bg-cover  bg-wave dark:bg-blackWave border-gray-300 dark:border-gray-600  w-[250px] py-40  space-y-2 min-h-screen z-10">
       {/* <h1 className='text-xl font-semibold text-gray-700 cursor-pointer hover:bg-gray-800 p-2 text-center rounded-md hover:text-white'>Your Blogs</h1> 
       <h2 className='text-xl font-semibold cursor-pointer'>Comments</h2> 
       <h1 className='text-xl font-semibold cursor-pointer hover:bg-gray-800 p-2 text-center rounded-md hover:text-white'>Write a Blog</h1>
@@ -49,7 +48,7 @@ const Sidebar = () => {
             } flex items-center gap-2 font-bold cursor-pointer p-3 rounded-2xl w-full`
           }
         >
-          <LiaCommentSolid />
+          <MessageCircle />
           <span>Comments</span>
         </NavLink>
         <NavLink
@@ -62,7 +61,7 @@ const Sidebar = () => {
             } flex items-center gap-2 font-bold cursor-pointer p-3 rounded-2xl w-full`
           }
         >
-          <FaRegEdit />
+          <Pencil />
           <span>Create Blog</span>
         </NavLink>
       </div>

@@ -164,9 +164,8 @@ export const login = asyncHandler(async (req, res) => {
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
   const field = emailRegex.test(emailUser) ? "email" : "userName";
 
-  let user = await User.findOne({ $or: [{ [field]: emailUser }] }).select(
-    " -refreshToken -otp "
-  );
+  let user = await User.findOne({ $or: [{ [field]: emailUser }] });
+  // let user = await User.findOne({ $or: [{ [field]: emailUser }] }).select(" -refreshToken -otp ");
   if (!user) {
     return res
       .status(codes.notFound)
@@ -219,6 +218,35 @@ export const login = asyncHandler(async (req, res) => {
   );
 });
 
+////////////////////////////////////////////////////////////////////////////
+
+export const profile=asyncHandler(async(req,res)=>{
+  let id=req.params.id;
+  let user=await User.findById(id);
+  if(!user){return 
+    res
+    .status(codes.notFound)
+    .json(new ApiErrorResponse("No user found.",codes.notFound)
+    .res())}
+  return res.status(codes.ok)
+  .json(new ApiResponse(`User ${user.userName} found successfully.`,
+    codes.ok,{ user: {
+          _id: user._id,
+          userName: user.userName,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          bio: user.bio,
+          occupation: user.occupation,
+          photoUrl: user.photoUrl,
+          instagram: user.instagram,
+          linkedin: user.linkedin,
+          github: user.github,
+          facebook: user.facebook,
+          createdAt: user.createdAt,
+          updatedAt: user.updatedAt,
+        }}).res())
+})
 /////////////////////////////////////////////////////////////
 export const logout = asyncHandler(async (req, res) => {
   if (!req.user) {

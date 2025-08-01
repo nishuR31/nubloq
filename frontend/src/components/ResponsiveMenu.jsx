@@ -1,6 +1,5 @@
 import React from 'react'
-import { FaUserCircle,FaHeart } from "react-icons/fa";
-import { FaChevronRight } from 'react-icons/fa6';
+import { CircleUserRound,Heart,ChevronsRight } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import UserLogo from "../assets/user.jpg"
@@ -20,7 +19,7 @@ const ResponsiveMenu = ({ openNav, setOpenNav, logoutHandler }) => {
                     {
                         user ? <Avatar className="w-14 h-14">
                         <AvatarImage src={user.photoUrl} size={50} />
-                      </Avatar> : <FaUserCircle size={50} className='' />
+                      </Avatar> : <CircleUserRound size={50} className='' />
                     }
                     
                     <div>
@@ -42,7 +41,7 @@ const ResponsiveMenu = ({ openNav, setOpenNav, logoutHandler }) => {
             </div>
             <div className='pb-20'>
                 <h1>
-                    Made with <FaHeart/> by Nishan
+                    Made with <Heart/> by Nishan
                 </h1>
             </div>
         </div>

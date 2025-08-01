@@ -3,7 +3,8 @@ import {Link} from "react-router-dom"
 import {Button} from "../components/ui/button"
 const CodeOfConduct = () => {
   return (
-    <div className="animate-slideInLeft py-[70px] px-5 text-justify transition-all delay-3000 ease-in-out bg-cover bg-no-repeat dark:bg-right bg-fixed dark:bg-cover h-fit  bg-contact-light dark:bg-contact-dark">
+<div className="flex flex-col animate-slideInLeft py-[70px] px-5 text-justify  transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover min-h-content bg-wave dark:bg-blackWave w-full mx-auto p-6 text-gray-800 dark:text-gray-200">
+
       <h1 className="text-3xl text-center font-bold mb-4">Code of Conduct</h1>
 
       <h2 className="text-2xl font-semibold mt-6 mb-2">Our Pledge</h2>
@@ -43,7 +44,7 @@ const CodeOfConduct = () => {
         <p>Email : <a href="mailto:bloggernishu31@example.com" className="underline hover:text-blue-500">bloggernishu31@example.com</a></p>
       </div>
       <br />
-        <div className=""><Link to="/" className=""><Button variant="outline" className="w-full">Home</Button></Link></div>
+        <div className=""><Link to="/" className=""><Button variant="ghost" className="w-full">Home</Button></Link></div>
     </div>
   );
 };

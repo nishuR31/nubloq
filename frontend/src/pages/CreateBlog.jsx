@@ -18,15 +18,17 @@ import React, { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate,Link } from "react-router-dom";
 import { toast } from "sonner";
-import img from "../assets/blog.png"
-import img1 from "../assets/blog1.png"
-import img2 from "../assets/blog2.png"
-import img3 from "../assets/blogL.avif"
-import img4 from "../assets/blogsLight.webp"
-import img5 from "../assets/blogsDark.png"
-import img6 from "../assets/blog-about.webp"
-import img7 from "../assets/LMS.png"
+import img from "../assets/keyboard.jpg"
+import img1 from "../assets/laptopWrite.jpg"
+import img2 from "../assets/LMS.png"
+import img3 from "../assets/pen.jpg"
+import img4 from "../assets/svg.png"
+import img5 from "../assets/svg2.png"
+import img6 from "../assets/typingLaptop2.avif"
+import img7 from "../assets/typingLaptop.avif"
+const api = import.meta.env.VITE_URL;
 
+console.log(api)
 
 const CreateBlog = () => {
 
@@ -51,6 +53,7 @@ useEffect(()=>{
     try {
       setLoading(true);
       const res = await axios.post(
+        // `${api}/blog/create`,
         `http://localhost:4000/api/v1/blog/create`,
         { title: title },
         {
@@ -80,8 +83,8 @@ useEffect(()=>{
   };
 
   return (
-    <div className="animate-slideInLeft flex justify-center p-4  h-screen pt-20">
-      <Card className="md:p-10 p-4 dark:bg-gray-800">
+    <div className="animate-slideInLeft flex justify-center p-4 bg-transparent backdrop-blur-sm  pt-20">
+      <Card className="md:p-10 p-4 bg-transparent ">
         <h1 className="text-2xl font-bold">Lets create blog</h1>
         <p>Let others get insights from your knowledge and experience.</p>
         <div className="mt-10 ">
@@ -92,7 +95,7 @@ useEffect(()=>{
               placeholder="Your Blog Name"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-white dark:bg-gray-700"
+              className="bg-transparent"
             />
           </div>
           {/* <div className="mt-4 mb-5">

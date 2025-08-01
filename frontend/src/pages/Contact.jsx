@@ -6,6 +6,9 @@ import { toast } from "sonner";
 import axios from "axios";
 
 import { useNavigate, Link } from "react-router-dom";
+const api = import.meta.env.VITE_URL;
+
+
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const Contact = () => {
@@ -37,7 +40,8 @@ const Contact = () => {
 
     try {
       const res = await axios.post(
-        "http://localhost:4000/api/v1/user/contact",
+        // "http://localhost:4000/api/v1/user/contact",
+        `${api}/user/contact`,
         form,
         {
           headers: {
@@ -60,7 +64,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="animate-slideInLeft py-10 transition-all delay-3000 ease-in-out justify-center flex bg-cover bg-no-repeat dark:bg-center dark:bg-cover h-screen bg-contact-light dark:bg-contact-dark ">
+<div className="flex flex-col animate-slideInLeft py-10 px-5 text-justify  transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover min-h-screen bg-wave dark:bg-blackWave w-full mx-auto p-6 text-gray-800 dark:text-gray-200">
       <div className="mt-10 bg-transparent backdrop-blur-md max-w-screen px-10 mx-auto outline outline-1 outline-gray-500 dark:outline dark:outline-1 rounded-lg dark:outline-gray-500  bg-gray-300 flex flex-col md:flex-row items-center gap-5">
         <div className="flex-1 w-full max-w-xl">
           <h2 className=" pt-10 text-4xl font-bold mb-6  animate-bounce text-center">
@@ -98,9 +102,9 @@ const Contact = () => {
               className="dark:border-gray-700 "
             />
             <Button
-              variant="secondary"
+              variant="ghost"
               type="submit"
-              className="text-lg w-full"
+              className="my-2 text-lg w-full"
             >
               Send Message
             </Button>
@@ -109,7 +113,7 @@ const Contact = () => {
               <Button
                 variant="ghost"
                 type="button"
-                className="mt-2 text-lg w-full"
+                className="my-2 text-lg w-full"
               >
                 Home
               </Button>

@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import userLogo from "../assets/user.jpg";
-import { FaFacebook, FaLinkedin, FaGithub, FaInstagram } from "react-icons/fa";
+import { Facebook, Linkedin, Github, Instagram } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import {
   Dialog,
@@ -23,6 +23,10 @@ import { toast } from "sonner";
 import { setUser } from "@/redux/authSlice";
 import TotalProperty from "@/components/TotalProperty";
 import capitalize from "@/components/capitalize";
+const api = import.meta.env.VITE_URL;
+
+
+
 
 const TextInput = ({ label, name, value, onChange, placeholder }) => (
   <div>
@@ -52,6 +56,8 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
   const { user } = useSelector((store) => store.auth);
   const { theme } = useSelector((state) => state.theme);
+
+let [currentUser,setCurrentUser]=useState()
 
   const [input, setInput] = useState({
     firstName: "",
@@ -118,7 +124,9 @@ const Profile = () => {
     };
 
     try {
+      // `${api}/user/profile/update`,
       const res = await axios.put(
+        // `${api}/user/profile/update`,
         `http://localhost:4000/api/v1/user/profile/update`,
         payload,
         {
@@ -143,9 +151,9 @@ const Profile = () => {
   };
 
   return (
-    <div className="animate-slideInLeft md:h-fit pt-20 md:ml-[320px]  bg-gray-200 dark:bg-gray-700">
-      <div className="max-w-6xl mx-auto mt-8 ">
-        <Card className=" flex md:flex-row flex-col gap-10 p-6 md:p-10 dark:bg-gray-800  mx-4 md:mx-0 bg-[#D0D0DD]">
+    <div className="animate-slideInLeft min-h-screen pt-6 md:ml-[250px] transition-all delay-2000 ease-in   bg-fixed bg-no-repeat bg-cover  bg-wave dark:bg-blackWave">
+      <div className="min-w-full mx-auto mt-8 ">
+        <Card className=" flex md:flex-row flex-col gap-10 p-6 md:p-10 bg-transparent backdrop-blur-sm  mx-4 md:mx-0 ">
           <div className="flex flex-col items-center justify-center md:w-[400px]">
             <Avatar className="w-40 h-40 border-2 rounded-full outline outline-1 outline-gray-1">
               <AvatarImage
@@ -164,22 +172,22 @@ const Profile = () => {
             <div className="flex gap-4 items-center">
               {user?.facebook && (
                 <Link to={user.facebook} target="_blank">
-                  <FaFacebook className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Facebook className="w-6 h-6 text-gray-800 dark:text-gray-300" />
                 </Link>
               )}
               {user?.linkedin && (
                 <Link to={user.linkedin} target="_blank">
-                  <FaLinkedin className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Linkedin className="w-6 h-6 text-gray-800 dark:text-gray-300" />
                 </Link>
               )}
               {user?.github && (
                 <Link to={user.github} target="_blank">
-                  <FaGithub className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Github className="w-6 h-6 text-gray-800 dark:text-gray-300" />
                 </Link>
               )}
               {user?.instagram && (
                 <Link to={user.instagram} target="_blank">
-                  <FaInstagram className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Instagram className="w-6 h-6 text-gray-800 dark:text-gray-300" />
                 </Link>
               )}
             </div>

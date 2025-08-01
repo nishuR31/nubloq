@@ -4,7 +4,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "backend": "npx nodemon ./config/server.js"
+    "backend": "npx nodemon server.js"
   },
   "keywords": [],
   "author": "",

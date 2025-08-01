@@ -4,8 +4,12 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
+import  {Link} from "react-router-dom"
 import { toast } from "sonner";
 import axios from "axios";
+const api = import.meta.env.VITE_URL;
+
+
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
@@ -20,6 +24,7 @@ const ForgotPassword = () => {
     console.log("email:", email);
     try {
       const res = await axios.post(
+        // `${api}/forgot/send-otp`,
         "http://localhost:4000/api/v1/forgot/send-otp",
         { email: email },
         {
@@ -42,6 +47,7 @@ const ForgotPassword = () => {
   const verifyOtpHandler = async () => {
     try {
       const res = await axios.post(
+        // `${api}/forgot/verify-otp`,
         "http://localhost:4000/api/v1/forgot/verify-otp",
         { email, otp }
       );
@@ -59,6 +65,7 @@ const ForgotPassword = () => {
     try {
       const res = await axios.post(
         "http://localhost:4000/api/v1/forgot/reset-password",
+        // `${api}/forgot/reset-password`,
         {
           email,
           password,
@@ -75,7 +82,7 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-light dark:bg-dark">
+    <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-login-light dark:bg-login-dark">
       <div className="flex justify-center items-center flex-1 px-4 md:px-0">
         <Card className="bg-transparent w-full max-w-md p-6 shadow-lg rounded-2xl  dark:border-gray-600 backdrop-blur-sm">
           <CardHeader>
@@ -95,11 +102,32 @@ const ForgotPassword = () => {
                   placeholder="Enter your registered email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 bg-transparent"
                 />
                 <Button className="w-full mt-2" onClick={sendOtpHandler}>
                   Send OTP
                 </Button>
+                <div className="flex flex-wrap flex-row justify-between pt-1">
+                  
+                  <p className="text-center text-gray-300">
+                  {" "}
+                  <Link to={"/login"}>
+                    <span className="underline cursor-pointer text-gray-300">
+                      Remember Password?
+                    </span>
+                  </Link>
+                </p>
+                <p className="text-center text-gray-300">
+                  {" "}
+                  <Link to={"/signup"}>
+                    <span className="underline cursor-pointer text-gray-300">
+                      New user?
+                    </span>
+                  </Link>
+                </p>
+                
+                
+                </div>
               </div>
 
               {otpSent && !verified && (

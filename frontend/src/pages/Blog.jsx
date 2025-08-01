@@ -5,6 +5,9 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { setBlog } from '@/redux/blogSlice'
 
+const api = import.meta.env.VITE_URL;
+
+
 export const blogJson = [
     {
         "id": 1,
@@ -65,6 +68,7 @@ const Blog = () => {
     useEffect(() => {
         const getAllBlogs = async () => {
             try {
+                // const res = await axios.get(`${api}/blog/get-all-blogs`, { withCredentials: true });
                 const res = await axios.get(`http://localhost:4000/api/v1/blog/get-all-blogs`, { withCredentials: true });
 
                 const fetchedBlogs = res.data?.payload?.blogs || [];
@@ -83,7 +87,7 @@ const Blog = () => {
     }, [dispatch]);
 
     return (
-        <div className="animate-slideInLeft transition-all delay-3000 ease-in-out pt-16 bg-blogs-light  dark:invert-0  dark:bg-blogs-dark  bg-fixed bg-no-repeat bg-center bg-cover">
+        <div className="animate-slideInLeft transition-all delay-3000 ease-in-out pt-16 bg-transparent">
             <div className='max-w-6xl mx-auto text-center flex flex-col space-y-4 items-center'>
                 <h1 className='text-4xl font-bold text-center pt-10 '>Our Blogs</h1>
                 <hr className=' w-24 text-center border-2 border-red-500 rounded-full' />

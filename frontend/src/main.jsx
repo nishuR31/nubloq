@@ -8,7 +8,6 @@ import store from "./redux/Store";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import ThemeProvider from "./components/ThemeProvider";
-// import "../../backend/utils/config.env";
 
 const persistor = persistStore(store);
 

@@ -9,7 +9,9 @@ import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "@/redux/authSlice";
-import auth from "../assets/auth.jpg";
+const api = import.meta.env.VITE_URL;
+
+
 
 const Login = () => {
   const navigate = useNavigate();
@@ -44,6 +46,7 @@ const Login = () => {
     try {
       const response = await axios.post(
         `http://localhost:4000/api/v1/user/login`,
+        // `${api}/user/login`,
         input,
         {
           headers: {
@@ -67,7 +70,7 @@ const Login = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="animate-slideInLeft flex items-center h-screen md:pt-14 md:h-[760px] bg-light dark:bg-dark ">
+    <div className="animate-slideInLeft flex items-center h-screen md:pt-14 md:h-[760px] bg-login-light dark:bg-login-dark ">
       <div className="flex justify-center items-center flex-1 px-4 md:px-0">
         <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl  dark:border-gray-600 bg-transparent backdrop-blur-sm ">
           <CardHeader>

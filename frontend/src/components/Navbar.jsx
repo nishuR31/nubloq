@@ -12,8 +12,8 @@ import { toast } from "sonner";
 import axios from "axios";
 import { setUser } from "@/redux/authSlice";
 import userLogo from "../assets/user.jpg";
-import { HiMenuAlt1, HiMenuAlt3 } from "react-icons/hi";
 import {
+  Menu,
   ChartColumnBig,
   Cloud,
   CreditCard,
@@ -31,6 +31,7 @@ import {
   User,
   UserPlus,
   Users,
+  Sun,Moon,MessageCircle ,Pencil
 } from "lucide-react";
 
 import {
@@ -43,10 +44,12 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FaEdit, FaMoon, FaRegEdit, FaSun } from "react-icons/fa";
 import { toggleTheme } from "@/redux/themeSlice";
-import { LiaCommentSolid } from "react-icons/lia";
 import ResponsiveMenu from "./ResponsiveMenu";
+const api = import.meta.env.VITE_URL;
+
+
+
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
@@ -60,6 +63,7 @@ const Navbar = () => {
   const logoutHandler = async (e) => {
     try {
       const res = await axios.get(`http://localhost:4000/api/v1/user/logout`, {
+      // const res = await axios.get(`${api}/user/logout`, {
         withCredentials: true,
       });
       if (res.data.success) {
@@ -138,7 +142,7 @@ const Navbar = () => {
           </ul>
           <div className="flex">
             <Button onClick={() => dispatch(toggleTheme())} className="">
-              {theme === "light" ? <FaMoon /> : <FaSun />}
+              {theme === "light" ? <Moon /> : <Sun />}
             </Button>
             {user ? (
               <div className="flex items-center gap-3 ml-7 ">
@@ -171,12 +175,12 @@ const Navbar = () => {
                       <DropdownMenuItem
                         onClick={() => navigate("/dashboard/comments")}
                       >
-                        <LiaCommentSolid />
+                        <MessageCircle  />
                         <span>Comments</span>
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => navigate("/write-blog")}>
-                        <FaRegEdit />
+                        <Pencil />
                         <span>Write Blog</span>
                         <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
                       </DropdownMenuItem>
@@ -207,9 +211,9 @@ const Navbar = () => {
             )}
           </div>
           {openNav ? (
-            <HiMenuAlt3 onClick={toggleNav} className="w-7 h-7 md:hidden" />
+            <Menu onClick={toggleNav} className="w-7 h-7 md:hidden" />
           ) : (
-            <HiMenuAlt1 onClick={toggleNav} className="w-7 h-7 md:hidden" />
+            <Menu onClick={toggleNav} className="w-7 h-7 md:hidden" />
           )}
         </nav>
         <ResponsiveMenu
