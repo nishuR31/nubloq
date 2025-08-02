@@ -188,8 +188,18 @@ export const login = asyncHandler(async (req, res) => {
   user.refreshToken = refreshToken;
   await user.save();
 
-  res.cookie("accessToken", accessToken, tokenOptions("access"));
-  res.cookie("refreshToken", refreshToken, tokenOptions("refresh"));
+  res.cookie("accessToken", accessToken, {    httpOnly: true, 
+    secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
+    sameSite: "None", // ✅ Needed for cross-site cookies
+    path: "/", // ✅ Required to be available across the app
+    maxAge: 1000 * 60 * 60 * 24 * 1});
+  // res.cookie("accessToken", accessToken, tokenOptions("access"));
+  res.cookie("refreshToken", refreshToken, {    httpOnly: true, 
+    secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
+    sameSite: "None", // ✅ Needed for cross-site cookies
+    path: "/", // ✅ Required to be available across the app
+    maxAge: 1000 * 60 * 60 * 24 * 1});
+  // res.cookie("refreshToken", refreshToken, tokenOptions("refresh"));
 
   return res.status(codes.ok).json(
     new ApiResponse(
