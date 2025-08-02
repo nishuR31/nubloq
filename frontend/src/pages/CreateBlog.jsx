@@ -14,31 +14,33 @@ import {
 import { setBlog } from "@/redux/blogSlice";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate,Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { toast } from "sonner";
-import img from "../assets/keyboard.jpg"
-import img1 from "../assets/laptopWrite.jpg"
-import img2 from "../assets/LMS.png"
-import img3 from "../assets/pen.jpg"
-import img4 from "../assets/svg.png"
-import img5 from "../assets/svg2.png"
-import img6 from "../assets/typingLaptop2.avif"
-import img7 from "../assets/typingLaptop.avif"
+import img from "../assets/keyboard.jpg";
+import img1 from "../assets/laptopWrite.jpg";
+import img2 from "../assets/LMS.png";
+import img3 from "../assets/pen.jpg";
+import img4 from "../assets/svg.png";
+import img5 from "../assets/svg2.png";
+import img6 from "../assets/typingLaptop2.avif";
+import img7 from "../assets/typingLaptop.avif";
 const api = import.meta.env.VITE_URL;
 
 // console.log(api)
 
 const CreateBlog = () => {
-
-  let imgArr=[img,img1,img2,img3,img4,img5,img6,img7]
-let [imgs,setImgs]=useState(imgArr[0]);
-useEffect(()=>{
-  let i=1;
-  let interval=setInterval(()=>{setImgs(imgArr[i%imgArr.length]);i++;},2000);
-  return ()=>clearInterval(interval)
-},[])
+  let imgArr = [img, img1, img2, img3, img4, img5, img6, img7];
+  let [imgs, setImgs] = useState(imgArr[0]);
+  useEffect(() => {
+    let i = 1;
+    let interval = setInterval(() => {
+      setImgs(imgArr[i % imgArr.length]);
+      i++;
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
 
   const [loading, setLoading] = useState(false);
   const [title, setTitle] = useState("");
@@ -52,8 +54,8 @@ useEffect(()=>{
   const createBlogHandler = async () => {
     try {
       setLoading(true);
+      // `http://localhost:4000/api/v1/blog/create`,
       const res = await axios.post(
-        // `http://localhost:4000/api/v1/blog/create`,
         `${api}/blog/create`,
         { title: title },
         {
@@ -128,7 +130,9 @@ useEffect(()=>{
             </Select>
           </div> */}
           <div className="flex gap-2 mt-3 align-center items-center justify-center">
-            <Link to="/"><Button  variant="outline">Cancel</Button></Link>
+            <Link to="/">
+              <Button variant="outline">Cancel</Button>
+            </Link>
             <Button className="" disabled={loading} onClick={createBlogHandler}>
               {loading ? (
                 <>
@@ -140,7 +144,9 @@ useEffect(()=>{
               )}
             </Button>
           </div>
-          <div className="mt-5 h-[300px] w-[500px]  flex justify-center rounded-lg animate-slideInLeft"><img src={imgs} className="object-fit rounded-lg" /></div>
+          <div className="mt-5 h-[300px] w-[500px]  flex justify-center rounded-lg animate-slideInLeft">
+            <img src={imgs} className="object-fit rounded-lg" />
+          </div>
         </div>
       </Card>
     </div>
