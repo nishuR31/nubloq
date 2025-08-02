@@ -23,12 +23,12 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cookieParser());
-app.use(cookieParser()); // required
+// app.use(cookieParser()); // required
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: "https://nishu-blogs.vercel.app",
+    origin: ["https://nishu-blogs.vercel.app"],
     credentials: true,
   })
 );
@@ -56,9 +56,9 @@ app.use(`${baseRoute}forgot`, forgotRoute);
 
 app.use(express.static(path.join(_dirname, `/frontend`)));
 
-app.get("/{*splat}", (_, res) => {
-  res.sendFile(path.resolve(_dirname, "frontend", "index.html"));
-});
+// app.get("/{*splat}", (_, res) => {
+//   res.sendFile(path.resolve(_dirname, "frontend", "index.html"));
+// });
 // app.get("/{*splat}", (_, res) => {
 //   res.sendFile(path.resolve(_dirname, "frontend", "dist", "index.html"));
 // });

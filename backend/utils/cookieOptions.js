@@ -1,6 +1,6 @@
 export default function cookieOptions(type = "access") {
   return {
-    httpOnly: true,
+    httpOnly: false,
     secure: true,
     sameSite: "None",
     path: "/",  

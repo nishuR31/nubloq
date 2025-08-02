@@ -283,7 +283,7 @@ export const logout = asyncHandler(async (req, res) => {
 
   for (let cookie in req.cookies) {
     res.clearCookie(cookie, {
-      httpOnly: true,
+      httpOnly: false,
       secure: true,
       sameSite: "None",
     });
