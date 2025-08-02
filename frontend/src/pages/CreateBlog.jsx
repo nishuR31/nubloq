@@ -28,7 +28,7 @@ import img6 from "../assets/typingLaptop2.avif"
 import img7 from "../assets/typingLaptop.avif"
 const api = import.meta.env.VITE_URL;
 
-console.log(api)
+// console.log(api)
 
 const CreateBlog = () => {
 
@@ -53,8 +53,8 @@ useEffect(()=>{
     try {
       setLoading(true);
       const res = await axios.post(
-        `${api}/blog/create`,
         // `http://localhost:4000/api/v1/blog/create`,
+        `${api}/blog/create`,
         { title: title },
         {
           headers: {
