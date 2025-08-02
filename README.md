@@ -1,8 +1,8 @@
-# **BlogPaglu** — A Blogging Web App
+# **Nishu Blogs** — A Blogging Web App
 
-Welcome to **BlogPaglu**, a dynamic, full-featured blogging platform built using modern web technologies like **React**, **Node.js**, **Express**, and **MongoDB**. Designed for self-expression and storytelling, BlogPaglu enables users to publish, manage, and explore rich content through a sleek, minimal interface.
+Welcome to **Nishu Blogs**, a dynamic, full-featured blogging platform built using modern web technologies like **React**, **Node.js**, **Express**, **Redux**, and **MongoDB**. Designed for self-expression and storytelling, enables users to publish, manage, and explore rich content through a sleek, minimal interface.
 
-![BlogPaglu banner](https://dummyimage.com/1200x300/000/fff&text=BlogPaglu+-+Our+Personal+Blogging+Platform)
+[![Nishu Blogs banner](https://dummyimage.com/1200x300/000/fff&text=Nishu-Blogs+-+Our+Personal+Blogging+Platform)](https://nishu-blogs.vercel.app)
 
 <br />
 <br />
@@ -31,7 +31,13 @@ Welcome to **BlogPaglu**, a dynamic, full-featured blogging platform built using
   Aesthetic blur effects for modern and clean UI across the site.
 
 -  **Vite-Powered Frontend**  
-  Ultra-fast React development using **Vite**, styled with **Tailwind CSS**.
+  Ultra-fast React development using **Vite**, **HTML**, styled with **Tailwind CSS**.
+
+-  **Render-deploy Node server**  
+  Secure strong server hosted on render with **Express**, **Mongoose** and other configs.
+
+-  **Picture upload enabled**  
+  Ability to upload pics for cover photo and user profile.
 
 <br />
 <br /> 
@@ -47,15 +53,17 @@ Welcome to **BlogPaglu**, a dynamic, full-featured blogging platform built using
 | Media       |  ![Cloudinary](https://img.shields.io/badge/Cloudinary-000000?style=flat&color=3448C5&logo=cloudinary&logoColor=white)    |
 | State Mgmt  | ![React Context](https://img.shields.io/badge/React%20Context-000000?style=flat&color=61DAFB&logo=react&logoColor=white) ![React Router](https://img.shields.io/badge/React%20Router-000000?style=flat&color=CA4245&logo=reactrouter&logoColor=white) ![Redux](https://img.shields.io/badge/Redux-000000?style=flat&color=764ABC&logo=redux&logoColor=white) |
 | UI/UX       | Glassmorphism + Responsive design |
-| Deployment  | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&color=000000&logo=vercel&logoColor=white), [Suggest: **Render**, **Railway**, or **Fly.io** for Backend] |
+| Deployment  | ![Vercel](https://img.shields.io/badge/Vercel-000000?style=flat&color=000000&logo=vercel&logoColor=white)  ![Render](https://img.shields.io/badge/Render-000000?style=flat&color=000000&logo=render&logoColor=white) |
 
 <br />
 <br />
 
 ##  Live Demo
 
->_Deployment in progress..._  
-Will be live soon via **Vercel** for the frontend and **[your chosen backend host]** for the API.
+>_Deployment in finally done.....
+Project is live on **Vercel** for the frontend and **Render** for the API.
+
+[![Nishu Blogs banner](https://dummyimage.com/1200x300/000/fff&text=Nishu-Blogs)](https://nishu-blogs.vercel.app)
 
 <br />
 <br />
@@ -96,11 +104,25 @@ Will be live soon via **Vercel** for the frontend and **[your chosen backend hos
 
 ##  Screenshots
 
-_Add screenshots here once deployed. Consider uploading to Cloudinary or GitHub's issue attachments for permanent URLs._
+<details>
+  <summary>Home or Landing Page</summary>
+<img src="https://drive.google.com/uc?export=view&id=1qu-BTjlSveBjNkV5U13X8C1STjfBDvpu" width="500"/>
+  <p><strong>Description:</strong> This is how the blog layout appears.</p>
+</details>
+<details>
+  
+  <summary>Simple Signup Page</summary>
+<img src="https://drive.google.com/uc?export=view&id=1mA-0rZ8Q9tJgQqRwPrE07XHK0wN8J6-j" width="500"/>
+  <p><strong>Description:</strong> This is how the blog layout appears.</p>
+</details>
+<details>
+  <summary>About Section</summary>
+<img src="https://drive.google.com/uc?export=view&id=1UEcJinyUIiYl96Mbwd36lWrdO49V6T9Z" width="500"/>
+  <p><strong>Description:</strong> This is how the blog layout appears.</p>
+</details>
 
 <br />
 <br />
-
 
 ##  Future Plans
 
