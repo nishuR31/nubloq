@@ -93,7 +93,7 @@ const Navbar = () => {
   };
   return (
     <div className="fixed z-50 w-full py-2 bg-transparent border-2 rounded-lg dark:border-b-gray-600 backdrop-blur-sm border-b-gray-300">
-      <div className="flex items-center justify-between max-w-5xl mx-auto ">
+      <div className="flex items-center justify-between mx-auto max-w-8xl ">
         {/* logo section */}
         <div className="flex items-center gap-7">
           <Link to={"/"}>
@@ -155,7 +155,10 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button>Theme</Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent>
+                <DropdownMenuContent
+                  className="w-32 rounded-md shadow-lg border border-gray-400 bg-[var(--color-bg)] text-[var(--color-text)] backdrop-blur-lg transition-all duration-200"
+                  align="end"
+                >
                   {["light", "dark", "cyan", "red", "yellow", "magenta"].map(
                     (mode) => (
                       <DropdownMenuItem

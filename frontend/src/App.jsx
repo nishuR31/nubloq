@@ -185,7 +185,7 @@ const App = () => {
             </>
           }
         />
-        <Route path="/contact" element={<Contact />} /> 
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="/about"
           element={
@@ -210,8 +210,8 @@ const App = () => {
               </div>
             </>
           }
-        /> 
-         <Route
+        />
+        <Route
           path="/search"
           element={
             <>
@@ -229,8 +229,8 @@ const App = () => {
               <BlogView />
             </>
           }
-        /> 
-         <Route
+        />
+        <Route
           path="/write-blog"
           element={
             <>
@@ -241,8 +241,8 @@ const App = () => {
               </div>
             </>
           }
-        /> 
-         <Route
+        />
+        <Route
           path="/profile"
           element={
             <>
@@ -254,7 +254,7 @@ const App = () => {
         />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/forgot" element={<Forgot />} /> */}
+        <Route path="/forgot" element={<Forgot />} />
 
         {/* Dashboard Nested Routes */}
         <Route
@@ -265,7 +265,7 @@ const App = () => {
             </ProtectedRoute>
           }
         >
-        <Route
+          <Route
             path="write-blog/:blogId"
             element={
               <ProtectedRoute>
@@ -273,7 +273,7 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-         <Route
+          <Route
             path="your-blog"
             element={
               <ProtectedRoute>
@@ -285,7 +285,7 @@ const App = () => {
           />
           <Route path="comments" element={<Comments />} />
           <Route path="profile" element={<Profile />} />
-        </Route> 
+        </Route>
 
         {/* Catch All */}
         <Route path="*" element={<Error />} />
