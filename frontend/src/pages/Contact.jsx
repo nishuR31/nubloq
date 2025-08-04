@@ -1,19 +1,19 @@
 import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "../components/ui/button";
+import { Input } from "../components/ui/input";
+import { Textarea } from "../components/ui/textarea";
 import { toast } from "sonner";
 import axios from "axios";
+import "../index.css";
+
 
 import { useNavigate, Link } from "react-router-dom";
 const api = import.meta.env.VITE_URL;
 
-
-
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const Contact = () => {
   let navigate = useNavigate();
-  const [mail,setMail]=useState("")
+  const [mail, setMail] = useState("");
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -52,9 +52,9 @@ const Contact = () => {
       );
 
       if (res.data.success) {
-        setMail(form.email)
+        setMail(form.email);
         console.log(mail);
-        
+
         toast.success("Mail sent successfully to our dev team!");
         const con = await axios.post(
           `${api}/user/confirmation`,
@@ -66,9 +66,10 @@ const Contact = () => {
             withCredentials: true,
           }
         );
-        if (con.data.success){
-        toast.success("Don't forget to check your spams later.");
-        setForm({ name: "", email: "", message: "" });}
+        if (con.data.success) {
+          toast.success("Don't forget to check your spams later.");
+          setForm({ name: "", email: "", message: "" });
+        }
       } else {
         toast.error("Failed to send mail.");
       }
@@ -79,13 +80,13 @@ const Contact = () => {
   };
 
   return (
-<div className="flex flex-col animate-slideInLeft py-10 px-5 text-justify  transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover min-h-screen bg-wave dark:bg-blackWave w-full mx-auto p-6 text-gray-800 dark:text-gray-200">
-      <div className="mt-10 bg-transparent backdrop-blur-md max-w-screen px-10 mx-auto outline outline-1 outline-gray-500 dark:outline dark:outline-1 rounded-lg dark:outline-gray-500  bg-gray-300 flex flex-col md:flex-row items-center gap-5">
+    <div className="flex flex-col w-full min-h-screen p-6 px-5 py-10 mx-auto text-justify text-gray-800 transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-3000 dark:bg-left dark:bg-cover bg-wave dark:bg-blackWave dark:text-gray-200">
+      <div className="flex flex-col items-center gap-5 px-10 mx-auto mt-10 bg-transparent bg-gray-300 rounded-lg backdrop-blur-md max-w-screen outline outline-1 outline-gray-500 dark:outline dark:outline-1 dark:outline-gray-500 md:flex-row">
         <div className="flex-1 w-full max-w-xl">
-          <h2 className=" pt-10 text-4xl font-bold mb-6  animate-bounce text-center">
+          <h2 className="pt-10 mb-6 text-4xl font-bold text-center animate-bounce">
             Get in Touch
           </h2>
-          <p className="text-lg opacity-80 mb-6">
+          <p className="mb-6 text-lg opacity-80">
             We'd love to hear from you! Whether you have a question about our
             content, want to collaborate, or just want to say hi — drop us a
             message and we'll get back to you.
@@ -119,21 +120,21 @@ const Contact = () => {
             <Button
               variant="ghost"
               type="submit"
-              className="my-2 text-lg w-full"
+              className="w-full my-2 text-lg"
             >
               Send Message
             </Button>
- 
+
             <Link to="/">
               <Button
                 variant="ghost"
                 type="button"
-                className="my-2 text-lg w-full"
+                className="w-full my-2 text-lg"
               >
                 Home
               </Button>
             </Link>
-            {/* <Link to="/"><Button variant="default" type="button" onClick={()=>{navigate("/")}} className="text-lg w-full">
+            {/* <Link to="/"><Button variant="default" type="button" onClick={()=>{navigate("/")}} className="w-full text-lg">
             Home
             </Button></Link> */}
           </form>

@@ -112,7 +112,7 @@
 
 // export default App
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
@@ -138,26 +138,26 @@ import SearchList from "./pages/SearchList";
 import Faqs from "./pages/Faqs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CodeOfConduct from "./pages/CodeOfConduct";
-import blackWave from "./assets/blackWave.jpg"
-import homePage from "./assets/homePage.webp"
-import pen from "./assets/pen.jpg"
+import blackWave from "./assets/blackWave.jpg";
+import homePage from "./assets/homePage.webp";
+import pen from "./assets/pen.jpg";
+import "./index.css";
 
 const App = () => {
-
- 
-
   return (
-    <Router >
+    <Router>
       <Navbar />
 
       <Routes>
-        <Route  
+        <Route
           path="/"
           element={
-            <><div className="transition-all delay-3000 ease-in-out min-h-screen  bg-fixed bg-no-repeat  bg-center" style={{backgroundImage:`url(${homePage})`}}>
-            {/* <><div className="transition-all delay-3000 ease-in-out min-h-screen bg-home-light dark:bg-home-dark bg-fixed bg-no-repeat  bg-bottom dark:bg-center"> */}
-              <Home  />
-              <Footer /></div>
+            <>
+              <div className="min-h-screen transition-all ease-in-out bg-fixed bg-center bg-no-repeat delay-3000">
+                {/* <><div className="min-h-screen transition-all ease-in-out bg-fixed bg-bottom bg-no-repeat delay-3000 bg-home-light dark:bg-home-dark dark:bg-center"> */}
+                <Home />
+                <Footer />
+              </div>
             </>
           }
         />
@@ -185,14 +185,17 @@ const App = () => {
             </>
           }
         />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/contact" element={<Contact />} /> 
         <Route
           path="/about"
           element={
             <>
-              <div className={` transition-all delay-2000 ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top   bg-center`} style={{ backgroundImage:`url(${pen})`}}>
-              <About />
-              <Footer  />
+              <div
+                className={` transition-all delay-2000 ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top   bg-center`}
+                style={{ backgroundImage: `url(${pen})` }}
+              >
+                <About />
+                <Footer />
               </div>
             </>
           }
@@ -201,21 +204,21 @@ const App = () => {
           path="/blogs"
           element={
             <>
-        <div className="animate-slideInLeft transition-all delay-2000 ease-in-out pt-16 bg-blogs-light dark:bg-blogs-dark min-h-screen bg-fixed bg-no-repeat bg-center bg-cover">
-              <Blog />
-              <Footer />
-        </div>
+              <div className="min-h-screen pt-16 transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-blogs-light dark:bg-blogs-dark">
+                <Blog />
+                <Footer />
+              </div>
             </>
           }
-        />
-        <Route 
+        /> 
+         <Route
           path="/search"
           element={
-            <> 
-              <div className="animate-slideInLeft transition-all delay-2000 ease-in-out pt-16 bg-blogs-light dark:bg-blogs-dark  bg-fixed bg-no-repeat bg-center bg-cover">
-
-              <SearchList />
-              <Footer /></div>
+            <>
+              <div className="pt-16 transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-blogs-light dark:bg-blogs-dark">
+                <SearchList />
+                <Footer />
+              </div>
             </>
           }
         />
@@ -226,32 +229,32 @@ const App = () => {
               <BlogView />
             </>
           }
-        />
-        <Route
+        /> 
+         <Route
           path="/write-blog"
           element={
             <>
-        <div className="animate-slideInLeft transition-all delay-2000 ease-in-out pt-16 bg-blogs-light dark:bg-blogs-dark min-h-screen  bg-fixed bg-no-repeat bg-center bg-cover">
-            <ProtectedRoute>
-              <CreateBlog />
-            </ProtectedRoute>
-            </div>
+              <div className="min-h-screen pt-16 transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-blogs-light dark:bg-blogs-dark">
+                <ProtectedRoute>
+                  <CreateBlog />
+                </ProtectedRoute>
+              </div>
             </>
           }
-        />
-        <Route
+        /> 
+         <Route
           path="/profile"
           element={
             <>
-            <ProtectedRoute>
-              <Profile />
-            </ProtectedRoute>
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
             </>
           }
         />
         <Route path="/signup" element={<Signup />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/forgot" element={<Forgot />} />
+        <Route path="/forgot" element={<Forgot />} /> */}
 
         {/* Dashboard Nested Routes */}
         <Route
@@ -262,7 +265,7 @@ const App = () => {
             </ProtectedRoute>
           }
         >
-          <Route
+        <Route
             path="write-blog/:blogId"
             element={
               <ProtectedRoute>
@@ -270,18 +273,19 @@ const App = () => {
               </ProtectedRoute>
             }
           />
-          <Route
+         <Route
             path="your-blog"
             element={
               <ProtectedRoute>
-        <div className="animate-slideInLeft transition-all delay-2000 ease-in-out bg-wave dark:bg-blackWave min-h-screen  bg-fixed bg-no-repeat bg-center bg-cover">
-                <YourBlog /></div>
+                <div className="min-h-screen transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-wave dark:bg-blackWave">
+                  <YourBlog />
+                </div>
               </ProtectedRoute>
             }
           />
           <Route path="comments" element={<Comments />} />
           <Route path="profile" element={<Profile />} />
-        </Route>
+        </Route> 
 
         {/* Catch All */}
         <Route path="*" element={<Error />} />

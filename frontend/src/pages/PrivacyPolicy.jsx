@@ -1,30 +1,32 @@
 import React from "react";
 import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
+import "../index.css";
+
 
 export default function PrivacyPolicy() {
   return (
     <>
       <div
-        className="flex flex-col animate-slideInLeft py-10 transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover min-h-content bg-wave dark:bg-blackWave w-full mx-auto p-6 text-gray-800 dark:text-gray-200"
+        className="flex flex-col w-full p-6 py-10 mx-auto text-gray-800 transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-3000 dark:bg-left dark:bg-cover min-h-content bg-wave dark:bg-blackWave dark:text-gray-200"
       >
-        <h1 className="pt-10 text-3xl font-bold mb-4">Privacy Policy</h1>
+        <h1 className="pt-10 mb-4 text-3xl font-bold">Privacy Policy</h1>
         <p className="mb-4">
           Your privacy is important to us. This Privacy Policy explains how
           BlogPaglu collects, uses, and safeguards your personal information.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-6 mb-2">
+        <h2 className="mt-6 mb-2 text-2xl font-semibold">
           Information We Collect
         </h2>
-        <ul className="listdisk list-inside mb-4 pl-10">
+        <ul className="pl-10 mb-4 list-inside listdisk">
           <li>Email address and username (for authentication)</li>
           <li>Blog content you publish</li>
           <li>Profile pictures (stored via Cloudinary)</li>
           <li>Theme preference (dark/light)</li>
         </ul>
 
-        <h2 className="text-2xl font-semibold mt-6 mb-2">
+        <h2 className="mt-6 mb-2 text-2xl font-semibold">
           How We Use Information
         </h2>
         <p className="mb-4">
@@ -33,14 +35,14 @@ export default function PrivacyPolicy() {
           share your data. Where we will sell data to?.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-6 mb-2">Security</h2>
+        <h2 className="mt-6 mb-2 text-2xl font-semibold">Security</h2>
         <p className="mb-4">
           All user data is protected using secure JWT authentication. Passwords
           are hashed. No plain-text sensitive data is stored except bio data
           stuff.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-6 mb-2">
+        <h2 className="mt-6 mb-2 text-2xl font-semibold">
           Third-Party Services
         </h2>
         <p className="mb-4">
@@ -50,14 +52,14 @@ export default function PrivacyPolicy() {
           exposed.
         </p>
 
-        <h2 className="text-2xl font-semibold mt-6 mb-2">
+        <h2 className="mt-6 mb-2 text-2xl font-semibold">
           Changes to This Policy
         </h2>
         <p className="mb-4">
           Any changes will be reflected here. Continued use after updates
           implies consent to those changes.
         </p>
-        <p className="text-xl font-semibold mt-6 mb-2">
+        <p className="mt-6 mb-2 text-xl font-semibold">
           Thank You for using our service.
         </p>
 

@@ -46,6 +46,10 @@ const userSchema = new mongoose.Schema(
       default: "",
       trim: true,
     },
+    bookMark: {
+      type: [String],
+      default: [],
+    },
     refreshToken: { type: String },
     otp: {
       code: { type: String },

@@ -1,10 +1,16 @@
 import React, { useEffect ,useState} from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation } from 'react-router-dom';
 import {toast} from "sonner"
 import error from "../assets/error.jpg"
 import {Button} from "../components/ui/button"
+import "../index.css";
+
+
+
 
 const Error = () => {
+    const location = useLocation();
+
   const navigate = useNavigate();
 let [remaining, setRemaining]=useState(10);
 
@@ -32,7 +38,7 @@ let [remaining, setRemaining]=useState(10);
           <span className="border-t-4 dark:border-[#ff0000] w-[40px] md:w-[60px] rotate-180 block"></span>
         </span>
         rror
-        <span className="dark:text-rose-400  text-5xl md:text-6xl">⚠️</span>
+        <span className="text-5xl dark:text-rose-400 md:text-6xl">⚠️</span>
         4
         <span className="animate-spin" >
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="GEAR" width="70px" height="70px" viewBox="0 0 1800 1800" enable-background="new 0 0 1800 1800" xml:space="preserve">
@@ -52,22 +58,22 @@ let [remaining, setRemaining]=useState(10);
           </svg></span>
         4
       </h1>
-      <p className="mt-4 text-lg md:text-xl text-gray-300">
-        The page you're trying to reach is either invalid or doesn’t exist.
+      <p className="mt-4 text-lg text-gray-300 md:text-xl">
+        The location  you're trying to reach "{location.pathname}" is either invalid or doesn’t exist.
       </p>
-      <p className="mt-2 text-sm md:text-md text-amber-400 font-semibold ">
+      <p className="mt-2 text-sm font-semibold md:text-md text-amber-400 ">
         Redirecting to home in {remaining} seconds...
       </p>
       {/* <button 
       // variant="ghost"
         onClick={() => navigate('/')}
-        className="mt-6 px-6 py-2 rounded-full border border-white text-white hover:bg-white hover:text-black transition-all duration-300"
+        className="px-6 py-2 mt-6 text-white transition-all duration-300 border border-white rounded-full hover:bg-white hover:text-black"
       >
         Go to Home
       </button> */}
       <Button 
         onClick={() => navigate('/')}
-        className="mt-10 outline-1 outline outline-gray-500 bg-transparent  text-white hover:text-black text-white dark:hover:text-black hover:text-white"
+        className="mt-10 text-white bg-transparent outline-1 outline outline-gray-500 hover:text-black dark:hover:text-black hover:text-white"
         size="lg"
       >
         Go to Home

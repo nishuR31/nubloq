@@ -1,17 +1,23 @@
 import { useState, useEffect } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "../components/ui/card";
+import "../index.css";
+
+
+import { Label } from "../components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "@/redux/authSlice";
+import { setUser } from "../redux/authSlice";
 const api = import.meta.env.VITE_URL;
-
-
 
 const Login = () => {
   const navigate = useNavigate();
@@ -71,13 +77,13 @@ const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   return (
     <div className="animate-slideInLeft flex items-center h-screen md:pt-14 md:h-[760px] bg-login-light dark:bg-login-dark ">
-      <div className="flex justify-center items-center flex-1 px-4 md:px-0">
-        <Card className="w-full max-w-md p-6 shadow-lg rounded-2xl  dark:border-gray-600 bg-transparent backdrop-blur-sm ">
+      <div className="flex items-center justify-center flex-1 px-4 md:px-0">
+        <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl dark:border-gray-600 backdrop-blur-sm ">
           <CardHeader>
-            <CardTitle className=" text-center text-xl font-semibold">
+            <CardTitle className="text-xl font-semibold text-center ">
               Login into your account
             </CardTitle>
-            <p className="text-gray-800 dark:text-gray-200 mt-2 text-sm font-serif text-center">
+            <p className="mt-2 font-serif text-sm text-center text-gray-800 dark:text-gray-200">
               Enter your details below to login your account
             </p>
           </CardHeader>
@@ -107,7 +113,7 @@ const Login = () => {
                 />
                 <button
                   type="button"
-                  className="absolute right-3 top-8 text-gray-300 "
+                  className="absolute text-gray-300 right-3 top-8 "
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -115,7 +121,7 @@ const Login = () => {
                 <p className="text-center text-gray-300">
                   {" "}
                   <Link to={"/forgot"}>
-                    <span className="underline cursor-pointer text-gray-300">
+                    <span className="text-gray-300 underline cursor-pointer">
                       Forgot Password?
                     </span>
                   </Link>
@@ -128,7 +134,7 @@ const Login = () => {
               <p className="text-center text-gray-300">
                 Don't have an account?{" "}
                 <Link to={"/signup"}>
-                  <span className="underline cursor-pointer text-gray-300">
+                  <span className="text-gray-300 underline cursor-pointer">
                     Sign up
                   </span>
                 </Link>

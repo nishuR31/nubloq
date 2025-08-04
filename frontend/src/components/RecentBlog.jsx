@@ -5,9 +5,16 @@ import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useNavigate } from "react-router-dom";
-import { setBlog } from "@/redux/blogSlice";
+import { setBlog } from "../redux/blogSlice";
 import axios from "axios";
 import { toast } from "sonner";
+import "../index.css";
+
+
+
+
+
+
 
 const api = import.meta.env.VITE_URL;
 
@@ -108,17 +115,17 @@ const RecentBlog = () => {
   }, []);
 
   return (
-    <div className="transition-all delay-3000 ease-in-out animate-slideInLeft bg-transparent pb-10">
-      {/*     <div className="transition-all delay-3000 ease-in-out  bg-cover bg-center bg-no-repeat bg-blog-light  pb-10"> */}
-      <div className="max-w-6xl mx-auto flex flex-col space-y-4 items-center">
-        <h1 className="text-4xl font-bold pt-10 mt-10 text-black dark:text-white">
+    <div className="pb-10 transition-all ease-in-out bg-transparent delay-3000 animate-slideInLeft">
+      {/*     <div className="pb-10 transition-all ease-in-out bg-center bg-no-repeat bg-cover delay-3000 bg-blog-light"> */}
+      <div className="flex flex-col items-center max-w-6xl mx-auto space-y-4">
+        <h1 className="pt-10 mt-10 text-4xl font-bold text-black dark:text-white">
           Recent Blogs
         </h1>
         <hr className="w-24 text-center border-2 border-red-500 rounded-full" />
       </div>
 
-      <div className=" max-w-7xl mx-auto gap-6 ">
-        <div className="mt-10 flex flex-wrap justify-around  ">
+      <div className="gap-6 mx-auto max-w-7xl">
+        <div className="flex flex-wrap justify-around mt-10 ">
           {Array.isArray(blog) &&
             blog
               ?.slice(0, 4)
@@ -131,7 +138,7 @@ const RecentBlog = () => {
           <h1 className="text-2xl font-semibold text-black dark:text-white">
             Popular categories
           </h1>
-          <div className="my-5 flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 my-5">
             {tags.map((item, index) => (
               <Badge
                 onClick={() => navigate(`/search?q=${item.category}`)}
@@ -143,21 +150,21 @@ const RecentBlog = () => {
             ))}
           </div>
 
-          <h1 className="text-xl font-semibold text-black italic dark:text-white">
+          <h1 className="text-xl italic font-semibold text-black dark:text-white">
             Subscribe to Newsletter
           </h1>
           <p className="text-sm text-gray-600 dark:text-gray-400">
             Get the latest posts and updates delivered straight to your inbox.
           </p>
 
-          <div className=" flex flex-col sm:flex-row gap-2 max-w-md mx-auto mt-5">
+          <div className="flex flex-col max-w-md gap-2 mx-auto mt-5 sm:flex-row">
             <Input
               type="email"
               name="email"
               value={email.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="flex h-9 w-full rounded-md border bg-gray-300 dark:bg-gray-900 px-3 py-2 text-sm text-gray-800 dark:text-gray-200"
+              className="flex w-full px-3 py-2 text-sm text-gray-800 bg-gray-300 border rounded-md h-9 dark:bg-gray-900 dark:text-gray-200"
             />
             <Button variant="ghost" onClick={handleSubmit}>
               Subscribe
@@ -165,7 +172,7 @@ const RecentBlog = () => {
           </div>
 
           <div className="mt-7">
-            <h2 className="text-xl font-semibold mb-3">Suggested Blogs</h2>
+            <h2 className="mb-3 text-xl font-semibold">Suggested Blogs</h2>
             <ul className="space-y-3">
               {[
                 "10 Tips to Master React",
@@ -174,7 +181,7 @@ const RecentBlog = () => {
               ].map((title, idx) => (
                 <li
                   key={idx}
-                  className="text-sm dark:text-gray-100 hover:underline cursor-pointer"
+                  className="text-sm cursor-pointer dark:text-gray-100 hover:underline"
                 >
                   {title}
                 </li>

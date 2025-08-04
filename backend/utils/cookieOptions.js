@@ -1,6 +1,6 @@
 export default function cookieOptions(type = "access") {
   return {
-    httpOnly: true, // ✅ Must be true for security
+    httpOnly: process.env.STAGE==="development", // ✅ Must be true for security
     secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
     sameSite: "None", // ✅ Needed for cross-site cookies
     path: "/", // ✅ Required to be available across the app

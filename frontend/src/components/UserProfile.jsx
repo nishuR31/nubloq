@@ -1,19 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Avatar, AvatarImage } from "@/components/ui/avatar";
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { Avatar, AvatarImage } from "./ui/avatar";
+import { Card } from "./ui/card";
+import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "./ui/dialog";
+import { Input } from "./ui/input";
+import { Label } from "./ui/label";
+import { Textarea } from "./ui/textarea";
 import { Facebook, Linkedin, Github, Instagram,Loader2 } from "lucide-react";
 import { toast } from "sonner";
-import { setUser } from "@/redux/authSlice";
-import TotalProperty from "@/components/TotalProperty";
-import capitalize from "@/components/capitalize";
+import { setUser } from "../redux/authSlice";
+import TotalProperty from "./TotalProperty";
+import capitalize from "./capitalize";
 import axios from "axios";
 const api = import.meta.env.VITE_URL;
+import "../index.css";
+
+
+
 
 
 const TextInput = ({ label, name, value, onChange, placeholder }) => (
@@ -149,10 +153,10 @@ const UserProfile = ({ id }) => {
     }
   };
 
-  if (!targetUser) return <div className="text-center py-20">Loading user...</div>;
+  if (!targetUser) return <div className="py-20 text-center">Loading user...</div>;
 
   return (
-<div className="flex flex-col animate-slideInLeft py-10 px-5 text-justify  transition-all delay-3000 ease-in bg-cover  bg-no-repeat dark:bg-left dark:bg-cover min-h-screen bg-wave dark:bg-blackWave w-full mx-auto p-6 text-gray-800 dark:text-gray-200">
+<div className="flex flex-col w-full min-h-screen p-6 px-5 py-10 mx-auto text-justify text-gray-800 transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-3000 dark:bg-left dark:bg-cover bg-wave dark:bg-blackWave dark:text-gray-200">
     {/* <div className="animate-slideInLeft md:h-fit pt-20 md:ml-[320px] bg-gray-200 dark:bg-gray-700"> */}
       <div className="max-w-6xl mx-auto mt-8 ">
         <Card className="flex md:flex-row flex-col gap-10 p-6 md:p-10 dark:bg-gray-800 mx-4 md:mx-0 bg-[#D0D0DD]">

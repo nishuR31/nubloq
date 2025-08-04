@@ -4,13 +4,14 @@ import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Input } from "./ui/input";
 import Logo from "../assets/logo.png";
 import blog from "../assets/blog.png";
+import "../index.css";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import avatarFallback from "./avatarFallback";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import axios from "axios";
-import { setUser } from "@/redux/authSlice";
+import { setUser } from "../redux/authSlice";
 import userLogo from "../assets/user.jpg";
 import {
   Menu,
@@ -35,6 +36,8 @@ import {
   Moon,
   MessageCircle,
   Pencil,
+  Heart,
+  Palette,
 } from "lucide-react";
 
 import {
@@ -46,8 +49,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { toggleTheme } from "@/redux/themeSlice";
+} from "../components/ui/dropdown-menu";
+import { toggleTheme, setTheme } from "../redux/themeSlice";
 import ResponsiveMenu from "./ResponsiveMenu";
 const api = import.meta.env.VITE_URL;
 
@@ -90,7 +93,7 @@ const Navbar = () => {
   };
   return (
     <div className="fixed z-50 w-full py-2 bg-transparent border-2 rounded-lg dark:border-b-gray-600 backdrop-blur-sm border-b-gray-300">
-      <div className="flex items-center justify-between px-4 mx-auto max-w-7xl md:px-0">
+      <div className="flex items-center justify-between max-w-5xl mx-auto ">
         {/* logo section */}
         <div className="flex items-center gap-7">
           <Link to={"/"}>
@@ -144,9 +147,30 @@ const Navbar = () => {
             </NavLink>
           </ul>
           <div className="flex">
-            <Button onClick={() => dispatch(toggleTheme())} className="">
+            {/* <Button onClick={() => dispatch(toggleTheme())} className="">
               {theme === "light" ? <Moon /> : <Sun />}
-            </Button>
+            </Button> */}
+            <div className="relative">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button>Theme</Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent>
+                  {["light", "dark", "cyan", "red", "yellow", "magenta"].map(
+                    (mode) => (
+                      <DropdownMenuItem
+                        key={mode}
+                        onClick={() => dispatch(setTheme(mode))}
+                      >
+                        {mode.charAt(0).toUpperCase() + mode.slice(1)}
+                      </DropdownMenuItem>
+                    )
+                  )}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+            <div />
+
             {user ? (
               <div className="flex items-center gap-3 ml-7 ">
                 {/* <Link to={'dashboard/profile'} /> */}
@@ -157,7 +181,7 @@ const Navbar = () => {
                       <AvatarFallback>{avatarFallback(user)}</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="text-white w-56 bg-transparent backdrop-blur-md">
+                  <DropdownMenuContent className="w-56 text-white bg-transparent backdrop-blur-md">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
@@ -206,7 +230,7 @@ const Navbar = () => {
                 </Button>
               </div>
             ) : (
-              <div className="gap-2 ml-7 md:flex ">
+              <div className="md:flex ">
                 <Link to={"/login"}>
                   <Button>Login</Button>
                 </Link>

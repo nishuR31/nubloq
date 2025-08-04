@@ -1,10 +1,13 @@
-import Sidebar from '@/components/Sidebar'
+import Sidebar from '../components/Sidebar'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
+import "../index.css";
+
+
 
 const Dashboard = () => {
     return (
-        <div className='animate-slideInLeft flex'>
+        <div className='flex '>
             <Sidebar /> 
             <div className='flex-1'>
                 <Outlet />

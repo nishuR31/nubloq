@@ -2,6 +2,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import userLogo from "../assets/user.jpg"
 const api = import.meta.env.VITE_URL;
+import "../index.css";
+
+
+
 
 
 
@@ -28,17 +32,17 @@ const PopularAuthors = () => {
 
     return (
          <div>
-            {popularUser && <div className="hidden lg:block transition-all delay-3000 ease-in-out w-auto mx-auto bg-transparent h-full ">
-                <div className='flex flex-col flex-wrap space-y-4 items-center bg-transparent'>
-                    <h1 className='text-3xl md:text-4xl font-bold pt-10 dark:text-white text-black bg-transparent '>Popular Authors <span className="text-red-500">- {totalUser}</span></h1>
-                    <hr className=' w-24 text-center border-2 border-red-500 rounded-full animate-pulse' />
+            {popularUser && <div className="hidden w-auto h-full mx-auto transition-all ease-in-out bg-transparent lg:block delay-3000 ">
+                <div className='flex flex-col flex-wrap items-center space-y-4 bg-transparent'>
+                    <h1 className='pt-10 text-3xl font-bold text-black bg-transparent md:text-4xl dark:text-white '>Popular Authors <span className="text-red-500">- {totalUser}</span></h1>
+                    <hr className='w-24 text-center border-2 border-red-500 rounded-full  animate-pulse' />
                 </div>
-                <div className=' bg-transparent flex items-center justify-around my-10 px-4 md:px-0'>
+                <div className='flex items-center justify-around px-4 my-10 bg-transparent  md:px-0'>
                     {
                         popularUser?.slice(0,10)?.map((user, index) => {
-                            return <div key={index} className='flex pb-5 flex-wrap flex-row bg-transparent justify-center '>
+                            return <div key={index} className='flex flex-row flex-wrap justify-center pb-5 bg-transparent '>
                                 <img src={user.photoUrl || userLogo} alt={user.userName}  className='rounded-full md:w-32 md:h-32' />
-                                <p className='font-semibold pb-5  dark:text-white text-black bg-transparent'>{user.firstName} {user.lastName}</p>
+                                <p className='pb-5 font-semibold text-black bg-transparent dark:text-white'>{user.firstName} {user.lastName}</p>
                             </div>
 
                         })

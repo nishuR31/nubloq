@@ -1,13 +1,15 @@
-import BlogCard from '@/components/BlogCard';
-import BlogCardList from '@/components/BlogCardList';
-import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import BlogCard from "../components/BlogCard";
+import BlogCardList from "../components/BlogCardList";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import "../index.css";
+
 
 const SearchList = () => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const query = params.get('q');
+  const query = params.get("q");
   const { blog } = useSelector((store) => store.blog); // 🧠 make sure it's `blog` in redux
 
   useEffect(() => {
@@ -15,16 +17,18 @@ const SearchList = () => {
   }, []);
 
   if (!query) {
-    return <div className="pt-32 text-center text-lg">No search query provided.</div>;
+    return (
+      <div className="pt-32 text-lg text-center">No search query provided.</div>
+    );
   }
 
-  
-  const filteredBlogs = blog?.filter((blog) =>
-    blog?.title?.toLowerCase().includes(query.toLowerCase()) ||
-    blog?.subtitle?.toLowerCase().includes(query.toLowerCase()) ||
-    blog?.bio?.toLowerCase().substring(5).includes(query.toLowerCase()) ||
-    blog?.category?.toLowerCase() === query.toLowerCase()||
-    blog?.category?.toLowerCase().includes(query.toLowerCase())
+  const filteredBlogs = blog?.filter(
+    (blog) =>
+      blog?.title?.toLowerCase().includes(query.toLowerCase()) ||
+      blog?.subtitle?.toLowerCase().includes(query.toLowerCase()) ||
+      blog?.bio?.toLowerCase().substring(5).includes(query.toLowerCase()) ||
+      blog?.category?.toLowerCase() === query.toLowerCase() ||
+      blog?.category?.toLowerCase().includes(query.toLowerCase())
   );
 
   return (
@@ -35,13 +39,15 @@ const SearchList = () => {
         </h2>
 
         {filteredBlogs?.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-7 my-10">
+          <div className="grid grid-cols-1 my-10 md:grid-cols-3 gap-7">
             {filteredBlogs.map((blog) => (
               <BlogCard key={blog._id} blog={blog} />
             ))}
           </div>
         ) : (
-          <p className="text-center text-gray-500 mt-10">No results found for "{query}".</p>
+          <p className="mt-10 text-center text-gray-500">
+            No results found for "{query}".
+          </p>
         )}
       </div>
     </div>
@@ -49,7 +55,5 @@ const SearchList = () => {
 };
 
 export default SearchList;
-
-
 
 ////////////////////////////////////////////////////

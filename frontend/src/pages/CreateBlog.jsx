@@ -1,7 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { Button } from "../components/ui/button";
+import { Card } from "../components/ui/card";
+import { Input } from "../components/ui/input";
+import { Label } from "../components/ui/label";
 import {
   Select,
   SelectContent,
@@ -10,8 +10,8 @@ import {
   SelectLabel,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { setBlog } from "@/redux/blogSlice";
+} from "../components/ui/select";
+import { setBlog } from "../redux/blogSlice";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import React, { useState, useEffect } from "react";
@@ -27,6 +27,8 @@ import img5 from "../assets/svg2.png";
 import img6 from "../assets/typingLaptop2.avif";
 import img7 from "../assets/typingLaptop.avif";
 const api = import.meta.env.VITE_URL;
+import "../index.css";
+
 
 // console.log(api)
 
@@ -85,10 +87,11 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="animate-slideInLeft flex justify-center p-4 bg-transparent backdrop-blur-sm  pt-20">
-      <Card className="md:p-10 p-4 bg-transparent ">
+    <div className="flex justify-center p-4 pt-20 bg-transparent animate-slideInLeft backdrop-blur-sm">
+      <Card className="p-4 bg-transparent md:p-10 ">
         <h1 className="text-2xl font-bold">Lets create blog</h1>
         <p>Let others get insights from your knowledge and experience.</p>
+        <p>Start on with a title and later moving to editor. </p>
         <div className="mt-10 ">
           <div>
             <Label>Title</Label>
@@ -129,14 +132,14 @@ const CreateBlog = () => {
               </SelectContent>
             </Select>
           </div> */}
-          <div className="flex gap-2 mt-3 align-center items-center justify-center">
+          <div className="flex items-center justify-center gap-2 mt-3 align-center">
             <Link to="/">
               <Button variant="outline">Cancel</Button>
             </Link>
             <Button className="" disabled={loading} onClick={createBlogHandler}>
               {loading ? (
                 <>
-                  <Loader2 className="mr-1 h-4 w-4 animate-spin" />
+                  <Loader2 className="w-4 h-4 mr-1 animate-spin" />
                   Please wait
                 </>
               ) : (
@@ -145,7 +148,7 @@ const CreateBlog = () => {
             </Button>
           </div>
           <div className="mt-5 h-[300px] w-[500px]  flex justify-center rounded-lg animate-slideInLeft">
-            <img src={imgs} className="object-fit rounded-lg" />
+            <img src={imgs} className="rounded-lg object-fit" />
           </div>
         </div>
       </Card>

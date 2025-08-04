@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+import "../index.css";
+
+
+
 
 const Mouse = ({ xcolor = "#000000", color = "#ff0000" }) => {
   const [visible, setVisible] = useState(true);
@@ -22,7 +26,7 @@ const Mouse = ({ xcolor = "#000000", color = "#ff0000" }) => {
   return (
     <div      
     onClick={scrollToTop}
-     className="fixed cursor-pointer bottom-6 left-1/2 -translate-x-1/2 z-50">
+     className="fixed z-50 -translate-x-1/2 cursor-pointer bottom-6 left-1/2">
       <svg
         version="1.1"
         xmlns="http://www.w3.org/2000/svg"

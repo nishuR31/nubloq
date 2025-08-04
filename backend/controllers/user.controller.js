@@ -1,15 +1,14 @@
 import User from "../models/user.model.js";
-import bcrypt from "bcrypt";
-import getDataUri from "../utils/dataUri.js";
-import cloudinary from "../utils/cloudinary.js";
+
 import ApiErrorResponse from "../utils/ApiErrorResponse.js";
 import ApiResponse from "../utils/ApiResponse.js";
 import codes from "../utils/codes.js";
 import hideEmail from "../utils/hideEmail.js";
 import isEmpty from "../utils/isEmpty.js";
 import { tokens } from "../utils/tokenization.js";
-import tokenOptions from "../utils/tokenOptions.js";
+import cookieOptions from "../utils/cookieOptions.js";
 import asyncHandler from "../utils/asyncHandler.js";
+import Blog from "../models/blog.model.js";
 
 export const register = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password, userName } = req.body;
@@ -188,18 +187,18 @@ export const login = asyncHandler(async (req, res) => {
   user.refreshToken = refreshToken;
   await user.save();
 
-  res.cookie("accessToken", accessToken, {    httpOnly: true, 
-    secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
-    sameSite: "None", // ✅ Needed for cross-site cookies
-    path: "/", // ✅ Required to be available across the app
-    maxAge: 1000 * 60 * 60 * 24 * 1});
-  // res.cookie("accessToken", accessToken, tokenOptions("access"));
-  res.cookie("refreshToken", refreshToken, {    httpOnly: true, 
-    secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
-    sameSite: "None", // ✅ Needed for cross-site cookies
-    path: "/", // ✅ Required to be available across the app
-    maxAge: 1000 * 60 * 60 * 24 * 1});
-  // res.cookie("refreshToken", refreshToken, tokenOptions("refresh"));
+  // res.cookie("accessToken", accessToken, {    httpOnly: true,
+  //   secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
+  //   sameSite: "None", // ✅ Needed for cross-site cookies
+  //   path: "/", // ✅ Required to be available across the app
+  //   maxAge: 1000 * 60 * 60 * 24 * 1});
+  res.cookie("accessToken", accessToken, cookieOptions("access"));
+  // res.cookie("refreshToken", refreshToken, {    httpOnly: true,
+  //   secure: true, // ✅ Needed for HTTPS (Vercel + Render are HTTPS)
+  //   sameSite: "None", // ✅ Needed for cross-site cookies
+  //   path: "/", // ✅ Required to be available across the app
+  //   maxAge: 1000 * 60 * 60 * 24 * 1});
+  res.cookie("refreshToken", refreshToken, cookieOptions("refresh"));
 
   return res.status(codes.ok).json(
     new ApiResponse(
@@ -221,6 +220,7 @@ export const login = asyncHandler(async (req, res) => {
           facebook: user.facebook,
           createdAt: user.createdAt,
           updatedAt: user.updatedAt,
+          bookMark: user.bookMark,
         },
         accessToken: accessToken,
       }
@@ -228,14 +228,78 @@ export const login = asyncHandler(async (req, res) => {
   );
 });
 
+//////////////////////////////////////////////////////////////
+
+export const bookMark = asyncHandler(async (req, res) => {
+  let blogId = req.params.blogId;
+  let q = req.query.q === "true";
+  if (!req.user) {
+    return res
+      .status(codes.unauthorized)
+      .json(
+        new ApiErrorResponse(
+          "Cannot bookmark without login.",
+          codes.unauthorized
+        ).res()
+      );
+  }
+
+  if (!blogId) {
+    return res
+      .status(codes.badRequest)
+      .json(new ApiErrorResponse("Invalid blog post.", codes.badRequest).res());
+  }
+  let user = await User.findById(req.user._id);
+  if (!user) {
+    return res
+      .status(codes.notFound)
+      .json(new ApiErrorResponse("Invalid user.", codes.notFound).res());
+  }
+  let blog = await Blog.findById(blogId);
+  if (!blog) {
+    return res
+      .status(codes.notFound)
+      .json(new ApiErrorResponse("Invalid blog.", codes.notFound).res());
+  }
+
+  q
+    ? user.bookMark.includes(blogId)
+      ? null
+      : user.bookMark.push(blogId)
+    : user.bookMark.includes(blogId)
+    ? (user.bookMark = user.bookMark.filter((id) => id !== blogId))
+    : null;
+
+  await user.save();
+  return res.status(codes.ok).json(
+    new ApiResponse(`User ${user.userName} found successfully.`, codes.ok, {
+      user: {
+        _id: user._id,
+        userName: user.userName,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+        bio: user.bio,
+        occupation: user.occupation,
+        photoUrl: user.photoUrl,
+        instagram: user.instagram,
+        linkedin: user.linkedin,
+        github: user.github,
+        facebook: user.facebook,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+        bookMark: user.bookMark,
+      },
+    }).res()
+  );
+});
 ////////////////////////////////////////////////////////////////////////////
 
 export const profile = asyncHandler(async (req, res) => {
   let id = req.params.id;
   let user = await User.findById(id);
   if (!user) {
-    return;
-    res
+    return res
       .status(codes.notFound)
       .json(new ApiErrorResponse("No user found.", codes.notFound).res());
   }
@@ -256,6 +320,7 @@ export const profile = asyncHandler(async (req, res) => {
         facebook: user.facebook,
         createdAt: user.createdAt,
         updatedAt: user.updatedAt,
+        bookMark: user.bookMark,
       },
     }).res()
   );
@@ -293,7 +358,7 @@ export const logout = asyncHandler(async (req, res) => {
 
   for (let cookie in req.cookies) {
     res.clearCookie(cookie, {
-      httpOnly: false,
+      httpOnly: process.env.STAGE==="production",
       secure: true,
       sameSite: "None",
     });
@@ -408,32 +473,34 @@ export const updateProfile = asyncHandler(async (req, res) => {
   if (email && user.email !== email) {
     user.email = email;
   }
-  if (lastName!== undefined && user.lastName !== lastName) {
+  if (lastName !== undefined && user.lastName !== lastName) {
     user.lastName = lastName;
   }
-  if (occupation!== undefined && user.occupation !== occupation) {
-    user.occupation = occupation? occupation
-      .split(" ")
-      .map((e, i) => e[0].toUpperCase() + e.slice(1))
-      .join(" "): ""
+  if (occupation !== undefined && user.occupation !== occupation) {
+    user.occupation = occupation
+      ? occupation
+          .split(" ")
+          .map((e, i) => e[0].toUpperCase() + e.slice(1))
+          .join(" ")
+      : "";
   }
-  if (bio!== undefined && user.bio !== bio) {
+  if (bio !== undefined && user.bio !== bio) {
     user.bio = bio;
   }
-  if (instagram!== undefined && user.instagram !== instagram) {
+  if (instagram !== undefined && user.instagram !== instagram) {
     user.instagram = instagram;
   }
-  if (facebook!== undefined && user.facebook !== facebook) {
+  if (facebook !== undefined && user.facebook !== facebook) {
     user.facebook = facebook;
   }
-  if (linkedin!== undefined && user.linkedin !== linkedin) {
+  if (linkedin !== undefined && user.linkedin !== linkedin) {
     user.linkedin = linkedin;
   }
-  if (github!== undefined && user.github !== github) {
+  if (github !== undefined && user.github !== github) {
     user.github = github;
   }
 
-  if (req.file?.url!== undefined && user.photoUrl !== req.file.url) {
+  if (req.file?.url !== undefined && user.photoUrl !== req.file.url) {
     user.photoUrl = req.file.url;
   }
 

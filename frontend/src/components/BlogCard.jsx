@@ -2,6 +2,10 @@ import React from "react";
 import { Button } from "./ui/button";
 import { useNavigate } from "react-router-dom";
 import moment from "moment";
+import "../index.css";
+
+
+
 
 const BlogCard = ({ blog }) => {
   const navigate = useNavigate();
@@ -9,7 +13,7 @@ const BlogCard = ({ blog }) => {
   const formattedDate = date.toLocaleString("en-GB");
   return (
     <div className="bg-transparent backdrop-blur-md dark:border-gray-600 p-5 rounded-2xl shadow-lg border hover:scale-[102%] transition-all ease-in-out delay-3000 ">
-      <div className=" flex justify-between flex-row flex-wrap mt-2">
+      <div className="flex flex-row flex-wrap justify-between mt-2 ">
         <p className="text-sm">
           By {blog.author?.userName ?? blog.author?.firstName ?? "Unknown"}
         </p>
@@ -24,25 +28,25 @@ const BlogCard = ({ blog }) => {
         }
         className=" rounded-xl mt-2 h-[150px] w-[250px] hover:scale-105 transition-all delay-3000 ease-in-out "
       />
-      <h2 className="text-xl font-semibold capitalize mt-1 text-black dark:text-white">
+      <h2 className="mt-1 text-xl font-semibold text-black capitalize dark:text-white">
         {blog.title}
       </h2>
-      <h3 className="text-gray-500 dark:text-gray-400 mt-1">{blog.subtitle}</h3>
+      <h3 className="mt-1 text-gray-500 dark:text-gray-400">{blog.subtitle}</h3>
       <p
         className={` overflow-hidden mt-3 ${
           blog?.bio ? "text-inherit" : "text-gray-600"
         }`}
       >
         {blog?.bio
-          ? blog.bio.substring(0, 100) + "..."
+          ? dangerouslySetInnerHTML(blog.bio.substring(0, 100)) + "..."
           : "No description available..."}
       </p>
 
-      <div className="mt-3 flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-2 mt-3">
         {/* {[blog.category].map((tag, index) => ( */}
         <span
           key={""}
-          className="text-xs bg-transparent filter-blur-sm dark:border-gray-600 p-5 rounded-2xl shadow-lg border px-2 py-1 "
+          className="p-5 px-2 py-1 text-xs bg-transparent border shadow-lg filter-blur-sm dark:border-gray-600 rounded-2xl "
         >
           {blog?.category ?? "Unspecified"}
         </span>
@@ -51,7 +55,7 @@ const BlogCard = ({ blog }) => {
       <Button
         onClick={() => navigate(`${blog._id}`)}
         variant="secondary"
-        className="mt-4   px-4 py-2 rounded-lg text-sm  "
+        className="px-4 py-2 mt-4 text-sm rounded-lg "
       >
         Read More
       </Button>

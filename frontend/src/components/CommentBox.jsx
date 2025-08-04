@@ -5,16 +5,20 @@ import { Textarea } from './ui/textarea';
 import { Button } from './ui/button';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { setBlog } from '@/redux/blogSlice';
-import { setComment } from '@/redux/commentSlice';
-import { EllipsisVertical,Edit, Trash2,Heart ,sedn} from "lucide-react";
+import { setBlog } from '../redux/blogSlice';
+import { setComment } from '../redux/commentSlice';
+import { EllipsisVertical,Edit, Trash2,Heart } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from "./ui/dropdown-menu";
 import { toast } from "sonner";
+import "../index.css";
+
+
+
 
 const api = import.meta.env.VITE_URL;
 

@@ -1,5 +1,9 @@
 // src/components/FaqCard.jsx
 import { useState } from "react";
+import "../index.css";
+
+
+
 
 import  {Button}  from "./ui/button"
 
@@ -12,7 +16,7 @@ export default function FaqCard({ question, answer }) {
     >
       <Button
       variant="ghost"
-        className="w-full text-center dark:text-white text-gray-800 text-lg font-semibold "
+        className="w-full text-lg font-semibold text-center text-gray-800 dark:text-white "
         onClick={() => setOpen(!open)}
       >
         {question}

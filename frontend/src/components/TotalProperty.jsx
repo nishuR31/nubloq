@@ -3,9 +3,13 @@ import React, { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { setYourBlog } from "@/redux/blogSlice";
+import { setYourBlog } from "../redux/blogSlice";
 import { toast } from "sonner";
 const api = import.meta.env.VITE_URL;
+import "../index.css";
+
+
+
 
 
 
@@ -104,19 +108,19 @@ const TotalProperty = () => {
     },
   ];
   return (
-    <div className=" bg-transparent backdrop-blur-md md:p-10 p-4">
-      <div className="flex flex-col md:flex-row justify-around gap-3 md:gap-7">
+    <div className="p-4 bg-transparent backdrop-blur-md md:p-10">
+      <div className="flex flex-col justify-around gap-3 md:flex-row md:gap-7">
         {stats.map((stat) => (
           <Card
             key={stat.title}
             className="w-full bg-transparent "
           >
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
               <CardTitle className="text-sm font-medium">
                 {stat.title}
               </CardTitle>
-              {/* <stat.icon className="h-4 w-4 text-muted-foreground" onClick={()=>{}} /> */}
-              <stat.icon className="h-4 w-4 text-muted-foreground"  />
+              {/* <stat.icon className="w-4 h-4 text-muted-foreground" onClick={()=>{}} /> */}
+              <stat.icon className="w-4 h-4 text-muted-foreground"  />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{stat.value}</div>

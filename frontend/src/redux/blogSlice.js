@@ -11,7 +11,7 @@ const blogSlice = createSlice({
         setBlog:(state, action) => {
             state.blog = action.payload;
             
-        },
+        }, 
         setYourBlog:(state, action) => {
             state.yourBlog = action.payload;
         }

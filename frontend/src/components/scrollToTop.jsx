@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowUp } from 'lucide-react'; // or use any other icon
+import "../index.css";
+
+
+
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false);
@@ -22,7 +26,7 @@ const ScrollToTop = () => {
     visible && (
       <button
         onClick={scrollToTop}
-        className="fixed bottom-6 right-6 bg-transparent filter-blur-md text-black dark:text-white p-3 rounded-full shadow-md transition-all animate-bounce z-50"
+        className="fixed z-50 p-3 text-black transition-all bg-transparent rounded-full shadow-md bottom-6 right-6 filter-blur-md dark:text-white animate-bounce"
         aria-label="Scroll to top"
       >
         <ArrowUp size={20} />

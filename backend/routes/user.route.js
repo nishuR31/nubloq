@@ -6,6 +6,7 @@ import {
   register,
   updateProfile,
   profile,
+  bookMark
 } from "../controllers/user.controller.js";
 import  auth from "../middleware/auth.middleware.js";
 import uploader from "../controllers/uploader.controller.js";
@@ -25,5 +26,6 @@ router.route("/subscribe").post(sendSubscribe);
 router.route("/confirmation").post(sendConfirmation);
 router.route("/profile/update").patch(auth(), uploader, updateProfile);
 router.route("/all-users").get(getAllUsers);
+router.route("/bookMark/:blogId").get(bookMark);
 
 export default router;

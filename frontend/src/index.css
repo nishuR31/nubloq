@@ -1,71 +1,135 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer base {
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-    --radius: 0.5rem
-  }
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%
-  }
-}
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-}
+@import "tailwindcss";
 
-.jodit_toolbar {
-  background-color: #000000;
-  color: rgba(26, 25, 25, 0.806);
+@layer theme {
+  :root {
+    /* Neutral Default Theme */
+    --color-bg: #0f0f11; /* Jet black */
+    --color-text: #e4e4e7; /* Light grey text */
+    --color-primary: #bb86fc; /* Neon violet */
+    --color-primary-light: #e9d5ff; /* Orchid glow */
+    --color-accent: #ffb400; /* Amber gold */
+    --color-accent-dark: #ff8c00; /* Burnt orange */
+    --color-muted: #1a1a1c; /* Dark muted panel */
+    --color-border: #2f2f30; /* Muted border */
+  }
+
+  /* 🌌 Purple Royale Theme */
+  [data-theme="purple"] {
+    --color-bg: #f4f1fa; /* Lavender background */
+    --color-text: #2a003f; /* Deep royal plum text */
+    --color-primary: #8a2be2; /* Royal violet */
+    --color-primary-light: #c7a8f5; /* Light violet */
+    --color-accent: #d8b4fe; /* Soft lavender */
+    --color-accent-dark: #5b21b6; /* Deep purple */
+    --color-muted: #ede9f3; /* Muted lavender */
+    --color-border: #d1c4e9; /* Soft border */
+  }
+
+  /* 🟡 Golden Elite Theme */
+  [data-theme="golden"] {
+    --color-bg: #fffef9; /* Ivory background */
+    --color-text: #3d2b00; /* Rich brown text */
+    --color-primary: #ffcc00; /* Golden yellow */
+    --color-primary-light: #fff08a; /* Light gold */
+    --color-accent: #ffdb58; /* Sunbeam yellow */
+    --color-accent-dark: #e5c100; /* Mustard */
+    --color-muted: #fff8dc; /* Cornsilk muted */
+    --color-border: #fcd34d; /* Soft amber border */
+  }
+
+  /* 🌑 Deep Dark Theme */
+  [data-theme="dark"] {
+    --color-bg: #0f0f11; /* Jet black */
+    --color-text: #e4e4e7; /* Light grey text */
+    --color-primary: #bb86fc; /* Neon violet */
+    --color-primary-light: #e9d5ff; /* Orchid glow */
+    --color-accent: #ffb400; /* Amber gold */
+    --color-accent-dark: #ff8c00; /* Burnt orange */
+    --color-muted: #1a1a1c; /* Dark muted panel */
+    --color-border: #2f2f30; /* Muted border */
+  }
+
+  /* 🌕 Clean Light Theme */
+  [data-theme="light"] {
+    --color-bg: #ffffff; /* Pure white */
+    --color-text: #1a1a1a; /* Rich black */
+    --color-primary: #4f46e5; /* Indigo */
+    --color-primary-light: #a5b4fc; /* Soft blueish indigo */
+    --color-accent: #6366f1; /* Blue-violet */
+    --color-accent-dark: #3730a3; /* Navy blue */
+    --color-muted: #f3f4f6; /* Light gray */
+    --color-border: #e5e7eb; /* Soft gray border */
+  }
+
+  /* 🔴 Scarlet Flame Theme */
+  [data-theme="red"] {
+    --color-bg: #fff5f5; /* Blush background */
+    --color-text: #3b0000; /* Deep crimson */
+    --color-primary: #e11d48; /* Rose red */
+    --color-primary-light: #fda4af; /* Light coral pink */
+    --color-accent: #fb7185; /* Flamingo pink */
+    --color-accent-dark: #9f1239; /* Dark maroon */
+    --color-muted: #ffe4e6; /* Soft blush */
+    --color-border: #fecaca; /* Warm pink border */
+  }
+
+  /* 💻 Cyberpunk Theme */
+  [data-theme="cyberpunk"] {
+    --color-bg: #0f0c29; /* Deep neon black */
+    --color-text: #f8f8f8; /* Electric white */
+    --color-primary: #ff00ff; /* Neon magenta */
+    --color-primary-light: #ff80ff; /* Glowing pink */
+    --color-accent: #00ffe0; /* Electric cyan */
+    --color-accent-dark: #00bfa6; /* Teal glow */
+    --color-muted: #1a1a2e; /* Shadow navy */
+    --color-border: #5eead4; /* Aqua border */
+  }
+
+  /* 🌲 Emerald Nature Theme */
+  [data-theme="emerald"] {
+    --color-bg: #f0fdf4; /* Mint cream */
+    --color-text: #022c22; /* Jungle green */
+    --color-primary: #10b981; /* Emerald green */
+    --color-primary-light: #6ee7b7; /* Light jade */
+    --color-accent: #34d399; /* Teal green */
+    --color-accent-dark: #065f46; /* Pine */
+    --color-muted: #d1fae5; /* Aloe background */
+    --color-border: #99f6e4; /* Pastel mint border */
+  }
+
+  /* 🌀 Ocean Blue Theme */
+  [data-theme="ocean"] {
+    --color-bg: #e0f7fa; /* Sky blue */
+    --color-text: #003444; /* Deep sea navy */
+    --color-primary: #0284c7; /* Ocean blue */
+    --color-primary-light: #7dd3fc; /* Soft sky */
+    --color-accent: #38bdf8; /* Cool aqua */
+    --color-accent-dark: #0369a1; /* Royal blue */
+    --color-muted: #e0f2f1; /* Foggy seafoam */
+    --color-border: #bae6fd; /* Light blue border */
+  }
+
+  /* 🧁 Pastel Theme */
+  [data-theme="pastel"] {
+    --color-bg: #fafafa; /* Cotton white */
+    --color-text: #4a4a4a; /* Soft charcoal */
+    --color-primary: #f472b6; /* Pastel pink */
+    --color-primary-light: #fbcfe8; /* Baby pink */
+    --color-accent: #a5b4fc; /* Pastel lavender */
+    --color-accent-dark: #7c3aed; /* Grape violet */
+    --color-muted: #fce7f3; /* Blush pink */
+    --color-border: #e9d5ff; /* Lilac border */
+  }
+
+  /* ☁️ Minimal Gray Theme */
+  [data-theme="gray"] {
+    --color-bg: #f8f9fa; /* Ultra light gray */
+    --color-text: #212529; /* Graphite */
+    --color-primary: #adb5bd; /* Slate gray */
+    --color-primary-light: #d1d5db; /* Cool gray */
+    --color-accent: #ced4da; /* Misty gray */
+    --color-accent-dark: #6c757d; /* Dark slate */
+    --color-muted: #dee2e6; /* Light mist */
+    --color-border: #e5e7eb; /* Pale border */
+  }
 }

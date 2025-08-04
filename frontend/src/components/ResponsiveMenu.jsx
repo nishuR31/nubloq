@@ -6,6 +6,10 @@ import UserLogo from "../assets/user.jpg"
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { useSelector } from 'react-redux';
 
+import "../index.css";
+
+
+
 
 //// redux data not get
 
@@ -28,7 +32,7 @@ const ResponsiveMenu = ({ openNav, setOpenNav, logoutHandler }) => {
                     </div>
                 </div>
                 <nav className='mt-12'>
-                    <ul className='flex flex-col gap-7 text-2xl font-semibold '>
+                    <ul className='flex flex-col text-2xl font-semibold gap-7 '>
                         <Link to="/" onClick={() => setOpenNav(false)}><li className='cursor-pointer'>Home</li></Link>
                         <Link to="/blogs" onClick={() => setOpenNav(false)}><li className='cursor-pointer'>Blog</li></Link>
                         <Link to="/about" onClick={() => setOpenNav(false)}><li className='cursor-pointer' >About</li></Link>

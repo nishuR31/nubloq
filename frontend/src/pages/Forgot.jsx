@@ -1,13 +1,15 @@
 import { useState } from "react";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
+import { Input } from "../components/ui/input";
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Label } from "../components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import  {Link} from "react-router-dom"
 import { toast } from "sonner";
 import axios from "axios";
 const api = import.meta.env.VITE_URL;
+import "../index.css";
+
 
 
 
@@ -83,13 +85,13 @@ const ForgotPassword = () => {
 
   return (
     <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-login-light dark:bg-login-dark">
-      <div className="flex justify-center items-center flex-1 px-4 md:px-0">
-        <Card className="bg-transparent w-full max-w-md p-6 shadow-lg rounded-2xl  dark:border-gray-600 backdrop-blur-sm">
+      <div className="flex items-center justify-center flex-1 px-4 md:px-0">
+        <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl dark:border-gray-600 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-center text-xl font-semibold">
+            <CardTitle className="text-xl font-semibold text-center">
               Forgot Password
             </CardTitle>
-            <p className="text-gray-800 dark:text-gray-200 mt-2 text-sm font-serif text-center">
+            <p className="mt-2 font-serif text-sm text-center text-gray-800 dark:text-gray-200">
               Enter your email to receive an OTP and reset your password
             </p>
           </CardHeader>
@@ -102,17 +104,17 @@ const ForgotPassword = () => {
                   placeholder="Enter your registered email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 bg-transparent"
+                  className="bg-transparent dark:placeholder:text-gray-600 placeholder:text-gray-300"
                 />
                 <Button className="w-full mt-2" onClick={sendOtpHandler}>
                   Send OTP
                 </Button>
-                <div className="flex flex-wrap flex-row justify-between pt-1">
+                <div className="flex flex-row flex-wrap justify-between pt-1">
                   
                   <p className="text-center text-gray-300">
                   {" "}
                   <Link to={"/login"}>
-                    <span className="underline cursor-pointer text-gray-300">
+                    <span className="text-gray-300 underline cursor-pointer">
                       Remember Password?
                     </span>
                   </Link>
@@ -120,7 +122,7 @@ const ForgotPassword = () => {
                 <p className="text-center text-gray-300">
                   {" "}
                   <Link to={"/signup"}>
-                    <span className="underline cursor-pointer text-gray-300">
+                    <span className="text-gray-300 underline cursor-pointer">
                       New user?
                     </span>
                   </Link>
@@ -161,7 +163,7 @@ const ForgotPassword = () => {
                     />
                     <button
                       type="button"
-                      className="absolute right-3 top-8 text-gray-300"
+                      className="absolute text-gray-300 right-3 top-8"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}

@@ -1,6 +1,6 @@
 /////////////////////////////////////////////////////////////////////////////////
 
-import React, { useEffect, useState,useMemo  } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import moment from "moment";
 import {
   Breadcrumb,
@@ -9,23 +9,25 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb";
+} from "../components/ui/breadcrumb";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import avatarFallback from "@/components/avatarFallback";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import avatarFallback from "../components/avatarFallback";
+import { Button } from "../components/ui/button";
+import { Badge } from "../components/ui/badge";
 import { Bookmark, MessageSquare, Share2, Heart } from "lucide-react";
-// import CommentBox from '@/components/CommentBox';
+import CommentBox from "../components/CommentBox"
 import axios from "axios";
-import { setBlog } from "@/redux/blogSlice";
+import { setBlog } from "../redux/blogSlice";
 import { toast } from "sonner";
 // import { useForceUpdate } from "framer-motion";
 import capitalize from "../components/capitalize";
 const api = import.meta.env.VITE_URL;
+import "../index.css";
 
 
+import blogs from "../data/blogs.json"
 
 const BlogView = () => {
   const { blogId } = useParams();
@@ -38,73 +40,102 @@ const BlogView = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogLikes, setBlogLikes] = useState(0); //num
   const [liked, setLiked] = useState(false);
+  const [book, setBook] = useState(user.bookMark.includes(blogId));
 
 
-//   const found = blog.find((b) => b._id === blogId);
-// useEffect(() => {
+  //   const found = blog.find((b) => b._id === blogId);
+  // useEffect(() => {
 
-//   if (found) {
-//     setSelectedBlog(found);
-//     setBlogLikes(found.likes.length);
-//     setLiked(Boolean(found.likes.includes(user?._id)));
-//   } else {
-//     axios
-//       .get(`http://localhost:4000/api/v1/blog/${blogId}`)
-//       .then((res) => {
-//         const fetchedBlog = res.data.payload.blog;
-//         toast.success("One Blog fetched.");
-//         setSelectedBlog(fetchedBlog);
-//         setBlogLikes(fetchedBlog.likes.length);
-//         setLiked(Boolean(fetchedBlog.likes.includes(user?._id)));
-//         dispatch(setBlog((prev) => [...prev, fetchedBlog])); // ✅ use callback
-//       })
-//       .catch((err) => {
-//         toast.error("Blog not found.");
-//         console.error("Error fetching blog by ID:", err);
-//       });
-//   }
-// }, []);
+  //   if (found) {
+  //     setSelectedBlog(found);
+  //     setBlogLikes(found.likes.length);
+  //     setLiked(Boolean(found.likes.includes(user?._id)));
+  //   } else {
+  //     axios
+  //       .get(`http://localhost:4000/api/v1/blog/${blogId}`)
+  //       .then((res) => {
+  //         const fetchedBlog = res.data.payload.blog;
+  //         toast.success("One Blog fetched.");
+  //         setSelectedBlog(fetchedBlog);
+  //         setBlogLikes(fetchedBlog.likes.length);
+  //         setLiked(Boolean(fetchedBlog.likes.includes(user?._id)));
+  //         dispatch(setBlog((prev) => [...prev, fetchedBlog])); // ✅ use callback
+  //       })
+  //       .catch((err) => {
+  //         toast.error("Blog not found.");
+  //         console.error("Error fetching blog by ID:", err);
+  //       });
+  //   }
+  // }, []);
 
-const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
+  // const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
+  const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId])
+  let foundJson = useMemo(() => blogs.find((b) => b._id === blogId), [blog, blogId]);
 
-useEffect(() => {
-  if (found) {
-    setSelectedBlog(found);
-    setBlogLikes(found.likes.length);
-    setLiked(Boolean(found.likes.includes(user?._id)));
-  } else {
-    axios
-      .get(`${api}/blog/${blogId}`)
-      // .get(`http://localhost:4000/api/v1/blog/${blogId}`)
-      .then((res) => {
-        const fetchedBlog = res.data.payload.blog;
-        toast.success("One Blog fetched.");
-        setSelectedBlog(fetchedBlog);
-        setBlogLikes(fetchedBlog.likes.length);
-        setLiked(Boolean(fetchedBlog.likes.includes(user?._id)));
-        dispatch(setBlog((prev) => [...prev, fetchedBlog]));
-      })
-      .catch((err) => {
-        toast.error("Blog not found.");
-        console.error("Error fetching blog by ID:", err);
-      });
+  useEffect(() => {
+    if (found || foundJson) {
+      setSelectedBlog(found || foundJson);
+      setBlogLikes(found.likes.length || 0);
+      setLiked(Boolean(found.likes.includes(user?._id)) || false);
+    } else {
+      axios
+        .get(`${api}/blog/${blogId}`)
+        // .get(`http://localhost:4000/api/v1/blog/${blogId}`)
+        .then((res) => {
+          const fetchedBlog = res.data.payload.blog;
+          toast.success("One Blog fetched.");
+          setSelectedBlog(fetchedBlog);
+          setBlogLikes(fetchedBlog.likes.length || 0);
+          setLiked(Boolean(fetchedBlog.likes.includes(user?._id)) || false);
+          dispatch(setBlog((prev) => [...prev, fetchedBlog]));
+        })
+        .catch((err) => {
+          toast.error("Blog not found.");
+          console.error("Error fetching blog by ID:", err);
+        });
+    }
+  }, [found, foundJson]);
+  // only rerun if `found` changes
+
+
+
+  const bookmarkHandler = async () => {
+    if (!user) {
+      toast.error("Please login to book mark the blog");
+      console.error("Please login to book mark the blog");
+      return;
+    }
+
+    try {
+      const res = await axios.get(
+        `${api}/user/bookMark/${selectedBlog._id}?q=${!book}`,
+        { withCredentials: true }
+      );
+
+      if (res.data.success) {
+        setBook(!book);
+        toast.success(book ? "Removed from bookmarks" : "Bookmarked successfully");
+      } else {
+        toast.error("Bookmark action failed.");
+      }
+    } catch (error) {
+      toast.error("Failed to bookmark blog.");
+      console.error("Bookmark error:", error);
+    }
   }
-}, [found]); 
-// only rerun if `found` changes
 
 
   const likeHandler = async () => {
     if (!user) {
       toast.error("Please login to like the blog");
       console.error("Please login to like the blog");
-      return; 
+      return;
     }
 
     try {
       const response = await axios.get(
         // `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
-        `${api}/blog/${selectedBlog._id}/${
-          liked ? "dislike" : "like"
+        `${api}/blog/${selectedBlog._id}/${liked ? "dislike" : "like"
         }`,
         { withCredentials: true }
       );
@@ -112,7 +143,7 @@ useEffect(() => {
       const updatedBlog = response.data.payload;
       setLiked(Boolean(updatedBlog.likes.includes(user._id)));
       setBlogLikes(updatedBlog.likes.length);
-      toast.success(`${!liked?"Liked":"Disliked"} blog.`); //////////////////////
+      toast.success(`${!liked ? "Liked" : "Disliked"} blog.`); //////////////////////
 
     } catch (err) {
       toast.error("Failed to like/dislike blog.");
@@ -146,7 +177,7 @@ useEffect(() => {
 
   if (!selectedBlog) {
     return (
-      <div className="pt-20 text-xl font-semibold text-center transition-all ease-in animate-slideInLeft delay-3000">
+      <div className="min-h-screen pt-20 text-xl font-semibold text-center transition-all ease-in animate-slideInLeft delay-3000">
         Loading blog post...
       </div>
     );
@@ -212,15 +243,14 @@ useEffect(() => {
             </div>
           </div>
         </div>
-        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl"/>
+        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl" />
 
         {/* Thumbnail & Subtitle */}
         <div className="flex justify-center mb-8 overflow-hidden rounded-lg">
           <img
             src={
               selectedBlog?.thumbnail ||
-              `https://placehold.co/500x250/${
-                theme === "light" ? "9aaaaf/000000" : "1f2937/ffffff"
+              `https://placehold.co/500x250/${theme === "light" ? "9aaaaf/000000" : "1f2937/ffffff"
               }?text=${selectedBlog?.title}&font=playfair-display`
             }
             alt="Featured"
@@ -234,9 +264,9 @@ useEffect(() => {
         <p className="my-2 text-lg italic text-muted-foreground">
           {capitalize(selectedBlog?.subtitle)}
         </p>
-        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl"/>
+        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl" />
         <p dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }} />
-        <p>{selectedBlog?.category || "category" } </p>
+        <p>{selectedBlog?.category || "category"} </p>
 
         {/* Tags and Reactions */}
         <div className="mt-10">
@@ -262,7 +292,7 @@ useEffect(() => {
                 {liked ? (
                   <Heart size={24} className="text-red-600 cursor-pointer" />
                 ) : (
-                    <Heart
+                  <Heart
                     size={24}
                     className="text-white cursor-pointer hover:text-gray-600"
                   />
@@ -279,9 +309,13 @@ useEffect(() => {
               </Button>
             </div>
             <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm">
-                <Bookmark className="w-4 h-4" />
+              <Button variant="ghost" size="sm" onClick={bookmarkHandler}>
+                <Bookmark
+                  size={24}
+                  className={`w-4 h-4 ${book ? "text-yellow-500" : "text-white"} transition`}
+                />
               </Button>
+
               <Button
                 onClick={() => handleShare(selectedBlog._id)}
                 variant="ghost"
@@ -293,7 +327,7 @@ useEffect(() => {
           </div>
         </div>
 
-        {/* <CommentBox selectedBlog={selectedBlog} /> */}
+        <CommentBox selectedBlog={selectedBlog} />
       </div>
     </div>
   );

@@ -4,8 +4,8 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "backend": "node server.js",
-    "start": "npx nodemon server.js"
+    "start": "node server.js",
+    "backend": "npx nodemon server.js"
   },
   "keywords": [],
   "author": "",

@@ -1,8 +1,8 @@
-import Hero from "@/components/Hero";
+import Hero from "../components/Hero";
 import React from "react";
-import RecentBlog from "@/components/RecentBlog";
-import PopularAuthors from "@/components/PopularAuthors";
-import FramerMotion from "@/components/framerMotion";
+import RecentBlog from "../components/RecentBlog";
+import PopularAuthors from "../components/PopularAuthors";
+import FramerMotion from "../components/framerMotion";
 
 const Home = () => {
   return (

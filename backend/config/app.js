@@ -17,7 +17,6 @@ import sendContact from "../utils/sendContact.js";
 
 const app = express();
 
-
 // default middleware
 app.use(express.json());
 app.use(helmet());
@@ -28,7 +27,7 @@ app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: ["https://nishu-blogs.vercel.app"],
+    origin: ["https://nishu-blogs.vercel.app", "http://localhost:5173"],
     credentials: true,
   })
 );

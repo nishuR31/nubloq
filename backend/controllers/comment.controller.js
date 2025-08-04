@@ -26,7 +26,7 @@ export const createComment = asyncHandler(async (req, res) => {
 
   const comment = await Comment.create({ content, userId: commenter, postId });
 
-  await comment.populate({ path: "userId", select: "firstName lastName photoUrl" });
+  await comment.populate({ path: "userId", select: "firstName lastName userName photoUrl" });
 
   blog.comments.push(comment._id);
   await blog.save();
@@ -45,7 +45,7 @@ export const getCommentsOfPost = asyncHandler(async (req, res) => {
   }
 
   const comments = await Comment.find({ postId: blogId })
-    .populate({ path: "userId", select: "firstName lastName photoUrl" })
+    .populate({ path: "userId", select: "firstName lastName photoUrl userName" })
     .sort({ createdAt: -1 });
 
   return res.status(codes.ok)
@@ -100,7 +100,6 @@ export const editComment = asyncHandler(async (req, res) => {
   }
 
   comment.content = content;
-  comment.editedAt = new Date();
   await comment.save();
 
   return res.status(codes.ok)
@@ -184,7 +183,7 @@ export const getAllCommentsOnMyBlogs = asyncHandler(async (req, res) => {
   }
 
   const comments = await Comment.find({ postId: { $in: blogIds } })
-    .populate("userId", "firstName lastName email")
+    .populate("userId", "firstName lastName email userName")
     .populate("postId", "title");
 
   if (!comments) {

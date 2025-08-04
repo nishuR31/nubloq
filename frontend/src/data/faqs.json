@@ -1,7 +1,7 @@
 [
   {
-    "question": "What is BlogPaglu?",
-    "answer": "BlogPaglu is your personal blogging platform built with React, Node.js, Express, and MongoDB. It allows users to write, edit, publish, and manage their blogs efficiently."
+    "question": "What is Nubloq?",
+    "answer": "Nubloq is your personal blogging platform built with React, Node.js, Express, and MongoDB. It allows users to write, edit, publish, and manage their blogs efficiently."
   },
   {
     "question": "Do I need to sign in to read blogs?",
@@ -9,7 +9,11 @@
   },
   {
     "question": "Can I switch between dark and light mode?",
-    "answer": "Yes. BlogPaglu offers both dark and light themes with a seamless switch, enhanced by a modern glassmorphism UI design."
+    "answer": "Yes. Nubloq offers both dark and light themes with a seamless switch, enhanced by a modern glassmorphism UI design."
+  },
+  {
+    "question": "Can I shave other themes too?",
+    "answer": "Yes. Nubloq offers more themes with a seamless switch, enhanced by a modern glassmorphism UI design."
   },
   {
     "question": "Where are blog images stored?",
@@ -20,11 +24,11 @@
     "answer": "Absolutely. All routes and APIs are protected using JWT-based authentication and follow modern web security best practices. Your password is also encrypted securely for security."
   },
   {
-    "question": "Who is behind BlogPaglu?",
-    "answer": "BlogPaglu is a solo full-stack development project, built from scratch as a personal portfolio by an individual developer using ui components."
+    "question": "Who is behind Nubloq?",
+    "answer": "Nubloq is a solo full-stack development project, built from scratch as a personal project by an individual developer using ui components."
   },
   {
-    "question": "Will BlogPaglu be deployed publicly?",
+    "question": "Will Nubloq be deployed publicly?",
     "answer": "Yes. The frontend will be deployed on Vercel, and the backend will be hosted using a suitable cloud service like Render, Railway, or Cyclic."
   },
   {
@@ -32,15 +36,79 @@
     "answer": "Yes. Once you're signed in, you can fully manage your blogs — including editing, updating thumbnails, publishing, unpublishing, or deleting them."
   },
   {
-    "question": "Does BlogPaglu have a profile or dashboard section?",
+    "question": "Does Nubloq have a profile or dashboard section?",
     "answer": "Yes. Every user has access to a personal dashboard to manage blogs, view profile information, and toggle settings like theme preference with minimal stats."
   },
   {
     "question": "Is this an open-source project?",
-    "answer": "No. BlogPaglu is a personal, non-collaborative portfolio project and is not open to public contributions at this stage. But we will open source it in future."
+    "answer": "No. Nubloq is a personal, non-collaborative portfolio project and is not open to public contributions at this stage. But we will open source it in future."
   },
   {
-    "question": "Does BlogPaglu support mobile and responsive design?",
+    "question": "Does Nubloq support mobile and responsive design?",
     "answer": "Yes. The UI is fully responsive and works across desktops, tablets, and mobile devices for a smooth reading and writing experience."
+  },
+  {
+    "question": "What is Nubloq?",
+    "answer": "Nubloq is a modern personal blogging platform built using React, Node.js, Express, and MongoDB. It allows users to write, edit, publish, and manage their blogs effortlessly with a focus on design, speed, and user experience."
+  },
+  {
+    "question": "Do I need to sign in to read blogs?",
+    "answer": "No. Anyone can browse and read public blogs without signing in. However, you'll need an account to write, edit, or manage your own content."
+  },
+  {
+    "question": "Can I switch between dark and light mode?",
+    "answer": "Yes. Nubloq supports both dark and light themes with a seamless toggle, featuring a clean glassmorphism-based user interface."
+  },
+  {
+    "question": "Can I apply custom themes or other UI styles?",
+    "answer": "Yes. In addition to dark and light mode, Nubloq offers a set of theme presets. More customization options, including layout styles and font choices, are planned for future updates."
+  },
+  {
+    "question": "Where are blog images stored?",
+    "answer": "All media files, including blog thumbnails and profile pictures, are stored securely on Cloudinary to ensure fast delivery and optimization."
+  },
+  {
+    "question": "Is my personal data secure?",
+    "answer": "Absolutely. Nubloq uses modern security practices, including JWT-based authentication, encrypted passwords, and secure HTTPS APIs to protect your data."
+  },
+  {
+    "question": "Who is behind Nubloq?",
+    "answer": "Nubloq is a solo full-stack project developed as part of a personal portfolio. It showcases end-to-end capabilities using modern web technologies and UI component libraries."
+  },
+  {
+    "question": "Will Nubloq be publicly deployed?",
+    "answer": "Yes. The frontend is deployed on Vercel, and the backend is hosted via cloud platforms like Render, Railway, or Cyclic for reliable performance."
+  },
+  {
+    "question": "Can I edit or delete my own blogs?",
+    "answer": "Yes. Once signed in, users have full control over their blogs — including editing content, updating thumbnails, changing visibility, and deleting posts."
+  },
+  {
+    "question": "Does Nubloq have a profile or dashboard?",
+    "answer": "Yes. Each user has a personal dashboard where they can manage blogs, update profile settings, view stats, and toggle appearance preferences."
+  },
+  {
+    "question": "Is Nubloq an open-source project?",
+    "answer": "Not yet. Nubloq is currently a private project for portfolio purposes. However, open-sourcing is planned in the future as the project matures."
+  },
+  {
+    "question": "Is the UI responsive and mobile-friendly?",
+    "answer": "Yes. Nubloq is fully responsive, optimized for desktops, tablets, and smartphones for a seamless user experience on all screen sizes."
+  },
+  {
+    "question": "Can I bookmark or save blogs to read later?",
+    "answer": "Coming soon. A bookmarking or save-for-later feature is planned for a future release to enhance reading experience and user personalization."
+  },
+  {
+    "question": "Can I follow other authors or creators?",
+    "answer": "Not yet. The social features like following, liking, and commenting are under development and will be available in future versions."
+  },
+  {
+    "question": "Is there a comment system?",
+    "answer": "Yes. Nubloq supports a simple comment system where readers can leave feedback and interact with blog authors."
+  },
+  {
+    "question": "Can I share blogs on social media?",
+    "answer": "Yes. Every blog post comes with social share buttons for quick sharing on platforms like Twitter, LinkedIn, WhatsApp, and more."
   }
 ]
