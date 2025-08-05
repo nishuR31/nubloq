@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import axios from "axios";
 import "../index.css";
 
-
 import { useNavigate, Link } from "react-router-dom";
 const api = import.meta.env.VITE_URL;
 
@@ -80,26 +79,29 @@ const Contact = () => {
   };
 
   return (
-    <div className="flex flex-col w-full min-h-screen p-6 px-5 py-10 mx-auto text-justify text-gray-800 transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-3000 dark:bg-left dark:bg-cover bg-wave dark:bg-blackWave dark:text-gray-200">
-      <div className="flex flex-col items-center gap-5 px-10 mx-auto mt-10 bg-transparent bg-gray-300 rounded-lg backdrop-blur-md max-w-screen outline outline-1 outline-gray-500 dark:outline dark:outline-1 dark:outline-gray-500 md:flex-row">
+    <div className="flex flex-col w-full min-h-screen p-6 px-5 py-10 mx-auto text-justify bg-app transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-[2s] ">
+      <div className="flex flex-col items-center gap-5 px-10 mx-auto mt-10 bg-transparent rounded-lg backdrop-blur-md max-w-screen border-input shadow-lg border-1 md:flex-row">
         <div className="flex-1 w-full max-w-xl">
-          <h2 className="pt-10 mb-6 text-4xl font-bold text-center animate-bounce">
+          <h2 className="pt-10 mb-6 text-4xl font-bold text-center text-app animate-bounce">
             Get in Touch
           </h2>
-          <p className="mb-6 text-lg opacity-80">
+          <p className="mb-6 text-lg opacity-80 text-muted-fg">
             We'd love to hear from you! Whether you have a question about our
             content, want to collaborate, or just want to say hi — drop us a
             message and we'll get back to you.
           </p>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form
+            onSubmit={handleSubmit}
+            className="space-y-4 caret-[var(--primary)]"
+          >
             <Input
               type="text"
               placeholder="Your Name"
               name="name"
               value={form.name}
               onChange={handleChange}
-              className="dark:border-gray-700"
+              className="border-input placeholder:bg-transparent text-muted-fg"
             />
             <Input
               type="email"
@@ -107,7 +109,7 @@ const Contact = () => {
               name="email"
               value={form.email}
               onChange={handleChange}
-              className="dark:border-gray-700"
+              className="border-input placeholder:bg-transparent text-muted-fg"
             />
             <Textarea
               rows="5"
@@ -115,12 +117,12 @@ const Contact = () => {
               name="message"
               value={form.message}
               onChange={handleChange}
-              className="dark:border-gray-700 "
+              className="border-input placeholder:bg-transparent text-muted-fg "
             />
             <Button
               variant="ghost"
               type="submit"
-              className="w-full my-2 text-lg"
+              className="w-full my-2 text-lg bg-primary text-primary-fg"
             >
               Send Message
             </Button>
@@ -129,7 +131,7 @@ const Contact = () => {
               <Button
                 variant="ghost"
                 type="button"
-                className="w-full my-2 text-lg"
+                className="w-full my-2 text-lg text-muted-fg bg-accent"
               >
                 Home
               </Button>

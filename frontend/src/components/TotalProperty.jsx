@@ -8,12 +8,6 @@ import { toast } from "sonner";
 const api = import.meta.env.VITE_URL;
 import "../index.css";
 
-
-
-
-
-
-
 const TotalProperty = () => {
   const { blog } = useSelector((store) => store.blog);
   const [totalComments, setTotalComments] = useState(0);
@@ -108,22 +102,19 @@ const TotalProperty = () => {
     },
   ];
   return (
-    <div className="p-4 bg-transparent backdrop-blur-md md:p-10">
-      <div className="flex flex-col justify-around gap-3 md:flex-row md:gap-7">
+    <div className="p-4 bg-transparent transition-all delay-[2s] ease-in backdrop-blur-md md:p-10 bg-app ">
+      <div className="flex flex-col justify-around gap-3 text-muted-fg md:flex-row md:gap-7">
         {stats.map((stat) => (
-          <Card
-            key={stat.title}
-            className="w-full bg-transparent "
-          >
+          <Card key={stat.title} className="w-full bg-transparent ">
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-sm font-medium text-app">
                 {stat.title}
               </CardTitle>
               {/* <stat.icon className="w-4 h-4 text-muted-foreground" onClick={()=>{}} /> */}
-              <stat.icon className="w-4 h-4 text-muted-foreground"  />
+              <stat.icon className="w-4 h-4 text-primary " />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stat.value}</div>
+              <div className="text-2xl font-bold text-app">{stat.value}</div>
               <p
                 className={`text-xs ${
                   stat.trend === "up" ? "text-green-500" : "text-red-500"

@@ -9,7 +9,6 @@ import {
 } from "../components/ui/card";
 import "../index.css";
 
-
 import { Label } from "../components/ui/label";
 import { Eye, EyeOff } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -76,14 +75,14 @@ const Login = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="animate-slideInLeft flex items-center h-screen md:pt-14 md:h-[760px] bg-login-light dark:bg-login-dark ">
+    <div className="caret-[var(--primary)] transition-all delay-[2s] ease-in-out flex items-center h-screen md:pt-14 md:h-[760px]  bg-app">
       <div className="flex items-center justify-center flex-1 px-4 md:px-0">
-        <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl dark:border-gray-600 backdrop-blur-sm ">
+        <Card className="border-1 border-input w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl backdrop-blur-sm ">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold text-center ">
+            <CardTitle className=" animate-bounce text-xl font-semibold text-center text-primary ">
               Login into your account
             </CardTitle>
-            <p className="mt-2 font-serif text-sm text-center text-gray-800 dark:text-gray-200">
+            <p className="mt-2 font-serif text-sm text-center text-muted-fg">
               Enter your details below to login your account
             </p>
           </CardHeader>
@@ -97,7 +96,7 @@ const Login = () => {
                   name="emailUser"
                   value={input.emailUser}
                   onChange={handleChange}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900 "
+                  className="placeholder:bg-transparent text-popover "
                 />
               </div>
 
@@ -109,11 +108,11 @@ const Login = () => {
                   name="password"
                   value={input.password}
                   onChange={handleChange}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900 "
+                  className="placeholder:bg-transparent text-popover"
                 />
                 <button
                   type="button"
-                  className="absolute text-gray-300 right-3 top-8 "
+                  className="absolute text-primary right-3 top-8 "
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -121,20 +120,20 @@ const Login = () => {
                 <p className="text-center text-gray-300">
                   {" "}
                   <Link to={"/forgot"}>
-                    <span className="text-gray-300 underline cursor-pointer">
+                    <span className="text-muted-fg underline cursor-pointer">
                       Forgot Password?
                     </span>
                   </Link>
                 </p>
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full text-primary-fg">
                 Login
               </Button>
-              <p className="text-center text-gray-300">
+              <p className="text-center text-muted-fg">
                 Don't have an account?{" "}
                 <Link to={"/signup"}>
-                  <span className="text-gray-300 underline cursor-pointer">
+                  <span className="text-primary hover:underline cursor-pointer">
                     Sign up
                   </span>
                 </Link>

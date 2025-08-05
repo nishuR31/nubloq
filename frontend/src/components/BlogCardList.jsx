@@ -8,17 +8,17 @@ const BlogCardList = ({ blog }) => {
   const date = new Date(blog.createdAt);
   const formattedDate = date.toLocaleDateString("en-GB");
   return (
-    <div className="flex-col p-5 mt-6 transition-all ease-in-out bg-transparent border shadow-lg max-w-flex max-w-100 backdrop-blur-md dark:text-gray-800 dark:border-gray-600 md:flex-row md:gap-10 rounded-2xl delay-3000">
-      <div>
+    <div className="flex-col p-5 mt-6 transition-all ease-in-out bg-transparent border-1 border-sidebar shadow-lg max-w-flex max-w-100 backdrop-blur-md  md:flex-row md:gap-10 rounded-2xl delay-[2s]">
+      <div className="">
         <img
           src={
             blog.thumbnail ||
             `https://placehold.co/200x150?text=${blog?.title}&font=playfair-display`
           }
-          className=" rounded-4xl mt-2 h-[150px] min-w-fit hover:scale-105  transition-all delay-3000 ease-in-out"
+          className=" rounded-lg mt-2 h-[150px] min-w-fit hover:scale-105 "
         />
 
-        <p className="mt-2 text-xs text-white dark:text-black">
+        <p className="mt-2 text-xs text-muted-fg">
           {/* By {"Unknown"} | {blog.category} | {formattedDate} */}
           By {blog.author?.userName ??
             blog.author.firstName ??
@@ -26,16 +26,16 @@ const BlogCardList = ({ blog }) => {
         </p>
       </div>
       <div>
-        <h2 className="mt-3 text-2xl font-semibold text-white dark:text-gray-300 md:mt-1">
+        <h2 className="mt-3 text-2xl font-semibold text-app animate-bounce bg-transparent md:mt-1">
           {blog.title}
         </h2>
-        <h3 className="mt-1 text-gray-400 dark:text-gray-400 ">
+        <h3 className="mt-1 text-muted-fg ">
           {blog.subtitle}
         </h3>
 
         <h4
           className={`overflow-hidden mt-3 ${
-            blog?.bio ? "text-inherit" : "text-muted"
+            blog?.bio ? "text-inherit text-primary" : "text-muted text-muted-fg"
           }`}
           dangerouslySetInnerHTML={{
             __html: blog?.bio

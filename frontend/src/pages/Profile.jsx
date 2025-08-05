@@ -2,7 +2,7 @@ import { Avatar, AvatarImage } from "../components/ui/avatar";
 import { Card } from "../components/ui/card";
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Facebook, Linkedin, Github, Instagram, Loader2 } from "lucide-react";
+import { Facebook, Linkedin, Github, Instagram, Loader2,Pen } from "lucide-react";
 import { Label } from "../components/ui/label";
 import {
   Dialog,
@@ -113,9 +113,9 @@ const Profile = () => {
       formData.append("file", input.photoUrl);
     }
 
-    // for (let [key, val] of formData.entries()) {
-    //   console.log(`${key}: ${val}`);
-    // }
+    for (let [key, val] of formData.entries()) {
+      console.log(`${key}: ${val}`);
+    }
 
     try {
       setLoading(true);
@@ -140,11 +140,11 @@ const Profile = () => {
   };
 
   return (
-    <div className="animate-slideInLeft object-cover min-h-screen pt-6 md:ml-[250px] transition-all delay-2000 ease-in bg-fixed bg-no-repeat bg-cover  bg-wave dark:bg-blackWave">
+    <div className=" object-cover min-h-screen pt-6 md:ml-[250px] transition-all delay-2000 ease-in bg-fixed bg-no-repeat bg-cover bg-app ">
       <div className="min-w-full mx-auto mt-8">
-        <Card className="flex flex-col gap-10 p-6 mx-4 bg-transparent md:flex-row md:p-10 backdrop-blur-sm md:mx-0">
+        <Card className="flex flex-col gap-10 p-6 mx-4 bg-transparent text-app md:flex-row md:p-10 backdrop-blur-sm md:mx-0">
           <div className="flex flex-col items-center justify-center md:w-[400px]">
-            <Avatar className="w-40 h-40 border-2 rounded-full outline outline-1 outline-gray-1">
+            <Avatar className="w-40 h-40  rounded-full border-1 border-input">
               <AvatarImage
                 src={
                   user?.photoUrl ||
@@ -155,57 +155,57 @@ const Profile = () => {
                 alt={user?.firstName || "A Visionary"}
               />
             </Avatar>
-            <h1 className="my-3 text-xl font-semibold text-center text-gray-700 dark:text-gray-300">
-              {user?.occupation || "Developer"}
+            <h1 className="my-3 text-xl font-semibold text-center text-muted-fg">
+              {user?.occupation || "Blogger"}
             </h1>
             <div className="flex items-center gap-4">
               {user?.facebook && (
                 <Link to={user.facebook} target="_blank">
-                  <Facebook className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Facebook className="w-6 h-6 text-primary" />
                 </Link>
               )}
               {user?.linkedin && (
                 <Link to={user.linkedin} target="_blank">
-                  <Linkedin className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Linkedin className="w-6 h-6 text-primary" />
                 </Link>
               )}
               {user?.github && (
                 <Link to={user.github} target="_blank">
-                  <Github className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Github className="w-6 h-6 text-primary" />
                 </Link>
               )}
               {user?.instagram && (
                 <Link to={user.instagram} target="_blank">
-                  <Instagram className="w-6 h-6 text-gray-800 dark:text-gray-300" />
+                  <Instagram className="w-6 h-6 text-primary" />
                 </Link>
               )}
             </div>
           </div>
 
           <div>
-            <h1 className="mb-5 text-4xl font-bold text-center md:text-start">
-              Welcome {user?.userName || "User"}!
+            <h1 className="mb-5 text-4xl font-bold text-center md:text-start ">
+              Welcome <span className="text-primary">{user?.userName || "User"}</span>!
             </h1>
             {user?.firstName && (
-              <p className="px-10 py-2 mb-3 text-lg font-bold text-center rounded-lg w-fit md:text-start dark:bg-black/40 bg-white/40">
+              <p className="px-10 py-2 mb-3 text-lg font-bold text-center rounded-lg w-fit md:text-start bg-muted">
                 {capitalize(user?.firstName)}
               </p>
             )}
             <p>
               <span className="font-semibold">Email : </span>
-              {user?.email}
+              <span className="text-muted-fg">{user?.email}</span>
             </p>
             <div className="flex flex-col items-start justify-start gap-2 my-5">
               <Label>About Me</Label>
-              <p className="p-6 border rounded-lg dark:border-gray-600">
+              <p className="p-6 border rounded-lg text-muted-fg dark:border-gray-600">
                 {user?.bio ||
                   "I'm a curious storyteller with a passion for exploring ideas, learning things, asking questions, and connecting the dots across disciplines. I thrive on learning new things, sharing thoughtful insights, and finding creativity in everyday moments. Whether it’s writing, observing the world, or just going for a walk, I believe every experience has a story worth telling. Outside of work, I enjoy hiking, experimenting with new recipes, and getting lost in good conversations or great books."}
               </p>
             </div>
 
             <Dialog open={open} onOpenChange={setOpen}>
-              <Button onClick={() => setOpen(true)}>Edit Profile</Button>
-              <DialogContent className="md:w-[425px]">
+              <Button className="text-primary-fg bg-primary" onClick={() => setOpen(true)}><Pen/>Edit Profile</Button>
+              <DialogContent className="w-auto align-middle h-fit line-clamp-none bg-secondary text-muted-fg rounded-md ">
                 <DialogHeader>
                   <DialogTitle className="text-center">
                     Edit Profile

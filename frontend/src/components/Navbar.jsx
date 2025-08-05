@@ -41,6 +41,8 @@ import {
   Palette,
   Moon,
   Sun,
+  CircleChevronLeft,
+  CircleChevronRight,
 } from "lucide-react";
 
 import {
@@ -61,6 +63,7 @@ const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const { theme } = useSelector((store) => store.theme);
   console.log(theme);
+
   useEffect(() => {
     document.body.setAttribute("class", theme);
     return () => {};
@@ -101,7 +104,7 @@ const Navbar = () => {
     setOpenNav(!openNav);
   };
   return (
-    <div className="fixed z-50 min-w-full py-2 bg-transparent border-2 rounded-lg backdrop-blur-sm border-primary">
+    <div className="fixed z-50 min-w-full py-2 bg-transparent border-2 rounded-lg backdrop-blur-sm border-sidebar">
       <div className="flex items-center justify-between mx-auto max-w-full flex-row ">
         {/* logo section */}
         <div className="  flex items-center gap-3 flex-wrap  justify-between">
@@ -114,19 +117,19 @@ const Navbar = () => {
               />
             </div>
           </Link>
-          <div className="relative hidden md:block ">
+          <div className="relative  text-sidebar-fg hidden md:block ">
             <Input
               type="text"
               placeholder="Search..."
-              className="border border-muted drop-shadow-lg shadow-accent placeholder:text-theme md:w-[250px] lg:w-[300px] caret-accent-primary  hidden md:block bg-transparent "
+              className="text-sidebar-fg border border-input drop-shadow-lg shadow-accent placeholder:bg-transparent md:w-[250px] lg:w-[300px] caret-accent-primary  hidden md:block bg-transparent "
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Button
-              className="absolute top-0 right-0 text-theme"
+              className="absolute top-0 right-0 text-muted-card"
               onClick={handleSearch}
             >
-              <Search />
+              <Search className="text-sidebar-primary-fg" />
             </Button>
           </div>
         </div>
@@ -145,7 +148,7 @@ const Navbar = () => {
               className={`cursor-pointer hover:underline `}
             >
               <li>
-                <NotebookText className="inline lg:hidden text-primary" />
+                <NotebookText className="inline lg:hidden text-primary " />
                 <span className="hidden lg:inline text-primary ">Blogs</span>
               </li>
             </NavLink>
@@ -175,7 +178,7 @@ const Navbar = () => {
               onClick={() => {
                 dispatch(toggleTheme());
               }}
-              className=""
+              className="text-sidebar-primary-fg "
             >
               {theme === "light" ? <Moon /> : <Sun />}
             </Button>
@@ -266,13 +269,16 @@ const Navbar = () => {
               </div>
             ) : (
               <>
-                <div className="md:flex ">
+                <div className="md:flex text-sidebar-primary-fg  ">
                   <Link to={"/login"}>
                     <Button>Login</Button>
                   </Link>
                 </div>
                 <div>
-                  <Link className="hidden md:block" to={"/signup"}>
+                  <Link
+                    className="hidden md:block text-sidebar-primary-fg"
+                    to={"/signup"}
+                  >
                     <Button>Signup</Button>
                   </Link>
                 </div>
@@ -280,9 +286,15 @@ const Navbar = () => {
             )}
           </div>
           {openNav ? (
-            <Menu onClick={toggleNav} className="w-7 h-7 md:hidden" />
+            <CircleChevronRight
+              onClick={toggleNav}
+              className="w-7 h-7 md:hidden text-accent-fg "
+            />
           ) : (
-            <Menu onClick={toggleNav} className="w-7 h-7 md:hidden" />
+            <CircleChevronLeft
+              onClick={toggleNav}
+              className="w-7 h-7 md:hidden text-primary"
+            />
           )}
         </nav>
         <ResponsiveMenu

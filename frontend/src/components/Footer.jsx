@@ -77,9 +77,9 @@ const Footer = () => {
 
   return (
     <footer
-      className={` transition-all delay-3000 ease-in-out min-h-fit bg-transparent text-black dark:text-white  `}
+      className={` transition-all delay-[2s] ease-in-out min-h-fit bg-transparent text-app bg-app  `}
     >
-      <div className="w-full h-3  bg-black/50 dark:bg-black/50 backdrop-blur-md"></div>
+      <div className="w-full h-3  bg-sidebar-primary backdrop-blur-md"></div>
       <div className="flex flex-row flex-wrap justify-around px-4 md:justify-between">
         {/*  info */}
         <div className="my-6 md:mb-0">
@@ -91,15 +91,15 @@ const Footer = () => {
             Sharing insights, tutorials, and ideas on software development and
             tech fields.
           </p>
-          <p className="mt-2 text-sm font-bold tight">
+          <p className="mt-2 text-sm font-bold tight text-muted-fg">
             Vinita Nest, Near Lieven's School of Excellence, Daladali
             chowk,Ranchi, Jharkhand, 835222
           </p>
-          <p className="text-sm font-bold">
+          <p className="text-sm font-bold ">
             Email:{" "}
             <a
               href="mailto:bloggernishu31@gmail.com"
-              className="italic font-thin"
+              className="italic text-primary font-thin"
             >
               bloggernishu31@gmail.com
             </a>
@@ -107,8 +107,8 @@ const Footer = () => {
         </div>
         {/* customer service link */}
         <div className="my-6 md:mb-0">
-          <h3 className="text-xl font-semibold ">Quick Links</h3>
-          <ul className="mt-2 space-y-2 text-sm">
+          <h3 className="text-xl font-semibold  ">Quick Links</h3>
+          <ul className="mt-2 space-y-2 text-muted-fg text-sm">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -135,7 +135,7 @@ const Footer = () => {
         {/* social media links */}
         <div className="my-6 md:mb-0">
           <h3 className="text-xl font-semibold ">Follow Us</h3>
-          <div className="flex mt-2 space-x-4">
+          <div className="flex mt-2 text-primary space-x-4">
             <a href="https://www.github.com/nishuR31" target="_black">
               <Github />
             </a>
@@ -157,12 +157,12 @@ const Footer = () => {
               name="email"
               onChange={handleChange}
               placeholder="Your email address"
-              className="w-full p-2 placeholder:text-gray-800 rounded-l-md dark:placeholder:text-gray-500 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-500 bg-white/30 dark:bg-black/30 backdrop-blur-sm"
+              className="w-full p-2 placeholder:bg-transparent rounded-l-md border-input border-1 focus:outline-none caret-[var(--primary)] backdrop-blur-sm"
             />
             <button
               type="submit"
               onClick={handleSubmit}
-              className="px-4 text-black transition-all delay-1000 bg-gradient-to-tl from-black/60 via-white/30 to-black/60 rounded-r-md hover:bg-gradient-to-b hover:from-black/70 hover:via-white/10 hover:to-black/70 dark:text-white"
+              className="px-4 text-primary-fg transition-all delay-1000 bg-sidebar-primary rounded-r-lg"
             >
               Subscribe
             </button>
@@ -173,7 +173,7 @@ const Footer = () => {
       <div className="py-4 text-sm text-center border-none backdrop-blur-sm">
         <p className="animate-bounce">
           &copy; {new Date().getFullYear()}{" "}
-          <span className="font-bold">Nishu Blog</span>. All rights reserved
+          <span className="font-bold text-primary">Nishu Blog</span>. All rights reserved
         </p>
       </div>
       <ScrollToTop />

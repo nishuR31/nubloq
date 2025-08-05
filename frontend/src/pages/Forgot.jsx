@@ -84,37 +84,37 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-login-light dark:bg-login-dark">
+    <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-app transition-all delay-[2s] ease-in">
       <div className="flex items-center justify-center flex-1 px-4 md:px-0">
-        <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl dark:border-gray-600 backdrop-blur-sm">
+        <Card className=" border-input w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl  backdrop-blur-sm">
           <CardHeader>
-            <CardTitle className="text-xl font-semibold text-center">
+            <CardTitle className="text-xl animate-bounce font-semibold text-center text-app">
               Forgot Password
             </CardTitle>
-            <p className="mt-2 font-serif text-sm text-center text-gray-800 dark:text-gray-200">
+            <p className="mt-2 font-serif text-sm text-center text-muted-fg">
               Enter your email to receive an OTP and reset your password
             </p>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <Label>Email</Label>
+                <Label className="text-app">Email</Label>
                 <Input
                   type="email"
                   placeholder="Enter your registered email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-transparent dark:placeholder:text-gray-600 placeholder:text-gray-300"
+                  className="placeholder:bg-transparent caret-[var(--primary)] text-app "
                 />
-                <Button className="w-full mt-2" onClick={sendOtpHandler}>
+                <Button className="w-full mt-2 text-primary-fg" onClick={sendOtpHandler}>
                   Send OTP
                 </Button>
                 <div className="flex flex-row flex-wrap justify-between pt-1">
                   
-                  <p className="text-center text-gray-300">
+                  <p className="text-center ">
                   {" "}
                   <Link to={"/login"}>
-                    <span className="text-gray-300 underline cursor-pointer">
+                    <span className="text-muted-fg hover:underline cursor-pointer">
                       Remember Password?
                     </span>
                   </Link>
@@ -122,7 +122,7 @@ const ForgotPassword = () => {
                 <p className="text-center text-gray-300">
                   {" "}
                   <Link to={"/signup"}>
-                    <span className="text-gray-300 underline cursor-pointer">
+                    <span className="text-center text-primary  hover:underline cursor-pointer">
                       New user?
                     </span>
                   </Link>

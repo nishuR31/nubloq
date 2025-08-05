@@ -21,20 +21,20 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="min-h-screen px-4 transition-all ease-in-out bg-transparent delay-[3s] flex flex-wrap  ">
+    <div className="min-h-screen px-4 transition-all ease-in-out bg-transparent delay-[1s] flex flex-wrap  bg-app text-app">
       {/*     <div className="h-screen px-4 transition-all ease-in-out bg-bottom bg-no-repeat delay-3000 bg-home-light dark:bg-home-dark bg-fit dark:bg-center "> */}
       {/* <div className="h-screen px-4 transition-all ease-in-out bg-bottom bg-no-repeat delay-3000 bg-home-light dark:bg-home-dark bg-fit dark:bg-center"> */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-[600px] ">
         {/* text section */}
         <div className="max-w-2xl mx-6">
           <h1 className="mt-20 mb-4 text-4xl text-app font-bold text-center text-app md:text-6xl md:text-justify">
-            Explore the Latest Tech <span className="text-accent-fg">&</span> Web
+            Explore the Latest Tech <span className="text-primary">&</span> Web
             Trends
           </h1>
           <br />
-          <hr className="w-full h-0.5 bg-gradient-to-r from-[#00000020] via-[#000000] to-[#00000020]  dark:from-[#00000020] dark:via-[#ffffff] dark:to-[#00000020]   rounded-xl" />
+          <hr className="w-full h-0.5 bg-primary  rounded-xl" />
           <br />
-          <p className="mb-6 text-lg font-bold text-left text-black md:text-xl opacity-80 dark:text-white md:pl-20 ">
+          <p className="mb-6 text-lg font-bold text-left text-app md:text-xl opacity-80  md:pl-20 ">
             Stay ahead of the curve with expertly crafted articles, step-by-step
             tutorials, and deep-dive insights covering the latest in web
             development, digital marketing strategies, and groundbreaking tech
@@ -43,11 +43,11 @@ const Hero = () => {
             always moving forward.
           </p>
           <br />
-          <hr className="w-full h-0.5 bg-gradient-to-r from-[#00000020] via-[#000000] to-[#00000020] dark:from-[#00000020] dark:via-[#ffffff] dark:to-[#00000020]  rounded-xl" />
+          <hr className="w-full h-0.5 bg-primary rounded-xl" />
           <br />
           <div className="flex justify-center space-x-4 md:justify-start">
             <Link to={"/write-blog"}>
-              <Button className="text-lg ">Get Started</Button>
+              <Button className="text-lg text-sidebar-primary-fg ">Get Started</Button>
             </Link>
             <Link to={"/about"}>
               <Button
@@ -69,7 +69,7 @@ const Hero = () => {
         </div>
       </div>
       {/* scroll effect icon */}
-      <div className={`scrolldown  justify-center hidden lg:inline pt-5   `}>
+      <div className={`scrolldown  justify-center hidden md:inline pt-5   `}>
         <Mouse />
       </div>
     </div>
@@ -78,4 +78,4 @@ const Hero = () => {
 
 export default Hero;
 
-////////////////////////////////////////////////////
+/////////////////////////////////////////////////////

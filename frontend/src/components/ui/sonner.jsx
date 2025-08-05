@@ -2,10 +2,6 @@ import { useTheme } from "next-themes";
 import { Toaster as Sonner } from "sonner";
 import "../../index.css";
 
-
-
-
-
 const Toaster = ({ ...props }) => {
   const { theme = "system" } = useTheme();
 
@@ -17,12 +13,10 @@ const Toaster = ({ ...props }) => {
         classNames: {
           toast:
             // group-[.toaster]:bg-background
-            "group toast group-[.toaster]:text-foreground group-[.toaster]:border-border group-[.toaster]:shadow-lg",
-          description: "group-[.toast]:text-muted-foreground",
-          actionButton:
-            "group-[.toast]:bg-primary group-[.toast]:text-primary-foreground",
-          cancelButton:
-            "group-[.toast]:bg-muted group-[.toast]:text-muted-foreground",
+            "group toast group-[.toaster]:text-app bg-app group-[.toaster]:border-input group-[.toaster]:shadow-lg",
+          description: "group-[.toast]:text-muted-fg",
+          actionButton: "group-[.toast]:bg-app group-[.toast]:text-primary",
+          cancelButton: "group-[.toast]:bg-destructive group-[.toast]:text-app",
         },
       }}
       {...props}

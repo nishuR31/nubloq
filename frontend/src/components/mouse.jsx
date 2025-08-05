@@ -4,7 +4,7 @@ import "../index.css";
 
 
 
-const Mouse = ({ xcolor = "#000000", color = "#ff0000" }) => {
+const Mouse = ({ xcolor = "var(--primary)", color = "var(--destructive)" }) => {
   const [visible, setVisible] = useState(true);
 
 

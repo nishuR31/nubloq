@@ -8,9 +8,6 @@ import img4 from "../assets/typingLaptop.avif";
 import img5 from "../assets/typingLaptop2.avif";
 import "../index.css";
 
-
-
-
 const About = () => {
   const blogTopics = [
     "Building a Portfolio with React and Vite",
@@ -227,14 +224,14 @@ const About = () => {
   }, []);
 
   return (
-    <div className="px-4 text-white ease-in-out animate-slideInLeft pt-28 md:px-0 mb-7">
+    <div className="px-4 text-app ease-in-out transition-all delay-[2s] animate-slideInLeft pt-28 md:px-0 mb-7 bg-app">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center">
           <h1 className="mb-4 text-4xl font-extrabold md:text-5xl animate-bounce">
             About Our Blog...
           </h1>
-          <h2 className="my-4 font-bold text-white transition-opacity duration-500 ease-in-out">
+          <h2 className="my-4 font-bold text-muted-fg transition-opacity duration-500 ease-in-out">
             {fields}
           </h2>
           <p className="text-lg ">
@@ -252,11 +249,11 @@ const About = () => {
           />
           <div>
             <p className="mb-4 text-lg ">
-              Welcome to <strong>Nubloq</strong>, a thoughtfully crafted
-              blogging platform for storytellers, developers, and creative
-              thinkers. Share knowledge, exchange ideas, and grow with a
-              community that values insightful content and meaningful
-              discussion. It doesn't matter if you are{" "}
+              Welcome to <strong className="text-primary">Nubloq</strong>, a
+              thoughtfully crafted blogging platform for storytellers,
+              developers, and creative thinkers. Share knowledge, exchange
+              ideas, and grow with a community that values insightful content
+              and meaningful discussion. It doesn't matter if you are{" "}
               <i>
                 <b>{skill}</b>
               </i>

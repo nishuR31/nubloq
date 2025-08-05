@@ -7,7 +7,7 @@ const ThemeProvider = ({ children }) => {
   return (
     <div className={theme}>
       {/* <div> */}
-      <div className="bg-theme text-theme  min-h-screen transition-all ease-in-out bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+      <div className=" min-h-screen transition-all ease-in-out bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
         {children}
       </div>
     </div>

@@ -115,13 +115,13 @@ const RecentBlog = () => {
   }, []);
 
   return (
-    <div className="pb-10 transition-all ease-in-out bg-transparent delay-3000 animate-slideInLeft">
+    <div className="py-10 bg-app text-app lg:py-5 transition-all ease-in-out bg-transparent delay-[2s] animate-slideInLeft">
       {/*     <div className="pb-10 transition-all ease-in-out bg-center bg-no-repeat bg-cover delay-3000 bg-blog-light"> */}
       <div className="flex flex-col items-center max-w-6xl mx-auto space-y-4">
-        <h1 className="pt-10 mt-10 text-4xl font-bold text-black dark:text-white">
+        <h1 className="animate-bounce pt-20 lg:pt-10 mt-10 text-4xl font-bold text-app">
           Recent Blogs
         </h1>
-        <hr className="w-24 text-center border-2 border-red-500 rounded-full" />
+        <hr className="w-34 text-center border-2 border-[var(--primary)]  rounded-full" />
       </div>
 
       <div className="gap-6 mx-auto max-w-7xl">

@@ -3,14 +3,11 @@ import { Button } from "../components/ui/button";
 import { Link } from "react-router-dom";
 import "../index.css";
 
-
 export default function PrivacyPolicy() {
   return (
     <>
-      <div
-        className="flex flex-col w-full p-6 py-10 mx-auto text-gray-800 transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-3000 dark:bg-left dark:bg-cover min-h-content bg-wave dark:bg-blackWave dark:text-gray-200"
-      >
-        <h1 className="pt-10 mb-4 text-3xl font-bold">Privacy Policy</h1>
+      <div className="flex flex-col w-full bg-card p-6 py-10 mx-auto text-app transition-all ease-in bg-no-repeat bg-cover ">
+        <h1 className="pt-10 mb-4 text-3xl text-app animate-bounce font-bold">Privacy Policy</h1>
         <p className="mb-4">
           Your privacy is important to us. This Privacy Policy explains how
           BlogPaglu collects, uses, and safeguards your personal information.
@@ -19,7 +16,7 @@ export default function PrivacyPolicy() {
         <h2 className="mt-6 mb-2 text-2xl font-semibold">
           Information We Collect
         </h2>
-        <ul className="pl-10 mb-4 list-inside listdisk">
+        <ul className="pl-10 mb-4 list-inside listdisk ">
           <li>Email address and username (for authentication)</li>
           <li>Blog content you publish</li>
           <li>Profile pictures (stored via Cloudinary)</li>
@@ -68,7 +65,7 @@ export default function PrivacyPolicy() {
         </p>
         <div className="">
           <Link to="/" className="">
-            <Button variant="ghost" className="w-full mt-5">
+            <Button variant="ghost" className="w-full bg-secondary mt-5">
               Home
             </Button>
           </Link>

@@ -32,13 +32,14 @@ import "./index.css";
 const App = () => {
   return (
     <Router>
+      <Navbar />
+
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <div className="min-h-screen transition-all ease-in-out bg-fixed object-fill bg-center bg-no-repeat delay-[3s]">
-                <Navbar />
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                 <Home />
                 <Footer />
               </div>
@@ -74,10 +75,8 @@ const App = () => {
           path="/about"
           element={
             <>
-              <div
-                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-              >
-                <Navbar />
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+                {/* <Navbar /> */}
                 <About />
                 <Footer />
               </div>
@@ -88,10 +87,7 @@ const App = () => {
           path="/blogs"
           element={
             <>
-              <div
-                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-              >
-                <Navbar />
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                 <Blog />
                 <Footer />
               </div>
@@ -102,9 +98,7 @@ const App = () => {
           path="/search"
           element={
             <>
-              <div
-                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-              >
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                 <Navbar />
                 <SearchList />
                 <Footer />
@@ -116,9 +110,7 @@ const App = () => {
           path="/blogs/:blogId"
           element={
             <>
-              <div
-                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-              >
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                 <BlogView />
               </div>
             </>
@@ -128,10 +120,7 @@ const App = () => {
           path="/write-blog"
           element={
             <>
-              <div
-                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-              >
-                {" "}
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                 <ProtectedRoute>
                   <CreateBlog />
                 </ProtectedRoute>
@@ -143,9 +132,7 @@ const App = () => {
           path="/profile"
           element={
             <>
-              <div
-                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-              >
+              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                 <ProtectedRoute>
                   <Profile />
                 </ProtectedRoute>
@@ -178,9 +165,7 @@ const App = () => {
             path="your-blog"
             element={
               <ProtectedRoute>
-                <div
-                  className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
-                >
+                <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
                   <YourBlog />
                 </div>
               </ProtectedRoute>

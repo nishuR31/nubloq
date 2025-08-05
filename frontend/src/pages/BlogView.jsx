@@ -17,7 +17,7 @@ import avatarFallback from "../components/avatarFallback";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
 import { Bookmark, MessageSquare, Share2, Heart } from "lucide-react";
-import CommentBox from "../components/CommentBox"
+import CommentBox from "../components/CommentBox";
 import axios from "axios";
 import { setBlog } from "../redux/blogSlice";
 import { toast } from "sonner";
@@ -26,8 +26,7 @@ import capitalize from "../components/capitalize";
 const api = import.meta.env.VITE_URL;
 import "../index.css";
 
-
-import blogs from "../data/blogs.json"
+import blogs from "../data/blogs.json";
 
 const BlogView = () => {
   const { blogId } = useParams();
@@ -41,7 +40,6 @@ const BlogView = () => {
   const [blogLikes, setBlogLikes] = useState(0); //num
   const [liked, setLiked] = useState(false);
   const [book, setBook] = useState(user.bookMark.includes(blogId));
-
 
   //   const found = blog.find((b) => b._id === blogId);
   // useEffect(() => {
@@ -69,8 +67,14 @@ const BlogView = () => {
   // }, []);
 
   // const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
-  const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId])
-  let foundJson = useMemo(() => blogs.find((b) => b._id === blogId), [blog, blogId]);
+  const found = useMemo(
+    () => blog.find((b) => b._id === blogId),
+    [blog, blogId]
+  );
+  let foundJson = useMemo(
+    () => blogs.find((b) => b._id === blogId),
+    [blog, blogId]
+  );
 
   useEffect(() => {
     if (found || foundJson) {
@@ -97,8 +101,6 @@ const BlogView = () => {
   }, [found, foundJson]);
   // only rerun if `found` changes
 
-
-
   const bookmarkHandler = async () => {
     if (!user) {
       toast.error("Please login to book mark the blog");
@@ -114,7 +116,9 @@ const BlogView = () => {
 
       if (res.data.success) {
         setBook(!book);
-        toast.success(book ? "Removed from bookmarks" : "Bookmarked successfully");
+        toast.success(
+          book ? "Removed from bookmarks" : "Bookmarked successfully"
+        );
       } else {
         toast.error("Bookmark action failed.");
       }
@@ -122,8 +126,7 @@ const BlogView = () => {
       toast.error("Failed to bookmark blog.");
       console.error("Bookmark error:", error);
     }
-  }
-
+  };
 
   const likeHandler = async () => {
     if (!user) {
@@ -135,8 +138,7 @@ const BlogView = () => {
     try {
       const response = await axios.get(
         // `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
-        `${api}/blog/${selectedBlog._id}/${liked ? "dislike" : "like"
-        }`,
+        `${api}/blog/${selectedBlog._id}/${liked ? "dislike" : "like"}`,
         { withCredentials: true }
       );
 
@@ -144,7 +146,6 @@ const BlogView = () => {
       setLiked(Boolean(updatedBlog.likes.includes(user._id)));
       setBlogLikes(updatedBlog.likes.length);
       toast.success(`${!liked ? "Liked" : "Disliked"} blog.`); //////////////////////
-
     } catch (err) {
       toast.error("Failed to like/dislike blog.");
       console.error("Like handler error:", err);
@@ -184,8 +185,8 @@ const BlogView = () => {
   }
 
   return (
-    <div className="transition-all ease-in animate-slideInLeft pt-14 delay-3000 ">
-      <div className="max-w-6xl p-10 mx-auto">
+    <div className="transition-all ease-in animate-slideInLeft pt-14 delay-[2s]  ">
+      <div className="max-w-6xl p-10 mx-auto text-muted-fg bg-app">
         {/* Breadcrumb */}
         <Breadcrumb>
           <BreadcrumbList>
@@ -208,8 +209,8 @@ const BlogView = () => {
         </Breadcrumb>
 
         {/* Title & Author Info */}
-        <div className="my-8">
-          <h1 className="mb-4 text-4xl font-bold tracking-tight">
+        <div className="my-8 text-app">
+          <h1 className="mb-4 text-4xl font-bold text-primary tracking-tight">
             {capitalize(selectedBlog?.title)}
           </h1>
 
@@ -225,16 +226,19 @@ const BlogView = () => {
                 </AvatarFallback>
               </Avatar>
               <div>
-                {selectedBlog?.author && (<p className="font-medium">
-                  {capitalize(selectedBlog?.author?.firstName)}{" "}
-                  {capitalize(selectedBlog?.author?.lastName)}
-                </p>)}
-                <p className="text-sm text-muted-foreground">
-                  Occupation : {selectedBlog?.author?.occupation ?? "Unspecified"}
+                {selectedBlog?.author && (
+                  <p className="font-medium text-primary">
+                    {capitalize(selectedBlog?.author?.firstName)}{" "}
+                    {capitalize(selectedBlog?.author?.lastName)}
+                  </p>
+                )}
+                <p className="text-sm text-muted-fg">
+                  Occupation :{" "}
+                  {selectedBlog?.author?.occupation ?? "Unspecified"}
                 </p>
               </div>
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-sm text-muted-fg">
               {selectedBlog.isPublished &&
                 `Published on ${changeTimeFormat(
                   selectedBlog?.createdAt
@@ -243,14 +247,15 @@ const BlogView = () => {
             </div>
           </div>
         </div>
-        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl" />
+        <hr className="w-full my-5 h-0.5 text-primary rounded-xl" />
 
         {/* Thumbnail & Subtitle */}
         <div className="flex justify-center mb-8 overflow-hidden rounded-lg">
           <img
             src={
               selectedBlog?.thumbnail ||
-              `https://placehold.co/500x250/${theme === "light" ? "9aaaaf/000000" : "1f2937/ffffff"
+              `https://placehold.co/500x250/${
+                theme === "light" ? "9aaaaf/000000" : "1f2937/ffffff"
               }?text=${selectedBlog?.title}&font=playfair-display`
             }
             alt="Featured"
@@ -261,40 +266,40 @@ const BlogView = () => {
         </div>
 
         {/* Blog Content */}
-        <p className="my-2 text-lg italic text-muted-foreground">
+        <p className="my-2 text-lg italic text-muted-fg">
           {capitalize(selectedBlog?.subtitle)}
         </p>
-        <hr className="w-full my-5 h-0.5 dark:from-gray-800 dark:via-white dark:to-gray-800  bg-gradient-to-l from-gray-200 via-black to-gray-200 rounded-xl" />
-        <p dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }} />
-        <p>{selectedBlog?.category || "category"} </p>
+        <hr className="w-full my-5 h-0.5 text-primary rounded-xl" />
+        <p className="text-card bg-transparent text-md" dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }} />
+        <p className="text-muted-fg text-sm bg-transparent">{selectedBlog?.category || "category"} </p>
 
         {/* Tags and Reactions */}
-        <div className="mt-10">
-          <div className="flex flex-wrap gap-2 mb-8">
+        <div className="mt-10 text-app">
+          <div className="flex flex-wrap gap-2 mb-8 ">
             {(selectedBlog?.category
               ? [selectedBlog.category]
               : ["React", "Express", "MongoDB", "Blogging"]
             ).map((tag, i) => (
-              <Badge key={i} variant="secondary">
+              <Badge key={i} variant="secondary" className={'bg-accent text-muted-fg'}>
                 {tag}
               </Badge>
             ))}
           </div>
 
-          <div className="flex items-center justify-between py-4 mb-8 border-gray-300 border-y dark:border-gray-800">
+          <div className="flex items-center justify-between py-4 mb-8 border-1 border-input rounded-sm">
             <div className="flex items-center space-x-4">
               <Button
                 onClick={likeHandler}
                 variant="ghost"
                 size="sm"
-                className="flex items-center gap-1"
+                className="flex items-center gap-1  "
               >
                 {liked ? (
-                  <Heart size={24} className="text-red-600 cursor-pointer" />
+                  <Heart size={24} className="text-red-600 bg-red-600 cursor-pointer" />
                 ) : (
                   <Heart
                     size={24}
-                    className="text-white cursor-pointer hover:text-gray-600"
+                    className="text-primary text-white cursor-pointer "
                   />
                 )}
                 <span>{blogLikes}</span>
@@ -304,7 +309,7 @@ const BlogView = () => {
                 size="sm"
                 className="flex items-center gap-1"
               >
-                <MessageSquare className="w-4 h-4" />
+                <MessageSquare className="w-4 h-4 text-primary" />
                 <span>{comment.length} Comments</span>
               </Button>
             </div>
@@ -312,7 +317,9 @@ const BlogView = () => {
               <Button variant="ghost" size="sm" onClick={bookmarkHandler}>
                 <Bookmark
                   size={24}
-                  className={`w-4 h-4 ${book ? "text-yellow-500" : "text-white"} transition`}
+                  className={`w-4 h-4 ${
+                    book ? "text-yellow-500" : "text-primary"
+                  } transition`}
                 />
               </Button>
 
@@ -321,13 +328,13 @@ const BlogView = () => {
                 variant="ghost"
                 size="sm"
               >
-                <Share2 className="w-4 h-4" />
+                <Share2 className="w-4 h-4 text-primary" />
               </Button>
             </div>
           </div>
         </div>
 
-        <CommentBox selectedBlog={selectedBlog} />
+        {/* <CommentBox selectedBlog={selectedBlog} /> */}
       </div>
     </div>
   );

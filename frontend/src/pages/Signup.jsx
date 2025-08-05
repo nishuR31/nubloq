@@ -126,16 +126,18 @@ const Signup = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className={`flex h-screen md:pt-14 bg-transparent `}>
+    <div
+      className={`flex h-screen md:pt-14 caret-[var(--primary)] bg-transparent bg-app text-app transition-all delay-[2s] ease-in`}
+    >
       <div className="flex items-center justify-center flex-1 px-4 md:px-0">
-        <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl backdrop-blur-sm dark:border-gray-800">
+        <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl backdrop-blur-sm border-sidebar">
           <CardHeader>
             <CardTitle>
               <h1 className="text-xl font-semibold text-center ">
                 Create an account
               </h1>
             </CardTitle>
-            <p className="mt-2 font-serif text-sm text-center dark:text-gray-300">
+            <p className="mt-2 font-serif text-muted-fg text-sm text-center ">
               Enter your details below to create your account
             </p>
           </CardHeader>
@@ -150,7 +152,7 @@ const Signup = () => {
                     name="firstName"
                     value={user.firstName}
                     onChange={handleChange}
-                    className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900 "
+                    className="placeholder:bg-transparent"
                   />
                 </div>
 
@@ -162,7 +164,7 @@ const Signup = () => {
                     name="lastName"
                     value={user.lastName}
                     onChange={handleChange}
-                    className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                    className="placeholder:bg-transparent"
                   />
                 </div>
               </div>
@@ -174,7 +176,7 @@ const Signup = () => {
                   name="userName"
                   value={user.userName}
                   onChange={handleChange}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                  className="placeholder:bg-transparent"
                 />
               </div>
               <div>
@@ -185,7 +187,7 @@ const Signup = () => {
                   name="email"
                   value={user.email}
                   onChange={handleChange}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                  className="placeholder:bg-transparent"
                 />
               </div>
 
@@ -197,24 +199,24 @@ const Signup = () => {
                   name="password"
                   value={user.password}
                   onChange={handleChange}
-                  className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                  className="placeholder:bg-transparent"
                 />
                 <button
                   type="button"
-                  className="absolute text-gray-300 right-3 top-8"
+                  className="absolute text-primary right-3 top-8"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
 
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full text-primary-fg">
                 Sign Up
               </Button>
-              <p className="text-center text-gray-300">
+              <p className="text-center text-muted-fg">
                 Already have an account?{" "}
                 <Link to={"/login"}>
-                  <span className="underline cursor-pointer hover:text-gray-800 dark:hover:text-gray-100">
+                  <span className="hover:underline cursor-pointer text-primary">
                     Sign in
                   </span>
                 </Link>

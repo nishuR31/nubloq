@@ -122,34 +122,34 @@ const YourBlog = () => {
   };
 
   return (
-    <div className="animate-slideInLeft pb-10  md:ml-[250px] min-h-screen  object-fill py-6 bg-transparent">
+    <div className="animate-slideInLeft pb-10  md:ml-[250px] min-h-screen  object-fill py-6 transition-all delay-[2s] ease-in  bg-transparent">
       <div className="max-w-6xl mx-auto mt-8 ">
-        <Card className="flex justify-between w-full p-5 space-y-2 dark:bg-white/10 bg-black/10 ">
+        <Card className="flex justify-between w-full p-5 space-y-2 bg-secondary text-muted-fg">
           <Table>
             <TableCaption>A list of your recent blogs.</TableCaption>
             <TableHeader>
               <TableRow className="">
-                <TableHead className="text-center text-gray-800 animate-fadeIn ">
+                <TableHead className="text-center text-primary animate-fadeIn ">
                   Author
                 </TableHead>
-                <TableHead className="hidden text-center text-gray-800 animate-fadeIn lg:block">
+                <TableHead className="hidden text-center text-primary animate-fadeIn lg:block">
                   Thumbnail
                 </TableHead>
-                <TableHead className="text-center text-gray-800 animate-fadeIn">
+                <TableHead className="text-center text-primary animate-fadeIn">
                   Title
                 </TableHead>
-                <TableHead className="text-center text-gray-800 animate-fadeIn">
+                <TableHead className="text-center text-primary animate-fadeIn">
                   Category
                 </TableHead>
-                <TableHead className="text-center text-gray-800 animate-fadeIn">
+                <TableHead className="text-center text-primary animate-fadeIn">
                   Date
                 </TableHead>
-                <TableHead className="text-center text-gray-800 animate-fadeIn">
+                <TableHead className="text-center text-primary animate-fadeIn">
                   Action
                 </TableHead>
               </TableRow>
             </TableHeader>
-            <TableBody className="flex-col flex-wrap justify-between overflow-x-auto outline outline-1 outline-gray-700 dark:outline-gray-300 ">
+            <TableBody className="flex-col flex-wrap justify-between overflow-x-auto  outline-1 outline-gray-700 dark:outline-gray-300 ">
               {Array.isArray(blog) &&
                 blog?.map((item, index) => (
                   <TableRow key={index}>
@@ -170,7 +170,7 @@ const YourBlog = () => {
                         className="flex flex-row flex-wrap cursor-pointer hover:underline p-auto "
                         onClick={() => navigate(`/blogs/${item._id}`)}
                       >
-                        {capitalize(item.title)}
+                        {capitalize(item.title.substring(0, 15))}...
                       </TableCell>
                     </TableCell>
                     <TableCell>
