@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { Input } from "./ui/input";
@@ -8,6 +8,7 @@ import "../index.css";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import avatarFallback from "./avatarFallback";
+import ThemeChanger from "./ThemeChanger";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "sonner";
 import axios from "axios";
@@ -32,12 +33,14 @@ import {
   User,
   UserPlus,
   Users,
-  Sun,
-  Moon,
+  ScrollText,
+  NotebookText,
   MessageCircle,
   Pencil,
-  Heart,
+  House,
   Palette,
+  Moon,
+  Sun,
 } from "lucide-react";
 
 import {
@@ -57,11 +60,17 @@ const api = import.meta.env.VITE_URL;
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const { theme } = useSelector((store) => store.theme);
+  console.log(theme);
+  useEffect(() => {
+    document.body.setAttribute("class", theme);
+    return () => {};
+  }, [theme]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [openNav, setOpenNav] = useState(false);
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const user = false;
 
   const logoutHandler = async (e) => {
     try {
@@ -92,78 +101,102 @@ const Navbar = () => {
     setOpenNav(!openNav);
   };
   return (
-    <div className="fixed z-50 w-full py-2 bg-transparent border-2 rounded-lg dark:border-b-gray-600 backdrop-blur-sm border-b-gray-300">
-      <div className="flex items-center justify-between mx-auto max-w-8xl ">
+    <div className="fixed z-50 min-w-full py-2 bg-transparent border-2 rounded-lg backdrop-blur-sm border-primary">
+      <div className="flex items-center justify-between mx-auto max-w-full flex-row ">
         {/* logo section */}
-        <div className="flex items-center gap-7">
+        <div className="  flex items-center gap-3 flex-wrap  justify-between">
           <Link to={"/"}>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center ">
               <img
                 src={blog}
                 alt=""
-                className="w-7 h-7 md:w-10 md:h-10 invert dark:invert-0"
+                className="w-10 h-10 invert dark:invert-0 pl-2 object-contain"
               />
             </div>
           </Link>
-          <div className="relative hidden md:block">
+          <div className="relative hidden md:block ">
             <Input
               type="text"
-              placeholder="Search"
-              className="border border-gray-700  bg-gray-300 sm:w-[400px]  md:w-[200px]  lg:w-[350px]  hidden sm:block bg-transparent "
+              placeholder="Search..."
+              className="border border-muted drop-shadow-lg shadow-accent placeholder:text-theme md:w-[250px] lg:w-[300px] caret-accent-primary  hidden md:block bg-transparent "
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <Button className="absolute top-0 right-0" onClick={handleSearch}>
+            <Button
+              className="absolute top-0 right-0 text-theme"
+              onClick={handleSearch}
+            >
               <Search />
             </Button>
           </div>
         </div>
         {/* nav section */}
-        <nav className="flex items-center gap-4 md:gap-7">
-          <ul className="items-center hidden text-xl font-semibold md:flex gap-7">
+        <nav className="ml-10 flex items-center justify-center-safe ">
+          <ul className="items-center hidden text-xl font-semibold md:flex gap-7 text-theme">
             <NavLink to={"/"} className="cursor-pointer hover:underline ">
-              <li>Home</li>
+              <li>
+                <House className="inline lg:hidden text-primary" />
+                <span className="hidden lg:inline text-primary">Home</span>
+              </li>
             </NavLink>
+
             <NavLink
               to={"/blogs"}
               className={`cursor-pointer hover:underline `}
             >
-              <li>Blogs</li>
+              <li>
+                <NotebookText className="inline lg:hidden text-primary" />
+                <span className="hidden lg:inline text-primary ">Blogs</span>
+              </li>
             </NavLink>
             <NavLink
               to={"/about"}
               className={`cursor-pointer hover:underline `}
             >
-              <li>About</li>
+              <li>
+                <ScrollText className="inline lg:hidden text-primary" />
+                <span className="hidden lg:inline text-primary">About</span>
+              </li>
             </NavLink>
             <NavLink
               to={"/write-blog"}
               className={`cursor-pointer hover:underline `}
             >
               <li>
-                <Pencil className="hidden lg:inline" /> Write{" "}
-                <span className="hidden lg:inline ">a Blog</span>{" "}
+                <Pencil className="inline lg:hidden text-primary" />
+                <span className="hidden lg:inline text-primary ">
+                  Write a Blog
+                </span>
               </li>
             </NavLink>
           </ul>
-          <div className="flex">
-            {/* <Button onClick={() => dispatch(toggleTheme())} className="">
+          <div className="flex justify-between mx-2 gap-1 ">
+            <Button
+              onClick={() => {
+                dispatch(toggleTheme());
+              }}
+              className=""
+            >
               {theme === "light" ? <Moon /> : <Sun />}
-            </Button> */}
-            <div className="relative">
+            </Button>
+            {/* <ThemeChanger /> */}
+            {/* <div className="">
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button>Theme</Button>
+                  <Button className="">
+                    <Palette className="inline lg:hidden" />
+                    <span className="hidden lg:inline">Theme</span>
+                  </Button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  className="w-32 rounded-md shadow-lg border border-gray-400 bg-[var(--color-bg)] text-[var(--color-text)] backdrop-blur-lg transition-all duration-200"
-                  align="end"
-                >
+                <DropdownMenuContent className="text-theme" align="left">
                   {["light", "dark", "cyan", "red", "yellow", "magenta"].map(
                     (mode) => (
                       <DropdownMenuItem
                         key={mode}
-                        onClick={() => dispatch(setTheme(mode))}
+                        onClick={() => {
+                          dispatch(setTheme(mode));
+                          localStorage.setItem("theme", JSON.stringify(mode));
+                        }}
                       >
                         {mode.charAt(0).toUpperCase() + mode.slice(1)}
                       </DropdownMenuItem>
@@ -171,11 +204,10 @@ const Navbar = () => {
                   )}
                 </DropdownMenuContent>
               </DropdownMenu>
-            </div>
-            <div />
+            </div> */}
 
             {user ? (
-              <div className="flex items-center gap-3 ml-7 ">
+              <div className="flex items-center gap-3 mx-7 ">
                 {/* <Link to={'dashboard/profile'} /> */}
                 <DropdownMenu className="">
                   <DropdownMenuTrigger asChild>
@@ -233,14 +265,18 @@ const Navbar = () => {
                 </Button>
               </div>
             ) : (
-              <div className="md:flex ">
-                <Link to={"/login"}>
-                  <Button>Login</Button>
-                </Link>
-                <Link className="hidden md:block" to={"/signup"}>
-                  <Button>Signup</Button>
-                </Link>
-              </div>
+              <>
+                <div className="md:flex ">
+                  <Link to={"/login"}>
+                    <Button>Login</Button>
+                  </Link>
+                </div>
+                <div>
+                  <Link className="hidden md:block" to={"/signup"}>
+                    <Button>Signup</Button>
+                  </Link>
+                </div>
+              </>
             )}
           </div>
           {openNav ? (

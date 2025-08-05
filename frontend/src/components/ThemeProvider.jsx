@@ -1,19 +1,17 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
+import React from "react";
+import { useSelector } from "react-redux";
 import "../index.css";
 
-
-
-
-const ThemeProvider = ({children}) => {
-    const {theme} = useSelector(state => state.theme)
+const ThemeProvider = ({ children }) => {
+  const { theme } = useSelector((state) => state.theme);
   return (
     <div className={theme}>
-      <div className='bg-gray-200 text-gray-800 dark:text-gray-200 dark:bg-[rgb(16,23,42)]'>
+      {/* <div> */}
+      <div className="bg-theme text-theme  min-h-screen transition-all ease-in-out bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
         {children}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default ThemeProvider
+export default ThemeProvider;

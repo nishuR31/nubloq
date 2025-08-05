@@ -1,135 +1,364 @@
 @import "tailwindcss";
 
-@layer theme {
+/* @layer theme {
   :root {
-    /* Neutral Default Theme */
-    --color-bg: #0f0f11; /* Jet black */
-    --color-text: #e4e4e7; /* Light grey text */
-    --color-primary: #bb86fc; /* Neon violet */
-    --color-primary-light: #e9d5ff; /* Orchid glow */
-    --color-accent: #ffb400; /* Amber gold */
-    --color-accent-dark: #ff8c00; /* Burnt orange */
-    --color-muted: #1a1a1c; /* Dark muted panel */
-    --color-border: #2f2f30; /* Muted border */
+    --color-bg: #0f0f11;
+    --color-text: #fff;
+    --color-primary: #8a2be2;
+    --color-primary-light: #c7a8f5;
+    --color-accent: #d8b4fe;
+    --color-accent-dark: #5b21b6;
+    --color-muted: #1c1322;
+    --color-border: #3e1c5b;
   }
 
-  /* 🌌 Purple Royale Theme */
   [data-theme="purple"] {
-    --color-bg: #f4f1fa; /* Lavender background */
-    --color-text: #2a003f; /* Deep royal plum text */
-    --color-primary: #8a2be2; /* Royal violet */
-    --color-primary-light: #c7a8f5; /* Light violet */
-    --color-accent: #d8b4fe; /* Soft lavender */
-    --color-accent-dark: #5b21b6; /* Deep purple */
-    --color-muted: #ede9f3; /* Muted lavender */
-    --color-border: #d1c4e9; /* Soft border */
+    --color-primary: #8a2be2;
+    --color-primary-light: #c7a8f5;
+    --color-accent: #d8b4fe;
+    --color-accent-dark: #5b21b6;
+    --color-muted: #1c1322;
+    --color-border: #3e1c5b;
   }
 
-  /* 🟡 Golden Elite Theme */
+  [data-theme="magenta"] {
+    --color-primary: #ff00aa; 
+    --color-primary-light: #ff66cc; 
+    --color-accent: #f472b6; 
+    --color-accent-dark: #9d174d; 
+    --color-muted: #2a1120;
+    --color-border: #b83280; 
+  }
+
   [data-theme="golden"] {
-    --color-bg: #fffef9; /* Ivory background */
-    --color-text: #3d2b00; /* Rich brown text */
-    --color-primary: #ffcc00; /* Golden yellow */
-    --color-primary-light: #fff08a; /* Light gold */
-    --color-accent: #ffdb58; /* Sunbeam yellow */
-    --color-accent-dark: #e5c100; /* Mustard */
-    --color-muted: #fff8dc; /* Cornsilk muted */
-    --color-border: #fcd34d; /* Soft amber border */
+    --color-primary: #ffcc00;
+    --color-primary-light: #fff08a;
+    --color-accent: #ffdb58;
+    --color-accent-dark: #e5c100;
+    --color-muted: #3a2e00;
+    --color-border: #5e4400;
   }
 
-  /* 🌑 Deep Dark Theme */
-  [data-theme="dark"] {
-    --color-bg: #0f0f11; /* Jet black */
-    --color-text: #e4e4e7; /* Light grey text */
-    --color-primary: #bb86fc; /* Neon violet */
-    --color-primary-light: #e9d5ff; /* Orchid glow */
-    --color-accent: #ffb400; /* Amber gold */
-    --color-accent-dark: #ff8c00; /* Burnt orange */
-    --color-muted: #1a1a1c; /* Dark muted panel */
-    --color-border: #2f2f30; /* Muted border */
-  }
-
-  /* 🌕 Clean Light Theme */
-  [data-theme="light"] {
-    --color-bg: #ffffff; /* Pure white */
-    --color-text: #1a1a1a; /* Rich black */
-    --color-primary: #4f46e5; /* Indigo */
-    --color-primary-light: #a5b4fc; /* Soft blueish indigo */
-    --color-accent: #6366f1; /* Blue-violet */
-    --color-accent-dark: #3730a3; /* Navy blue */
-    --color-muted: #f3f4f6; /* Light gray */
-    --color-border: #e5e7eb; /* Soft gray border */
-  }
-
-  /* 🔴 Scarlet Flame Theme */
   [data-theme="red"] {
-    --color-bg: #fff5f5; /* Blush background */
-    --color-text: #3b0000; /* Deep crimson */
-    --color-primary: #e11d48; /* Rose red */
-    --color-primary-light: #fda4af; /* Light coral pink */
-    --color-accent: #fb7185; /* Flamingo pink */
-    --color-accent-dark: #9f1239; /* Dark maroon */
-    --color-muted: #ffe4e6; /* Soft blush */
-    --color-border: #fecaca; /* Warm pink border */
+    --color-primary: #e11d48;
+    --color-primary-light: #fda4af;
+    --color-accent: #fb7185;
+    --color-accent-dark: #9f1239;
+    --color-muted: #2b0d0d;
+    --color-border: #5b1a1a;
   }
 
-  /* 💻 Cyberpunk Theme */
   [data-theme="cyberpunk"] {
-    --color-bg: #0f0c29; /* Deep neon black */
-    --color-text: #f8f8f8; /* Electric white */
-    --color-primary: #ff00ff; /* Neon magenta */
-    --color-primary-light: #ff80ff; /* Glowing pink */
-    --color-accent: #00ffe0; /* Electric cyan */
-    --color-accent-dark: #00bfa6; /* Teal glow */
-    --color-muted: #1a1a2e; /* Shadow navy */
-    --color-border: #5eead4; /* Aqua border */
+    --color-primary: #ff00ff;
+    --color-primary-light: #ff80ff;
+    --color-accent: #00ffe0;
+    --color-accent-dark: #00bfa6;
+    --color-muted: #1a1a2e;
+    --color-border: #5eead4;
   }
 
-  /* 🌲 Emerald Nature Theme */
   [data-theme="emerald"] {
-    --color-bg: #f0fdf4; /* Mint cream */
-    --color-text: #022c22; /* Jungle green */
-    --color-primary: #10b981; /* Emerald green */
-    --color-primary-light: #6ee7b7; /* Light jade */
-    --color-accent: #34d399; /* Teal green */
-    --color-accent-dark: #065f46; /* Pine */
-    --color-muted: #d1fae5; /* Aloe background */
-    --color-border: #99f6e4; /* Pastel mint border */
+    --color-primary: #10b981;
+    --color-primary-light: #6ee7b7;
+    --color-accent: #34d399;
+    --color-accent-dark: #065f46;
+    --color-muted: #062b22;
+    --color-border: #1e4d43;
   }
 
-  /* 🌀 Ocean Blue Theme */
   [data-theme="ocean"] {
-    --color-bg: #e0f7fa; /* Sky blue */
-    --color-text: #003444; /* Deep sea navy */
-    --color-primary: #0284c7; /* Ocean blue */
-    --color-primary-light: #7dd3fc; /* Soft sky */
-    --color-accent: #38bdf8; /* Cool aqua */
-    --color-accent-dark: #0369a1; /* Royal blue */
-    --color-muted: #e0f2f1; /* Foggy seafoam */
-    --color-border: #bae6fd; /* Light blue border */
+    --color-primary: #0284c7;
+    --color-primary-light: #7dd3fc;
+    --color-accent: #38bdf8;
+    --color-accent-dark: #0369a1;
+    --color-muted: #0d1d26;
+    --color-border: #205875;
   }
 
-  /* 🧁 Pastel Theme */
   [data-theme="pastel"] {
-    --color-bg: #fafafa; /* Cotton white */
-    --color-text: #4a4a4a; /* Soft charcoal */
-    --color-primary: #f472b6; /* Pastel pink */
-    --color-primary-light: #fbcfe8; /* Baby pink */
-    --color-accent: #a5b4fc; /* Pastel lavender */
-    --color-accent-dark: #7c3aed; /* Grape violet */
-    --color-muted: #fce7f3; /* Blush pink */
-    --color-border: #e9d5ff; /* Lilac border */
+    --color-primary: #f472b6;
+    --color-primary-light: #fbcfe8;
+    --color-accent: #a5b4fc;
+    --color-accent-dark: #7c3aed;
+    --color-muted: #2a2230;
+    --color-border: #51316b;
   }
 
-  /* ☁️ Minimal Gray Theme */
   [data-theme="gray"] {
-    --color-bg: #f8f9fa; /* Ultra light gray */
-    --color-text: #212529; /* Graphite */
-    --color-primary: #adb5bd; /* Slate gray */
-    --color-primary-light: #d1d5db; /* Cool gray */
-    --color-accent: #ced4da; /* Misty gray */
-    --color-accent-dark: #6c757d; /* Dark slate */
-    --color-muted: #dee2e6; /* Light mist */
-    --color-border: #e5e7eb; /* Pale border */
+    --color-primary: #adb5bd;
+    --color-primary-light: #d1d5db;
+    --color-accent: #ced4da;
+    --color-accent-dark: #6c757d;
+    --color-muted: #1c1c1c;
+    --color-border: #333333;
+  }
+} */
+
+@layer theme {
+  [data-theme="light"] {
+    --radius: 0.65rem;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.141 0.005 285.823);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.141 0.005 285.823);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.141 0.005 285.823);
+    --primary: oklch(0.606 0.25 292.717);
+    --primary-foreground: oklch(0.969 0.016 293.756);
+    --secondary: oklch(0.967 0.001 286.375);
+    --secondary-foreground: oklch(0.21 0.006 285.885);
+    --muted: oklch(0.967 0.001 286.375);
+    --muted-foreground: oklch(0.552 0.016 285.938);
+    --accent: oklch(0.967 0.001 286.375);
+    --accent-foreground: oklch(0.21 0.006 285.885);
+    --destructive: oklch(0.577 0.245 27.325);
+    --border: oklch(0.92 0.004 286.32);
+    --input: oklch(0.92 0.004 286.32);
+    --ring: oklch(0.606 0.25 292.717);
+    --chart-1: oklch(0.646 0.222 41.116);
+    --chart-2: oklch(0.6 0.118 184.704);
+    --chart-3: oklch(0.398 0.07 227.392);
+    --chart-4: oklch(0.828 0.189 84.429);
+    --chart-5: oklch(0.769 0.188 70.08);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.141 0.005 285.823);
+    --sidebar-primary: oklch(0.606 0.25 292.717);
+    --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
+    --sidebar-accent: oklch(0.967 0.001 286.375);
+    --sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+    --sidebar-border: oklch(0.92 0.004 286.32);
+    --sidebar-ring: oklch(0.606 0.25 292.717);
+  }
+
+  [data-theme="dark"] {
+    --radius: 0.65rem;
+
+    --background: oklch(0.141 0.005 285.823);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.21 0.006 285.885);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.21 0.006 285.885);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.541 0.281 293.009);
+    --primary-foreground: oklch(0.969 0.016 293.756);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(0.705 0.015 286.067);
+    --accent: oklch(0.274 0.006 286.033);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.541 0.281 293.009);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.21 0.006 285.885);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.541 0.281 293.009);
+    --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
+    --sidebar-accent: oklch(0.274 0.006 286.033);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.541 0.281 293.009);
+  }
+  :root {
+    --radius: 0.65rem;
+    --background: oklch(0.141 0.005 285.823);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.21 0.006 285.885);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.21 0.006 285.885);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.541 0.281 293.009);
+    --primary-foreground: oklch(0.969 0.016 293.756);
+    --secondary: oklch(0.274 0.006 286.033);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.274 0.006 286.033);
+    --muted-foreground: oklch(0.705 0.015 286.067);
+    --accent: oklch(0.274 0.006 286.033);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.541 0.281 293.009);
+    --chart-1: oklch(0.488 0.243 264.376);
+    --chart-2: oklch(0.696 0.17 162.48);
+    --chart-3: oklch(0.769 0.188 70.08);
+    --chart-4: oklch(0.627 0.265 303.9);
+    --chart-5: oklch(0.645 0.246 16.439);
+    --sidebar: oklch(0.21 0.006 285.885);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.541 0.281 293.009);
+    --sidebar-primary-foreground: oklch(0.969 0.016 293.756);
+    --sidebar-accent: oklch(0.274 0.006 286.033);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.541 0.281 293.009);
+  }
+}
+
+@layer utilities {
+  /* === Background Utilities === */
+  .bg-app {
+    background-color: var(--background);
+  }
+  .bg-card {
+    background-color: var(--card);
+  }
+  .bg-popover {
+    background-color: var(--popover);
+  }
+  .bg-primary {
+    background-color: var(--primary);
+  }
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+  .bg-muted {
+    background-color: var(--muted);
+  }
+  .bg-accent {
+    background-color: var(--accent);
+  }
+  .bg-destructive {
+    background-color: var(--destructive);
+  }
+  .bg-sidebar {
+    background-color: var(--sidebar);
+  }
+  .bg-sidebar-primary {
+    background-color: var(--sidebar-primary);
+  }
+  .bg-sidebar-accent {
+    background-color: var(--sidebar-accent);
+  }
+
+  /* === Text Color Utilities === */
+  .text-app {
+    color: var(--foreground);
+  }
+  .text-card {
+    color: var(--card-foreground);
+  }
+  .text-popover {
+    color: var(--popover-foreground);
+  }
+  .text-primary-fg {
+    color: var(--primary-foreground);
+  }
+  .text-secondary-fg {
+    color: var(--secondary-foreground);
+  }
+  .text-muted-fg {
+    color: var(--muted-foreground);
+  }
+  .text-accent-fg {
+    color: var(--accent-foreground);
+  }
+  .text-sidebar-fg {
+    color: var(--sidebar-foreground);
+  }
+  .text-sidebar-primary-fg {
+    color: var(--sidebar-primary-foreground);
+  }
+  .text-sidebar-accent-fg {
+    color: var(--sidebar-accent-foreground);
+  }
+
+  /* === Border Utilities === */
+  .border-app {
+    border-color: var(--border);
+  }
+  .border-card {
+    border-color: var(--card);
+  }
+  .border-input {
+    border-color: var(--input);
+  }
+  .border-sidebar {
+    border-color: var(--sidebar-border);
+  }
+  .border-sidebar-accent {
+    border-color: var(--sidebar-accent);
+  }
+
+  /* === Ring Utilities === */
+  .ring-primary {
+    --tw-ring-color: var(--ring);
+  }
+  .ring-sidebar {
+    --tw-ring-color: var(--sidebar-ring);
+  }
+
+  /* === Chart Colors === */
+  .bg-chart-1 {
+    background-color: var(--chart-1);
+  }
+  .bg-chart-2 {
+    background-color: var(--chart-2);
+  }
+  .bg-chart-3 {
+    background-color: var(--chart-3);
+  }
+  .bg-chart-4 {
+    background-color: var(--chart-4);
+  }
+  .bg-chart-5 {
+    background-color: var(--chart-5);
+  }
+
+  .text-chart-1 {
+    color: var(--chart-1);
+  }
+  .text-chart-2 {
+    color: var(--chart-2);
+  }
+  .text-chart-3 {
+    color: var(--chart-3);
+  }
+  .text-chart-4 {
+    color: var(--chart-4);
+  }
+  .text-chart-5 {
+    color: var(--chart-5);
+  }
+
+  .border-chart-1 {
+    border-color: var(--chart-1);
+  }
+  .border-chart-2 {
+    border-color: var(--chart-2);
+  }
+  .border-chart-3 {
+    border-color: var(--chart-3);
+  }
+  .border-chart-4 {
+    border-color: var(--chart-4);
+  }
+  .border-chart-5 {
+    border-color: var(--chart-5);
+  }
+
+  /* === Radius Utility === */
+  .rounded-app {
+    border-radius: var(--radius);
+  }
+}
+
+@layer base {
+  /* html {
+    overflow-y: scroll; 
+  } 
+    */
+
+  body {
+    overflow-x: hidden;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
   }
 }

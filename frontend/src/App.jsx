@@ -1,117 +1,3 @@
-// import React from 'react'
-// import Signup from './pages/Signup'
-// import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-// import Home from './pages/Home'
-// import Login from './pages/Login'
-// import Navbar from './components/Navbar'
-// import Profile from './pages/Profile'
-// import Blog from './pages/Blog'
-// import CreateBlog from './pages/CreateBlog'
-// import Dashboard from './pages/Dashboard'
-// import YourBlog from './pages/YourBlog'
-// import Error from './pages/Error'
-// import BlogView from './pages/BlogView'
-// import Contact from './pages/Contact'
-// import Footer from './components/Footer'
-// import About from './pages/About'
-// import Comments from './pages/Comments'
-// import UpdateBlog from './pages/UpdateBlog'
-// import ProtectedRoute from './components/ProtectedRoute'
-// import SearchList from './pages/SearchList'
-
-// const router = createBrowserRouter([
-//   {
-//     path: "/contact",
-//     element:<Contact/>
-//   },
-//   {
-//     path: "/",
-//     element: <><Navbar/><Home /><Footer/></>
-//   },
-//   {
-//     path: "/blogs",
-//     element: <><Navbar/><Blog /><Footer/></>
-//   },
-//   {
-//     path: "/about",
-//     element: <><Navbar/><About /><Footer/></>
-//   },
-//   {
-//     path: "/search",
-//     element: <><Navbar/><SearchList/><Footer/></>
-//   },
-//   {
-//     path: "/blogs/:blogId",
-//     element: <><Navbar/><ProtectedRoute><BlogView /></ProtectedRoute></>
-//   },
-//   {
-//     path: "/write-blog",
-//     element: <><Navbar/><CreateBlog /></>
-//   },
-
-//   {
-//     path: "/profile",
-//     element: <><Navbar/><Profile /></>
-//   },
-//   // {
-//   //   path: "write-blog/:blogId",
-//   //       element: <><Navbar/><CreateBlog /></>
-//   // },
-//   // {
-//   //   path: "/dashboard",
-//   //   element: <><Navbar/><Dashboard /></>
-//   // },
-//   {
-//     path:"/dashboard",
-//     element: <><Navbar/><ProtectedRoute><Dashboard/></ProtectedRoute></>,
-//     children:[
-//       {
-//         path: "write-blog",
-//         element:<><CreateBlog/></>
-//       },
-//       {
-//         path: "write-blog/:blogId",
-//         element: <><UpdateBlog /></>
-//       },
-//       {
-//         path: "your-blog",
-//         element:<YourBlog/>
-//       },
-//       {
-//         path: "comments",
-//         element:<Comments/>
-//       },
-//       {
-//         path: "profile",
-//         element:<Profile/>
-//       },
-
-//     ]
-//    },
-//   {
-//     path: "/signup",
-//     element: <><Navbar/><Signup /></>
-//   },
-//   {
-//     path: "/login",
-//     element: <><Navbar/><Login /></>
-//   },
-//   {
-//     path: "/*",
-//     element: <><Navbar/><Error /></>
-//   },
-// ])
-
-// const App = () => {
-//   return (
-//     <>
-//       <RouterProvider router={router} />
-//     </>
-//   )
-// }
-
-// export default App
-
 import React from "react";
 
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -138,23 +24,21 @@ import SearchList from "./pages/SearchList";
 import Faqs from "./pages/Faqs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import CodeOfConduct from "./pages/CodeOfConduct";
-import blackWave from "./assets/blackWave.jpg";
-import homePage from "./assets/homePage.webp";
-import pen from "./assets/pen.jpg";
+// import blackWave from "./assets/blackWave.jpg";
+// import homePage from "./assets/homePage.webp";
+// import pen from "./assets/pen.jpg";
 import "./index.css";
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
-
       <Routes>
         <Route
           path="/"
           element={
             <>
-              <div className="min-h-screen transition-all ease-in-out bg-fixed bg-center bg-no-repeat delay-3000">
-                {/* <><div className="min-h-screen transition-all ease-in-out bg-fixed bg-bottom bg-no-repeat delay-3000 bg-home-light dark:bg-home-dark dark:bg-center"> */}
+              <div className="min-h-screen transition-all ease-in-out bg-fixed object-fill bg-center bg-no-repeat delay-[3s]">
+                <Navbar />
                 <Home />
                 <Footer />
               </div>
@@ -191,9 +75,9 @@ const App = () => {
           element={
             <>
               <div
-                className={` transition-all delay-2000 ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top   bg-center`}
-                style={{ backgroundImage: `url(${pen})` }}
+                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
               >
+                <Navbar />
                 <About />
                 <Footer />
               </div>
@@ -204,7 +88,10 @@ const App = () => {
           path="/blogs"
           element={
             <>
-              <div className="min-h-screen pt-16 transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-blogs-light dark:bg-blogs-dark">
+              <div
+                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
+              >
+                <Navbar />
                 <Blog />
                 <Footer />
               </div>
@@ -215,7 +102,10 @@ const App = () => {
           path="/search"
           element={
             <>
-              <div className="pt-16 transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-blogs-light dark:bg-blogs-dark">
+              <div
+                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
+              >
+                <Navbar />
                 <SearchList />
                 <Footer />
               </div>
@@ -226,7 +116,11 @@ const App = () => {
           path="/blogs/:blogId"
           element={
             <>
-              <BlogView />
+              <div
+                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
+              >
+                <BlogView />
+              </div>
             </>
           }
         />
@@ -234,7 +128,10 @@ const App = () => {
           path="/write-blog"
           element={
             <>
-              <div className="min-h-screen pt-16 transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-blogs-light dark:bg-blogs-dark">
+              <div
+                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
+              >
+                {" "}
                 <ProtectedRoute>
                   <CreateBlog />
                 </ProtectedRoute>
@@ -246,9 +143,13 @@ const App = () => {
           path="/profile"
           element={
             <>
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
+              <div
+                className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
+              >
+                <ProtectedRoute>
+                  <Profile />
+                </ProtectedRoute>
+              </div>
             </>
           }
         />
@@ -277,7 +178,9 @@ const App = () => {
             path="your-blog"
             element={
               <ProtectedRoute>
-                <div className="min-h-screen transition-all ease-in-out bg-fixed bg-center bg-no-repeat bg-cover animate-slideInLeft delay-2000 bg-wave dark:bg-blackWave">
+                <div
+                  className={` transition-all delay-[3s] object-fill ease-in-out bg-fixed bg-cover bg-no-repeat min-h-screen bg-top bg-center`}
+                >
                   <YourBlog />
                 </div>
               </ProtectedRoute>

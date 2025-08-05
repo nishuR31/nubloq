@@ -9,7 +9,7 @@ const BlogCardList = ({ blog }) => {
   const formattedDate = date.toLocaleDateString("en-GB");
   return (
     <div className="flex-col p-5 mt-6 transition-all ease-in-out bg-transparent border shadow-lg max-w-flex max-w-100 backdrop-blur-md dark:text-gray-800 dark:border-gray-600 md:flex-row md:gap-10 rounded-2xl delay-3000">
-      <div >
+      <div>
         <img
           src={
             blog.thumbnail ||
@@ -35,7 +35,7 @@ const BlogCardList = ({ blog }) => {
 
         <h4
           className={`overflow-hidden mt-3 ${
-            blog?.bio ? "text-inherit" : "text-gray-600"
+            blog?.bio ? "text-inherit" : "text-muted"
           }`}
           dangerouslySetInnerHTML={{
             __html: blog?.bio

@@ -4,15 +4,12 @@ import { useNavigate } from "react-router-dom";
 import moment from "moment";
 import "../index.css";
 
-
-
-
 const BlogCard = ({ blog }) => {
   const navigate = useNavigate();
   const date = new Date(blog.createdAt);
   const formattedDate = date.toLocaleString("en-GB");
   return (
-    <div className="bg-transparent backdrop-blur-md dark:border-gray-600 p-5 rounded-2xl shadow-lg border hover:scale-[102%] transition-all ease-in-out delay-3000 ">
+    <div className="bg-transparent backdrop-blur-md p-5 rounded-2xl shadow-lg border hover:scale-[102%] transition-all ease-in-out delay-3000 ">
       <div className="flex flex-row flex-wrap justify-between mt-2 ">
         <p className="text-sm">
           By {blog.author?.userName ?? blog.author?.firstName ?? "Unknown"}
@@ -28,25 +25,26 @@ const BlogCard = ({ blog }) => {
         }
         className=" rounded-xl mt-2 h-[150px] w-[250px] hover:scale-105 transition-all delay-3000 ease-in-out "
       />
-      <h2 className="mt-1 text-xl font-semibold text-black capitalize dark:text-white">
+      <h2 className="mt-1 text-xl font-semibold text-theme capitalize ">
         {blog.title}
       </h2>
-      <h3 className="mt-1 text-gray-500 dark:text-gray-400">{blog.subtitle}</h3>
-      <p
-        className={` overflow-hidden mt-3 ${
-          blog?.bio ? "text-inherit" : "text-gray-600"
-        }`}
-      >
-        {blog?.bio
-          ? dangerouslySetInnerHTML(blog.bio.substring(0, 100)) + "..."
-          : "No description available..."}
-      </p>
+      <h3 className="mt-1 text-primary">{blog.subtitle}</h3>
 
+      <p
+        className={`overflow-hidden mt-3 ${
+          blog?.bio ? "text-inherit" : "text-muted"
+        }`}
+        dangerouslySetInnerHTML={{
+          __html: blog?.bio
+            ? blog.bio.substring(0, 100) + "..."
+            : "No description available...",
+        }}
+      ></p>
       <div className="flex flex-wrap gap-2 mt-3">
         {/* {[blog.category].map((tag, index) => ( */}
         <span
           key={""}
-          className="p-5 px-2 py-1 text-xs bg-transparent border shadow-lg filter-blur-sm dark:border-gray-600 rounded-2xl "
+          className="p-5 px-2 py-1 text-xs bg-transparent border border-theme shadow-lg filter-blur-sm  rounded-2xl "
         >
           {blog?.category ?? "Unspecified"}
         </span>

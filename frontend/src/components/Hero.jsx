@@ -27,8 +27,8 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-[600px] ">
         {/* text section */}
         <div className="max-w-2xl mx-6">
-          <h1 className="mt-20 mb-4 text-4xl font-bold text-center text-gray-800 md:text-6xl dark:text-white md:text-justify">
-            Explore the Latest Tech <span className="text-red-500">&</span> Web
+          <h1 className="mt-20 mb-4 text-4xl text-app font-bold text-center text-app md:text-6xl md:text-justify">
+            Explore the Latest Tech <span className="text-accent-fg">&</span> Web
             Trends
           </h1>
           <br />
