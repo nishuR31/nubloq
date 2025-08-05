@@ -164,7 +164,7 @@ const YourBlog = () => {
                           `https://placehold.co/200x200?text=${item?.title}`
                         }
                         alt={item.title}
-                        className="hidden rounded-md md:rounded-full md:w-20 md:h-20 lg:block outline outline-1 outline-gray-700 dark:outline-gray-300 "
+                        className="hidden rounded-md md:rounded-full md:w-20 md:h-20 lg:block  outline-1 outline-gray-700 dark:outline-gray-300 "
                       />
                       <TableCell
                         className="flex flex-row flex-wrap cursor-pointer hover:underline p-auto "
