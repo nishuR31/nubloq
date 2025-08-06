@@ -115,7 +115,7 @@ const RecentBlog = () => {
   }, []);
 
   return (
-    <div className="py-10 bg-app text-app lg:py-5 transition-all ease-in-out bg-transparent delay-[2s] animate-slideInLeft">
+    <div className="py-10  text-app lg:py-5 transition-all ease-in-out bg-transparent delay-[2s] animate-slideInLeft">
       {/*     <div className="pb-10 transition-all ease-in-out bg-center bg-no-repeat bg-cover delay-3000 bg-blog-light"> */}
       <div className="flex flex-col items-center max-w-6xl mx-auto space-y-4">
         <h1 className="animate-bounce pt-20 lg:pt-10 mt-10 text-4xl font-bold text-app">
@@ -134,8 +134,8 @@ const RecentBlog = () => {
               ))}
         </div>
 
-        <div className=" bg-white/10 backdrop-blur-md dark:bg-black/50 hidden md:block  w-[350px] p-5 rounded-lg mx-auto mt-20">
-          <h1 className="text-2xl font-semibold text-black dark:text-white">
+        <div className=" text-secondary-fg bg-transparent border-1 border-card hidden md:block  w-[350px] p-5 rounded-lg mx-auto mt-20">
+          <h1 className="text-2xl font-semibold text-secondary-fg ">
             Popular categories
           </h1>
           <div className="flex flex-wrap gap-3 my-5">
@@ -143,17 +143,17 @@ const RecentBlog = () => {
               <Badge
                 onClick={() => navigate(`/search?q=${item.category}`)}
                 key={index}
-                className="cursor-pointer"
+                className="cursor-pointer text-secondary-fg bg-primary"
               >
                 {item.category}
               </Badge>
             ))}
           </div>
 
-          <h1 className="text-xl italic font-semibold text-black dark:text-white">
+          <h1 className="text-xl italic font-semibold text-secondary-fg">
             Subscribe to Newsletter
           </h1>
-          <p className="text-sm text-gray-600 dark:text-gray-400">
+          <p className="text-sm text-muted">
             Get the latest posts and updates delivered straight to your inbox.
           </p>
 
@@ -164,7 +164,7 @@ const RecentBlog = () => {
               value={email.email}
               onChange={handleChange}
               placeholder="Enter your email"
-              className="flex w-full px-3 py-2 text-sm text-gray-800 bg-gray-300 border rounded-md h-9 dark:bg-gray-900 dark:text-gray-200"
+              className="flex w-full px-3 py-2 text-sm text-accent border rounded-md h-9 "
             />
             <Button variant="ghost" onClick={handleSubmit}>
               Subscribe
@@ -181,7 +181,7 @@ const RecentBlog = () => {
               ].map((title, idx) => (
                 <li
                   key={idx}
-                  className="text-sm cursor-pointer dark:text-gray-100 hover:underline"
+                  className="text-sm cursor-pointer text-secondary-fg  hover:underline"
                 >
                   {title}
                 </li>

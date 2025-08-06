@@ -39,7 +39,7 @@ const App = () => {
           path="/"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
                 <Home />
                 <Footer />
               </div>
@@ -75,7 +75,7 @@ const App = () => {
           path="/about"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+              <div className="animate-fadeIn min-h-screen bg-bg  bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s]">
                 {/* <Navbar /> */}
                 <About />
                 <Footer />
@@ -87,7 +87,7 @@ const App = () => {
           path="/blogs"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in delay-[2s] bg-fixed object-fill bg-center bg-no-repeat  ">
                 <Blog />
                 <Footer />
               </div>
@@ -98,7 +98,7 @@ const App = () => {
           path="/search"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in delay-[2s]bg-fixed object-fill bg-center bg-no-repeat  ">
                 <Navbar />
                 <SearchList />
                 <Footer />
@@ -110,7 +110,7 @@ const App = () => {
           path="/blogs/:blogId"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in delay-[2s] bg-fixed object-fill bg-center bg-no-repeat  ">
                 <BlogView />
               </div>
             </>
@@ -120,7 +120,7 @@ const App = () => {
           path="/write-blog"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[2s] ">
                 <ProtectedRoute>
                   <CreateBlog />
                 </ProtectedRoute>
@@ -132,17 +132,42 @@ const App = () => {
           path="/profile"
           element={
             <>
-              <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
-                <ProtectedRoute>
-                  <Profile />
-                </ProtectedRoute>
+              <ProtectedRoute>
+                <Profile />
+              </ProtectedRoute>
+            </>
+          }
+        />
+        <Route
+          path="/signup"
+          element={
+            <>
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[2s] ">
+                <Signup />
               </div>
             </>
           }
         />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/forgot" element={<Forgot />} />
+        <Route
+          path="/login"
+          element={
+            <>
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[2s] ">
+                <Login />
+              </div>
+            </>
+          }
+        />
+        <Route
+          path="/forgot"
+          element={
+            <>
+              <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[2s] ">
+                <Forgot />
+              </div>
+            </>
+          }
+        />
 
         {/* Dashboard Nested Routes */}
         <Route
@@ -157,7 +182,11 @@ const App = () => {
             path="write-blog/:blogId"
             element={
               <ProtectedRoute>
-                <UpdateBlog />
+                <>
+                  <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[2s] ">
+                    <UpdateBlog />
+                  </div>
+                </>
               </ProtectedRoute>
             }
           />
@@ -165,7 +194,7 @@ const App = () => {
             path="your-blog"
             element={
               <ProtectedRoute>
-                <div className="min-h-screen bg-app transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[3s] ">
+                <div className="animate-fadeIn min-h-screen bg-bg transition-all ease-in bg-fixed object-fill bg-center bg-no-repeat delay-[2s] ">
                   <YourBlog />
                 </div>
               </ProtectedRoute>

@@ -10,15 +10,15 @@ const BlogCardList = ({ blog }) => {
   return (
     <div className="flex-col p-5 mt-6 transition-all ease-in-out bg-transparent border-1 border-sidebar shadow-lg max-w-flex max-w-100 backdrop-blur-md  md:flex-row md:gap-10 rounded-2xl delay-[2s]">
       <div className="">
-        <img
+       <div className="w-full flex justify-center align-center"> <img
           src={
             blog.thumbnail ||
             `https://placehold.co/200x150?text=${blog?.title}&font=playfair-display`
           }
-          className=" rounded-lg mt-2 h-[150px] min-w-fit hover:scale-105 "
-        />
+          className=" rounded-lg mt-2 h-[150px] w-[400px]  object-cover   hover:scale-105 "
+        /></div>
 
-        <p className="mt-2 text-xs text-muted-fg">
+        <p className="mt-2 text-xs text-app">
           {/* By {"Unknown"} | {blog.category} | {formattedDate} */}
           By {blog.author?.userName ??
             blog.author.firstName ??
@@ -26,16 +26,16 @@ const BlogCardList = ({ blog }) => {
         </p>
       </div>
       <div>
-        <h2 className="mt-3 text-2xl font-semibold text-app animate-bounce bg-transparent md:mt-1">
-          {blog.title}
-        </h2>
+        <h3 className="mt-3 text-2xl font-semibold text-app  bg-transparent md:mt-1">
+          {blog.title.substring(0,50)}
+        </h3>
         <h3 className="mt-1 text-muted-fg ">
           {blog.subtitle}
         </h3>
 
         <h4
           className={`overflow-hidden mt-3 ${
-            blog?.bio ? "text-inherit text-primary" : "text-muted text-muted-fg"
+            blog?.bio ? "text-inherit text-secondary-fg" : "text-muted-fg"
           }`}
           dangerouslySetInnerHTML={{
             __html: blog?.bio
@@ -47,7 +47,7 @@ const BlogCardList = ({ blog }) => {
         {/* ///////////////////////////////////// */}
         <Button
           onClick={() => navigate(`blogs/${blog._id}`)}
-          className="px-4 py-2 mt-4 text-sm rounded-lg "
+          className="px-4 py-2 mt-4 text-sm rounded-lg bg-primary text-primary-fg "
         >
           Read More
         </Button>

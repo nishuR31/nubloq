@@ -75,11 +75,11 @@ const Login = () => {
   };
   const [showPassword, setShowPassword] = useState(false);
   return (
-    <div className="caret-[var(--primary)] transition-all delay-[2s] ease-in-out flex items-center h-screen md:pt-14 md:h-[760px]  bg-app">
+    <div className="animate-fadeIn caret-[var(--primary)] transition-all delay-[2s] ease-in-out flex items-center h-screen md:pt-14 md:h-[760px]  bg-transparent">
       <div className="flex items-center justify-center flex-1 px-4 md:px-0">
         <Card className="border-1 border-input w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl backdrop-blur-sm ">
           <CardHeader>
-            <CardTitle className=" animate-bounce text-xl font-semibold text-center text-primary ">
+            <CardTitle className=" animate-bounce text-xl font-semibold text-center text-app ">
               Login into your account
             </CardTitle>
             <p className="mt-2 font-serif text-sm text-center text-muted-fg">
@@ -87,53 +87,53 @@ const Login = () => {
             </p>
           </CardHeader>
           <CardContent>
-            <form className="space-y-4 " onSubmit={handleSubmit}>
+            <form className="space-y-4  " onSubmit={handleSubmit}>
               <div>
-                <Label>Email/Username</Label>
+                <Label className="text-secondary-fg">Email/Username</Label>
                 <Input
                   type="text"
                   placeholder="Email address or your username"
                   name="emailUser"
                   value={input.emailUser}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent text-popover "
+                  className="placeholder:bg-transparent text-accent "
                 />
               </div>
 
               <div className="relative">
-                <Label>Password</Label>
+                <Label className="text-secondary-fg">Password</Label>
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter Your Password"
                   name="password"
                   value={input.password}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent text-popover"
+                  className="placeholder:bg-transparent text-accent"
                 />
                 <button
                   type="button"
-                  className="absolute text-primary right-3 top-8 "
+                  className="absolute text-app right-3 top-8 "
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
-                <p className="text-center text-gray-300">
+                <p className="text-center text-secondary-fg">
                   {" "}
                   <Link to={"/forgot"}>
-                    <span className="text-muted-fg underline cursor-pointer">
+                    <span className="text-secondary-fg underline cursor-pointer">
                       Forgot Password?
                     </span>
                   </Link>
                 </p>
               </div>
 
-              <Button type="submit" className="w-full text-primary-fg">
+              <Button type="submit" className="w-full bg-primary text-secondary-fg">
                 Login
               </Button>
-              <p className="text-center text-muted-fg">
+              <p className="text-center text-secondary-fg">
                 Don't have an account?{" "}
                 <Link to={"/signup"}>
-                  <span className="text-primary hover:underline cursor-pointer">
+                  <span className="text-secondary-fg hover:underline cursor-pointer">
                     Sign up
                   </span>
                 </Link>

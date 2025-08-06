@@ -8,7 +8,7 @@ import {
   getAllCommentsOnMyBlogs,
   getCommentsOfPost, 
   likeComment,
-} from "../controllers/comment.controller.js";
+} from "../controllers/comment.controller.js"; 
 
 const router = express.Router(); 
 

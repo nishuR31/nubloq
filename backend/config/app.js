@@ -22,13 +22,12 @@ app.use(express.json());
 app.use(helmet());
 app.use(morgan("dev"));
 app.use(cookieParser());
-// app.use(cookieParser()); // required
 app.use(logger);
 app.use(express.urlencoded({ extended: true }));
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
-    // origin: ["https://nishu-blogs.vercel.app"],
+    // origin: ["http://localhost:5173"],
+    origin: ["https://nubloq.vercel.app"],
     credentials: true,
   })
 );

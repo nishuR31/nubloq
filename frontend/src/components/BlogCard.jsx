@@ -19,14 +19,15 @@ const BlogCard = ({ blog }) => {
             formattedDate}
         </p>{" "}
       </div>
+      <div className="w-full flex justify-center">
       <img
         src={
           blog?.thumbnail || `https://placehold.co/700x400?text=${blog.title}`
         }
-        className=" rounded-xl mt-2 h-[150px] w-[250px] hover:scale-105"
-      />
-      <h2 className="mt-1 text-xl font-semibold text-primary capitalize ">
-        {blog.title}
+        className=" rounded-xl mt-2 h-[150px] w-[400px] object-cover hover:scale-105"
+      /></div>
+      <h2 className="mt-1 text-xl font-semibold text-secondary-fg capitalize ">
+        {blog.title.substring(0,10)}
       </h2>
       <h3 className="mt-1 text-muted-fg">{blog.subtitle}</h3>
 
@@ -44,7 +45,7 @@ const BlogCard = ({ blog }) => {
         {/* {[blog.category].map((tag, index) => ( */}
         <span
           key={""}
-          className="p-5 px-2 py-1 text-xs bg-transparent border border-input text-muted-fg shadow-lg filter-blur-sm  rounded-2xl "
+          className="p-5 px-2 py-1 text-xs bg-transparent border border-input text-secondary-fg shadow-lg filter-blur-sm  rounded-2xl "
         >
           {blog?.category ?? "Unspecified"}
         </span>
@@ -53,7 +54,7 @@ const BlogCard = ({ blog }) => {
       <Button
         onClick={() => navigate(`${blog._id}`)}
         variant="secondary"
-        className="px-4 py-2 mt-4 text-sm rounded-lg bg-primary text-primary-fg "
+        className="px-4 py-2 mt-4 text-sm rounded-lg bg-primary text-secondary-fg "
       >
         Read More
       </Button>

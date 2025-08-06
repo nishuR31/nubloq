@@ -26,6 +26,6 @@ router.route("/subscribe").post(sendSubscribe);
 router.route("/confirmation").post(sendConfirmation);
 router.route("/profile/update").patch(auth(), uploader, updateProfile);
 router.route("/all-users").get(getAllUsers);
-router.route("/bookMark/:blogId").get(bookMark);
+router.route("/bookMark/:blogId").get(auth(),bookMark); //?=true/false
 
 export default router;

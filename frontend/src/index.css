@@ -95,7 +95,7 @@
 } */
 
 @layer theme {
-  .light{
+  .light {
     --radius: 0.65rem;
     --background: oklch(1 0 0);
     --foreground: oklch(0.141 0.005 285.823);
@@ -201,7 +201,30 @@
 }
 
 @layer utilities {
-  /* === Background Utilities === */
+.fade-in {
+  animation: fadeIn 2s ease-out both;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) translateX(-50px) scale(0.5);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) translateX(0) scale(1);
+  }
+}
+
+
+  .bg-bg {
+    /* @apply bg-gradient-to-b from-[var(--background)] via-[var(--background)] to-[var(--primary)] */
+    @apply bg-gradient-to-b from-[var(--background)] via-[var(--sidebar)] to-[var(--primary)];
+  }
+
+  .text-gradient {
+    @apply text-[var(--chart-1)];
+  }
   .bg-app {
     background-color: var(--background);
   }
@@ -239,7 +262,7 @@
   /* === Text Color Utilities === */
   .text-app {
     color: var(--foreground);
-  } 
+  }
   .text-card {
     color: var(--card-foreground);
   }
@@ -362,5 +385,9 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+  }
+
+  .jodit_toolbar {
+    @apply bg-white text-black;
   }
 }

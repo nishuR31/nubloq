@@ -84,29 +84,29 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="animate-slideInLeft  flex items-center h-screen md:pt-14 md:h-[760px] bg-app transition-all delay-[2s] ease-in">
+    <div className="animate-fadeIn  flex items-center h-screen md:pt-14 md:h-[760px] bg-transparent transition-all delay-[2s] ease-in">
       <div className="flex items-center justify-center flex-1 px-4 md:px-0">
         <Card className=" border-input w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl  backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-xl animate-bounce font-semibold text-center text-app">
               Forgot Password
             </CardTitle>
-            <p className="mt-2 font-serif text-sm text-center text-muted-fg">
+            <p className="mt-2 font-serif text-sm text-center text-accent-fg">
               Enter your email to receive an OTP and reset your password
             </p>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <Label className="text-app">Email</Label>
+                <Label className="text-accent-fg">Email</Label>
                 <Input
                   type="email"
                   placeholder="Enter your registered email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="placeholder:bg-transparent caret-[var(--primary)] text-app "
+                  className="placeholder:bg-transparent text-accent "
                 />
-                <Button className="w-full mt-2 text-primary-fg" onClick={sendOtpHandler}>
+                <Button className="w-full mt-2 text-secondary-fg bg-primary" onClick={sendOtpHandler}>
                   Send OTP
                 </Button>
                 <div className="flex flex-row flex-wrap justify-between pt-1">
@@ -114,7 +114,7 @@ const ForgotPassword = () => {
                   <p className="text-center ">
                   {" "}
                   <Link to={"/login"}>
-                    <span className="text-muted-fg hover:underline cursor-pointer">
+                    <span className="hover:underline text-secondary-fg  cursor-pointer">
                       Remember Password?
                     </span>
                   </Link>
@@ -122,7 +122,7 @@ const ForgotPassword = () => {
                 <p className="text-center text-gray-300">
                   {" "}
                   <Link to={"/signup"}>
-                    <span className="text-center text-primary  hover:underline cursor-pointer">
+                    <span className="text-center  text-secondary-fg   hover:underline cursor-pointer">
                       New user?
                     </span>
                   </Link>
@@ -135,16 +135,16 @@ const ForgotPassword = () => {
               {otpSent && !verified && (
                 <>
                   <div>
-                    <Label>OTP</Label>
+                    <Label className="text-secondary-fg ">OTP</Label>
                     <Input
                       type="text"
                       placeholder="Enter the OTP"
                       value={otp}
                       onChange={(e) => setOtp(e.target.value)}
-                      className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                      className="placeholder:bg-transparent text-accent"
                     />
                   </div>
-                  <Button className="w-full" onClick={verifyOtpHandler}>
+                  <Button className="w-full text-secondary-fg bg-primary" onClick={verifyOtpHandler}>
                     Verify OTP
                   </Button>
                 </>
@@ -159,17 +159,17 @@ const ForgotPassword = () => {
                       placeholder="Enter new password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
-                      className="dark:placeholder:text-gray-600 placeholder:text-gray-300 dark:border-gray-600 dark:bg-gray-900"
+                      className="placeholder:bg-transparent text-accent"
                     />
                     <button
                       type="button"
-                      className="absolute text-gray-300 right-3 top-8"
+                      className="absolute text-muted-fg right-3 top-8"
                       onClick={() => setShowPassword(!showPassword)}
                     >
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                     </button>
                   </div>
-                  <Button className="w-full" onClick={resetPasswordHandler}>
+                  <Button className="w-full text-secondary-fg bg-primary" onClick={resetPasswordHandler}>
                     Reset Password
                   </Button>
                 </>

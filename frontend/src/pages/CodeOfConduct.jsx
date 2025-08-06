@@ -5,7 +5,7 @@ import "../index.css";
 
 const CodeOfConduct = () => {
   return (
-    <div className="flex flex-col animate-slideInLeft py-[70px] px-5 text-justify  transition-all delay-[1s] ease-in bg-cover  bg-no-repeat -cover min-h-content  w-full mx-auto p-6 text-app bg-app">
+    <div className="animate-fadeIn flex flex-col  py-[70px] px-5 text-justify  transition-all delay-[1s] ease-in bg-cover  bg-no-repeat -cover min-h-content  w-full mx-auto p-6 text-app bg-app">
       <h1 className=" mb-4 text-3xl font-bold text-center text-app">
         Code of Conduct
       </h1>

@@ -9,7 +9,7 @@ import "../index.css";
 
 const Sidebar = () => {
   return (
-    <div className="hidden animate-slideInLeft transition-all delay-[2s] ease-in  fixed md:block border-r-2 bg-app bg-no-repeat bg-cover  border-input  w-[250px] py-40  space-y-2 min-h-screen z-10">
+    <div className="hidden animate-slideInLeft transition-all delay-[2s] ease-in  fixed md:block border-r-2 bg-bg bg-no-repeat bg-cover  border-input  w-[250px] py-40  space-y-2 min-h-screen z-10">
       {/* <h1 className='p-2 text-xl font-semibold text-center text-gray-700 rounded-md cursor-pointer hover:bg-gray-800 hover:text-white'>Your Blogs</h1> 
       <h2 className='text-xl font-semibold cursor-pointer'>Comments</h2> 
       <h1 className='p-2 text-xl font-semibold text-center rounded-md cursor-pointer hover:bg-gray-800 hover:text-white'>Write a Blog</h1>
@@ -26,7 +26,7 @@ const Sidebar = () => {
             } flex items-center gap-2 font-bold cursor-pointer p-3 rounded-2xl w-full`
           }
         >
-          <SquareUser />
+          <SquareUser className="text-secondary-fg" />
           <span>Profile</span>
         </NavLink>
         <NavLink
@@ -34,12 +34,12 @@ const Sidebar = () => {
           className={({ isActive }) =>
             `text-2xl  ${
               isActive
-                ? "bg-primary  text-app"
+                ? "bg-primary  text-secondary-fg"
                 : "bg-transparent"
             } flex items-center gap-2 font-bold cursor-pointer p-3 rounded-2xl w-full`
           }
         >
-          <ChartColumnBig />
+          <ChartColumnBig className="text-secondary-fg"/>
           <span>Your Blogs</span>
         </NavLink>
         <NavLink
@@ -52,7 +52,7 @@ const Sidebar = () => {
             } flex items-center gap-2 font-bold cursor-pointer p-3 rounded-2xl w-full`
           }
         >
-          <MessageCircle />
+          <MessageCircle className="text-secondary-fg" />
           <span>Comments</span>
         </NavLink>
         <NavLink

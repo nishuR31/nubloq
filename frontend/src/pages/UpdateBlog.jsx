@@ -172,16 +172,16 @@ const UpdateBlog = () => {
     return <div className="py-20 text-center">Loading blog...</div>;
 
   return (
-    <div className=" pb-10 px-3 pt-20 md:ml-[320px]">
+    <div className="animate-fadeIn pb-10 px-3 pt-20 md:ml-[320px] bg-transparent">
       <div className="max-w-6xl mx-auto mt-8">
-        <Card className="w-full p-5 space-y-2 bg-white dark:bg-gray-800">
-          <h1 className="text-4xl font-bold">Basic Blog Information</h1>
-          <p>
+        <Card className="w-full p-5 space-y-2 bg-transparent text-secondary-fg">
+          <h1 className="text-4xl font-bold text-app">Basic Blog Information</h1>
+          <p className="text-muted">
             Make changes to your blogs here. Click publish when you're done.
           </p>
 
           <div className="space-x-2">
-            <Button
+            <Button className="bg-primary text-secondary-fg"
               onClick={() =>
                 togglePublishUnpublish(
                   selectBlog?.isPublished ? "false" : "true"
@@ -190,7 +190,7 @@ const UpdateBlog = () => {
             >
               {selectBlog?.isPublished ? "UnPublish" : "Publish"}
             </Button>
-            <Button variant="destructive" onClick={deleteBlog}>
+            <Button variant="destructive" onClick={deleteBlog} className="text-destructive bg-destructive">
               Remove Blog
             </Button>
           </div>
@@ -203,7 +203,7 @@ const UpdateBlog = () => {
               placeholder="Enter a title"
               value={blogData.title}
               onChange={handleChange}
-              className="dark:border-gray-300"
+              className="text-accent"
             />
           </div>
 
@@ -215,7 +215,7 @@ const UpdateBlog = () => {
               placeholder="Enter a subtitle"
               value={blogData.subtitle}
               onChange={handleChange}
-              className="dark:border-gray-300"
+              className="text-accent"
             />
           </div>
 
@@ -231,7 +231,7 @@ const UpdateBlog = () => {
                 const content = editor.current?.value || e.current.value || "";
                 setBlogData((prev) => ({ ...prev, bio: content }));
               }}
-              className="jodit_toolbar"
+              className="jodit_toolbar text-accent bg-app"
             />
           </div>
 
@@ -239,7 +239,7 @@ const UpdateBlog = () => {
             <Label>Category</Label>
             <Select value={blogData.category} onValueChange={selectCategory}>
               <SelectTrigger className="w-[180px]">
-                <SelectValue placeholder="Select a category" />
+                <SelectValue placeholder="Select a category bg-primary text-secondary-fg" />
               </SelectTrigger>
               <SelectContent>
                 <SelectGroup>
@@ -273,7 +273,7 @@ const UpdateBlog = () => {
               type="file"
               onChange={selectThumbnail}
               accept="image/*"
-              className="bg-transparent w-fit dark:border-gray-300"
+              className="bg-transparent w-fit text-accent"
             />
             {previewThumbnail && (
               <img
@@ -285,10 +285,10 @@ const UpdateBlog = () => {
           </div>
 
           <div className="flex gap-3">
-            <Button variant="outline" onClick={() => navigate(-1)}>
+            <Button className=" text-secondary-fg"  variant="outline" onClick={() => navigate(-1)}>
               Back
             </Button>
-            <Button disabled={loading} onClick={updateBlogHandler}>
+            <Button className="bg-primary text-secondary-fg" disabled={loading} onClick={updateBlogHandler}>
               {loading ? "Please Wait..." : "Save"}
             </Button>
           </div>

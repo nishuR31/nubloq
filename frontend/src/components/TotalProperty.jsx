@@ -102,7 +102,7 @@ const TotalProperty = () => {
     },
   ];
   return (
-    <div className="p-4 bg-transparent transition-all delay-[2s] ease-in backdrop-blur-md md:p-10 bg-app ">
+    <div className="p-4 bg-transparent transition-all delay-[2s] ease-in backdrop-blur-md md:p-10  ">
       <div className="flex flex-col justify-around gap-3 text-muted-fg md:flex-row md:gap-7">
         {stats.map((stat) => (
           <Card key={stat.title} className="w-full bg-transparent ">
@@ -111,13 +111,13 @@ const TotalProperty = () => {
                 {stat.title}
               </CardTitle>
               {/* <stat.icon className="w-4 h-4 text-muted-foreground" onClick={()=>{}} /> */}
-              <stat.icon className="w-4 h-4 text-primary " />
+              <stat.icon className="w-4 h-4 text-secondary-fg " />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold text-app">{stat.value}</div>
               <p
                 className={`text-xs ${
-                  stat.trend === "up" ? "text-green-500" : "text-red-500"
+                  stat.trend === "up" ? "text-secondary-fg" : "text-muted-fg"
                 }`}
               >
                 {stat.change} from last month

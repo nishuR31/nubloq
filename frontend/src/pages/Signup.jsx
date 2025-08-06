@@ -127,13 +127,13 @@ const Signup = () => {
 
   return (
     <div
-      className={`flex h-screen md:pt-14 caret-[var(--primary)] bg-transparent bg-app text-app transition-all delay-[2s] ease-in`}
+      className={`animate-fadeIn flex h-screen md:pt-14 caret-[var(--primary)] bg-transparent  transition-all delay-[2s] ease-in`}
     >
       <div className="flex items-center justify-center flex-1 px-4 md:px-0">
         <Card className="w-full max-w-md p-6 bg-transparent shadow-lg rounded-2xl backdrop-blur-sm border-sidebar">
           <CardHeader>
             <CardTitle>
-              <h1 className="text-xl font-semibold text-center ">
+              <h1 className="text-xl font-semibold text-app ">
                 Create an account
               </h1>
             </CardTitle>
@@ -145,7 +145,7 @@ const Signup = () => {
             <form className="space-y-4 " onSubmit={handleSubmit}>
               <div className="flex gap-3">
                 <div>
-                  <Label>First Name</Label>
+                  <Label className="text-secondary-fg">First Name</Label>
                   <Input
                     type="text"
                     placeholder="Nishan"
@@ -157,7 +157,7 @@ const Signup = () => {
                 </div>
 
                 <div>
-                  <Label>Last Name</Label>
+                  <Label className="text-secondary-fg">Last Name</Label>
                   <Input
                     type="text"
                     placeholder=" "
@@ -169,7 +169,7 @@ const Signup = () => {
                 </div>
               </div>
               <div>
-                <Label>Username</Label>
+                <Label className="text-secondary-fg">Username</Label>
                 <Input
                   type="text"
                   placeholder="username_"
@@ -180,7 +180,7 @@ const Signup = () => {
                 />
               </div>
               <div>
-                <Label>Email</Label>
+                <Label className="text-secondary-fg">Email</Label>
                 <Input
                   type="email"
                   placeholder="abc123@mail.com"
@@ -192,7 +192,7 @@ const Signup = () => {
               </div>
 
               <div className="relative">
-                <Label>Password</Label>
+                <Label className="text-secondary-fg">Password</Label>
                 <Input
                   type={showPassword ? "text" : "password"}
                   placeholder="Create a Password"
@@ -203,20 +203,20 @@ const Signup = () => {
                 />
                 <button
                   type="button"
-                  className="absolute text-primary right-3 top-8"
+                  className="absolute text-secondary-fg right-3 top-8"
                   onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                 </button>
               </div>
 
-              <Button type="submit" className="w-full text-primary-fg">
+              <Button type="submit" className="w-full bg-primary text-secondary-fg">
                 Sign Up
               </Button>
               <p className="text-center text-muted-fg">
                 Already have an account?{" "}
                 <Link to={"/login"}>
-                  <span className="hover:underline cursor-pointer text-primary">
+                  <span className="hover:underline cursor-pointer text-secondary-fg ">
                     Sign in
                   </span>
                 </Link>

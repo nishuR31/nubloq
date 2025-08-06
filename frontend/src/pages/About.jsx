@@ -224,7 +224,7 @@ const About = () => {
   }, []);
 
   return (
-    <div className="px-4 text-app ease-in-out transition-all delay-[2s] animate-slideInLeft pt-28 md:px-0 mb-7 bg-app">
+    <div className="px-4 text-app ease-in-out transition-all delay-[2s] animate-fadeIn pt-28 md:px-0 mb-7 bg-transparent">
       <div className="max-w-6xl mx-auto">
         {/* Header Section */}
         <div className="text-center">
@@ -249,7 +249,7 @@ const About = () => {
           />
           <div>
             <p className="mb-4 text-lg ">
-              Welcome to <strong className="text-primary">Nubloq</strong>, a
+              Welcome to <strong className="text-app">Nubloq</strong>, a
               thoughtfully crafted blogging platform for storytellers,
               developers, and creative thinkers. Share knowledge, exchange
               ideas, and grow with a community that values insightful content
@@ -274,7 +274,7 @@ const About = () => {
 
         {/* Footer Quote */}
         <div className="mt-16 text-center">
-          <blockquote className="text-2xl italic dark:text-gray-400 animate-pulse">
+          <blockquote className="text-2xl italic text-muted animate-pulse">
             "Live in such a way that your memories become your legacy—moments
             worth reliving, even at your final breath."
           </blockquote>

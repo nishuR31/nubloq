@@ -29,6 +29,7 @@ const Comments = () => {
       });
       if (res.data.success) {
         setAllComments(res.data.payload.comments);
+        toast.success(res.data.message)
       }
     } catch (error) {
       console.log(error);
@@ -41,32 +42,32 @@ const Comments = () => {
   console.log(allComments);
 
   return (
-    <div className="animate-slideInLeft pb-10 pt-20 md:ml-[250px] bg-cover bg-fixed bg-no-repeat bg-wave dark:bg-blackWave min-h-screen">
+    <div className="animate-fadeIn pb-10 pt-20 md:ml-[250px] bg-cover bg-fixed bg-no-repeat bg-bg min-h-screen">
       <div className="max-w-6xl mx-auto mt-8 ">
         <Card className="w-full p-5 space-y-2 bg-transparent backdrop-blur-md">
           <Table>
-            <TableCaption>A list of your recent comments.</TableCaption>
+            <TableCaption className="text-secondary-fg">A list of your recent comments.</TableCaption>
             <TableHeader>
               <TableRow>
                 {/* <TableHead className="w-[100px]">Author</TableHead> */}
-                <TableHead>Blog Title</TableHead>
-                <TableHead>Comment</TableHead>
-                <TableHead>Author</TableHead>
-                <TableHead className="text-center">Action</TableHead>
+                <TableHead className="text-secondary-fg text-center" >Blog Title</TableHead>
+                <TableHead className="text-secondary-fg text-center" >Comment</TableHead>
+                <TableHead className="text-secondary-fg text-center" >Author</TableHead>
+                <TableHead className="text-secondary-fg text-center">Action</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {allComments?.map((comment, index) => (
                 <TableRow key={index}>
                   {/* <TableCell className="font-medium">{item.author.firstName}</TableCell> */}
-                  <TableCell className="flex items-center gap-4">
+                  <TableCell className="flex items-center gap-4 text-secondary-fg">
                     {comment.postId.title}
                   </TableCell>
-                  <TableCell>{comment.content}</TableCell>
-                  <TableCell className="">{comment.userId.firstName}</TableCell>
+                  <TableCell className="text-secondary-fg">{comment.content}</TableCell>
+                  <TableCell className="text-muted-fg">{comment.userId.firstName}</TableCell>
                   <TableCell className="flex items-center justify-center gap-3 text-right">
                     <Eye
-                      className="cursor-pointer"
+                      className="cursor-pointer text-secondary-fg"
                       onClick={() => navigate(`/blogs/${comment.postId._id}`)}
                     />
                   </TableCell>

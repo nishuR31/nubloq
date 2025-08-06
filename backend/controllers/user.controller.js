@@ -9,6 +9,7 @@ import { tokens } from "../utils/tokenization.js";
 import cookieOptions from "../utils/cookieOptions.js";
 import asyncHandler from "../utils/asyncHandler.js";
 import Blog from "../models/blog.model.js";
+import mongoose from "mongoose";
 
 export const register = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, password, userName } = req.body;
@@ -231,68 +232,64 @@ export const login = asyncHandler(async (req, res) => {
 //////////////////////////////////////////////////////////////
 
 export const bookMark = asyncHandler(async (req, res) => {
-  let blogId = req.params.blogId;
-  let q = req.query.q === "true";
-  if (!req.user) {
-    return res
-      .status(codes.unauthorized)
-      .json(
-        new ApiErrorResponse(
-          "Cannot bookmark without login.",
-          codes.unauthorized
-        ).res()
-      );
-  }
+const blogId = req.params.blogId;
+const q = req.query.q === "true";
+console.log(q);
 
-  if (!blogId) {
-    return res
-      .status(codes.badRequest)
-      .json(new ApiErrorResponse("Invalid blog post.", codes.badRequest).res());
-  }
-  let user = await User.findById(req.user._id);
-  if (!user) {
-    return res
-      .status(codes.notFound)
-      .json(new ApiErrorResponse("Invalid user.", codes.notFound).res());
-  }
-  let blog = await Blog.findById(blogId);
-  if (!blog) {
-    return res
-      .status(codes.notFound)
-      .json(new ApiErrorResponse("Invalid blog.", codes.notFound).res());
-  }
-
-  q
-    ? user.bookMark.includes(blogId)
-      ? null
-      : user.bookMark.push(blogId)
-    : user.bookMark.includes(blogId)
-    ? (user.bookMark = user.bookMark.filter((id) => id !== blogId))
-    : null;
-
-  await user.save();
-  return res.status(codes.ok).json(
-    new ApiResponse(`User ${user.userName} found successfully.`, codes.ok, {
-      user: {
-        _id: user._id,
-        userName: user.userName,
-        firstName: user.firstName,
-        lastName: user.lastName,
-        email: user.email,
-        bio: user.bio,
-        occupation: user.occupation,
-        photoUrl: user.photoUrl,
-        instagram: user.instagram,
-        linkedin: user.linkedin,
-        github: user.github,
-        facebook: user.facebook,
-        createdAt: user.createdAt,
-        updatedAt: user.updatedAt,
-        bookMark: user.bookMark,
-      },
-    }).res()
+if (!req.user) {
+  return res.status(codes.unauthorized).json(
+    new ApiErrorResponse("Cannot bookmark without login.", codes.unauthorized).res()
   );
-});
+}
+
+if (!blogId || !mongoose.Types.ObjectId.isValid(blogId)) {
+  return res.status(codes.badRequest).json(
+    new ApiErrorResponse("Invalid blog post ID.", codes.badRequest).res()
+  );
+}
+
+const user = await User.findById(req.user._id);
+if (!user) {
+  return res.status(codes.notFound).json(
+    new ApiErrorResponse("Invalid user.", codes.notFound).res()
+  );
+}
+
+const blog = await Blog.findById(blogId);
+if (!blog) {
+  return res.status(codes.notFound).json(
+    new ApiErrorResponse("Invalid blog.", codes.notFound).res()
+  );
+}
+
+// ✅ Check if bookmarked using .some() and .equals()
+const isBookmarked = user.bookMark.some((id) => id!=blogId);
+
+// ✅ Toggle logic
+if (q) {
+  if (isBookmarked) {
+    user.bookMark = user.bookMark.filter((id) => id!=blogId);
+  } else {
+    user.bookMark.push(blog._id);
+  }
+} else {
+  if (isBookmarked) {
+    user.bookMark = user.bookMark.filter((id) => id!=blogId);
+  } else {
+    user.bookMark.push(blog._id);
+  }
+}
+
+// ✅ Save updated user
+await user.save();
+
+// ✅ Response
+return res.status(codes.ok).json(
+  new ApiResponse(`Bookmark updated for user ${user.userName}`, codes.ok, {
+    bookMark: user.bookMark,
+  }).res()
+);
+})
 ////////////////////////////////////////////////////////////////////////////
 
 export const profile = asyncHandler(async (req, res) => {
@@ -358,7 +355,7 @@ export const logout = asyncHandler(async (req, res) => {
 
   for (let cookie in req.cookies) {
     res.clearCookie(cookie, {
-      httpOnly: process.env.STAGE==="production",
+      httpOnly: process.env.STAGE === "production",
       secure: true,
       sameSite: "None",
     });

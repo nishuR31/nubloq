@@ -6,7 +6,7 @@ import "../index.css";
 export default function PrivacyPolicy() {
   return (
     <>
-      <div className="flex flex-col w-full bg-card p-6 py-10 mx-auto text-app transition-all ease-in bg-no-repeat bg-cover ">
+      <div className="animate-fadeIn flex flex-col w-full bg-card p-6 py-10 mx-auto text-app transition-all ease-in bg-no-repeat bg-cover ">
         <h1 className="pt-10 mb-4 text-3xl text-app animate-bounce font-bold">Privacy Policy</h1>
         <p className="mb-4">
           Your privacy is important to us. This Privacy Policy explains how

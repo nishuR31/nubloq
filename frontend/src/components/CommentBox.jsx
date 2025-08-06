@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import avatarFallback from './avatarFallback.js';
-import { Textarea } from './ui/textarea';
-import { Button } from './ui/button';
-import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import { setBlog } from '../redux/blogSlice';
-import { setComment } from '../redux/commentSlice';
-import { EllipsisVertical,Edit, Trash2,Heart } from "lucide-react";
+import React, { useEffect, useState } from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import avatarFallback from "./avatarFallback.js";
+import { Textarea } from "./ui/textarea";
+import { Button } from "./ui/button";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setBlog } from "../redux/blogSlice";
+import { setComment } from "../redux/commentSlice";
+import {
+  EllipsisVertical,
+  Edit,
+  Trash2,
+  Heart,
+  Send,
+  Loader,
+  HeartOff,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,25 +25,19 @@ import {
 import { toast } from "sonner";
 import "../index.css";
 
-
-
-
 const api = import.meta.env.VITE_URL;
 
-
-
-
 const CommentBox = ({ selectedBlog }) => {
-  const { user } = useSelector(state => state.auth);
-  const { comment } = useSelector(state => state.comment);
-  const { blog } = useSelector(state => state.blog);
+  const { user } = useSelector((state) => state.auth);
+  const { comment } = useSelector((state) => state.comment);
+  const { blog } = useSelector((state) => state.blog);
   const dispatch = useDispatch();
 
   const [content, setContent] = useState("");
   const [activeReplyId, setActiveReplyId] = useState(null);
-  const [replyText, setReplyText] = useState('');
+  const [replyText, setReplyText] = useState("");
   const [editingCommentId, setEditingCommentId] = useState(null);
-  const [editedContent, setEditedContent] = useState('');
+  const [editedContent, setEditedContent] = useState("");
 
   // ✅ Fetch comments on blog change
   useEffect(() => {
@@ -43,9 +45,14 @@ const CommentBox = ({ selectedBlog }) => {
       if (!selectedBlog?._id) return;
       try {
         // const res = await axios.get(`http://localhost:4000/api/v1/comment/${selectedBlog._id}/comment/all`);
-        const res = await axios.get(`${api}/${selectedBlog._id}/comment/all`);
-        dispatch(setComment(res.data.payload.comments));
-        toast.success("Comments fetched successfully.");
+        const res = await axios.get(
+          `${api}/comment/${selectedBlog._id}/comment/all`
+        );
+        //http://localhost:4000/api/v1/comment/688db61cd2c19df85cfa41cb/comment/all
+        if (res.data.success) {
+          dispatch(setComment(res.data.payload.comments));
+          toast.success("Comments fetched successfully.");
+        }
       } catch (error) {
         console.error("Failed to fetch comments:", error);
         toast.error("Failed to fetch comments");
@@ -74,8 +81,10 @@ const CommentBox = ({ selectedBlog }) => {
         const newComment = res.data.payload.comment;
         dispatch(setComment([...comment, newComment]));
 
-        const updatedBlogData = blog.map(p =>
-          p._id === selectedBlog._id ? { ...p, comments: [...comment, newComment] } : p
+        const updatedBlogData = blog.map((p) =>
+          p._id === selectedBlog._id
+            ? { ...p, comments: [...comment, newComment] }
+            : p
         );
         dispatch(setBlog(updatedBlogData));
         toast.success(res.data.message);
@@ -95,7 +104,7 @@ const CommentBox = ({ selectedBlog }) => {
       const res = await axios.post(
         `${api}/comment/${selectedBlog._id}/create`,
         // `http://localhost:4000/api/v1/comment/${selectedBlog._id}/create`,
-        { content: replyText, parentCommentId },
+        { content: replyText, parentId: parentCommentId },
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -105,7 +114,7 @@ const CommentBox = ({ selectedBlog }) => {
       if (res.data.success) {
         dispatch(setComment([...comment, res.data.payload.comment]));
         toast.success(res.data.message);
-        setReplyText('');
+        setReplyText("");
         setActiveReplyId(null);
       }
     } catch (error) {
@@ -124,7 +133,7 @@ const CommentBox = ({ selectedBlog }) => {
       );
 
       if (res.data.success) {
-        const filtered = comment.filter(c => c._id !== commentId);
+        const filtered = comment.filter((c) => c._id !== commentId);
         dispatch(setComment(filtered));
         toast.success(res.data.message);
       }
@@ -148,13 +157,13 @@ const CommentBox = ({ selectedBlog }) => {
       );
 
       if (res.data?.success) {
-        const updated = comment.map(c =>
+        const updated = comment.map((c) =>
           c._id === commentId ? res.data.payload.comment : c
         );
         dispatch(setComment(updated));
         toast.success(res.data.message);
         setEditingCommentId(null);
-        setEditedContent('');
+        setEditedContent("");
       } else {
         toast.error(res.data?.message || "Failed to edit comment");
       }
@@ -175,7 +184,7 @@ const CommentBox = ({ selectedBlog }) => {
 
       if (res.data.success) {
         const updated = res.data.payload.comment;
-        const updatedList = comment.map(c =>
+        const updatedList = comment.map((c) =>
           c._id === commentId ? updated : c
         );
         dispatch(setComment(updatedList));
@@ -191,31 +200,46 @@ const CommentBox = ({ selectedBlog }) => {
       {/* Top input box */}
       <div className="flex items-center gap-4 mb-4">
         <Avatar>
-          <AvatarImage src={user?.photoUrl || `https://placehold.co/700x400?text=${blog.title}`} />
-          <AvatarFallback>{avatarFallback({ user })}</AvatarFallback>
+          <AvatarImage
+            src={
+              user?.photoUrl ||
+              `https://placehold.co/700x400?text=${blog.title}`
+            }
+          />
+          <AvatarFallback>{avatarFallback(user)}</AvatarFallback>
         </Avatar>
-        <h3 className="font-semibold">{user?.firstName} {user?.lastName}</h3>
+        <h3 className="font-semibold">{user?.firstName}</h3>
       </div>
 
       <div className="flex gap-3">
         <Textarea
           placeholder="Leave a comment"
-          className="bg-gray-100 dark:bg-gray-800"
+          className="text-secondary-fg bg-transparent"
           onChange={(e) => setContent(e.target.value)}
           value={content}
         />
-        <Button onClick={commentHandler}><Send  /></Button>
+        <Button
+          className="text-secondary-fg bg-primary"
+          onClick={commentHandler}
+        >
+          <Send className="text-secondary-fg" />
+        </Button>
       </div>
 
       {/* Comments section */}
       {Array.isArray(comment) && comment.length > 0 && (
-        <div className="p-5 bg-gray-100 rounded-md mt-7 dark:bg-gray-800">
+        <div className="p-5 bg-transparent">
           {comment.map((item) => (
             <div key={item._id} className="mb-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-start gap-3">
                   <Avatar>
-                    <AvatarImage src={item?.userId?.photoUrl || `https://placehold.co/700x400?text=${blog.title}`} />
+                    <AvatarImage
+                      src={
+                        item?.userId?.photoUrl ||
+                        `https://placehold.co/100x100?text=${item?.userId?.userName}`
+                      }
+                    />
                     <AvatarFallback>{avatarFallback({ user })}</AvatarFallback>
                   </Avatar>
                   <div className="mb-2 space-y-1 md:w-[400px]">
@@ -228,45 +252,76 @@ const CommentBox = ({ selectedBlog }) => {
                         <Textarea
                           value={editedContent}
                           onChange={(e) => setEditedContent(e.target.value)}
-                          className="mb-2 bg-gray-200 dark:bg-gray-700"
+                          className="mb-2 bg-transparent text-secondary-fg"
                         />
                         <div className="flex gap-2 py-1">
-                          <Button size="sm" onClick={() => editCommentHandler(item._id)}>Save</Button>
-                          <Button size="sm" variant="outline" onClick={() => setEditingCommentId(null)}>Cancel</Button>
+                          <Button className="text-secondary-fg bg-primary"
+                            size="sm"
+                            onClick={() => editCommentHandler(item._id)}
+                          >
+                            Save
+                          </Button>
+                          <Button
+                          className="text-secondary-fg bg-destructive"
+                            size="sm"
+                            variant="outline"
+                            onClick={() => setEditingCommentId(null)}
+                          >
+                            Cancel
+                          </Button>
                         </div>
                       </>
                     ) : (
                       <p>{item.content}</p>
                     )}
 
-                    <div className="flex items-center gap-5">
-                      <div
+                    {/* <div className="flex items-center gap-5">
+                       <div
                         className="flex items-center gap-1 cursor-pointer"
                         onClick={() => likeCommentHandler(item._id)}
                       >
-                        {item.likes?.includes(user?._id)
-                          ? <Heart  fill="red" />
-                          : <HeartOff  />}
+                        {item.likes?.includes(user?._id) ? (
+                          <Heart size={24} className="text-red-500  cursor-pointer" />
+                        ) : (
+                          <Heart size={24}
+                    className="text-secondary-fg cursor-pointer "/>
+                        )}
                         <span>{item.numberOfLikes}</span>
-                      </div>
-                      <p onClick={() => setActiveReplyId(item._id)} className="text-sm cursor-pointer">Reply</p>
-                    </div>
+                      </div> 
+                      <p
+                        onClick={() => setActiveReplyId(item._id)}
+                        className="text-sm cursor-pointer"
+                      >
+                        Reply
+                      </p>
+                    </div> */}
                   </div>
                 </div>
 
                 {/* Edit/Delete dropdown */}
                 {user?._id === item?.userId?._id && (
                   <DropdownMenu>
-                    <DropdownMenuTrigger><EllipsisVertical /></DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-[180px]">
-                      <DropdownMenuItem onClick={() => {
-                        setEditingCommentId(item._id);
-                        setEditedContent(item.content);
-                      }}><Edit className="w-4 h-4 mr-2" /> Edit</DropdownMenuItem>
-                      <DropdownMenuItem
+                    <DropdownMenuTrigger>
+                      <EllipsisVertical />
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="max-w-fit tracking-tighter bg-transparent">
+                      {/* <DropdownMenuItem
+                        onClick={() => {
+                          setEditingCommentId(item._id);
+                          setEditedContent(item.content);
+                        }}
+                      >
+                        <Edit className="w-4 h-4 mr-2" /> Edit
+                      </DropdownMenuItem> */}
+                      {/* <DropdownMenuItem
                         onClick={() => deleteCommentHandler(item._id)}
                         className="text-red-500"
-                      ><Trash2 className="w-4 h-4 mr-2" /> Delete</DropdownMenuItem>
+                      >
+                        <Trash2 className="w-4 h-4 mr-2" /> Delete
+                      </DropdownMenuItem> */}
+                      <DropdownMenuItem className="text-secondary-fg flex bg-transparent">
+                        <Loader className="w-4 h-4 mr-2 text-secondary-fg animate-spin" /> In development
+                      </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 )}
@@ -281,7 +336,9 @@ const CommentBox = ({ selectedBlog }) => {
                     onChange={(e) => setReplyText(e.target.value)}
                     value={replyText}
                   />
-                  <Button onClick={() => replyHandler(item._id)}><Send  /></Button>
+                  <Button onClick={() => replyHandler(item._id)}>
+                    <Send />
+                  </Button>
                 </div>
               )}
             </div>

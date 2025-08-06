@@ -21,7 +21,7 @@ const Hero = () => {
   }, []);
 
   return (
-    <div className="min-h-screen px-4 transition-all ease-in-out bg-transparent delay-[1s] flex flex-wrap  bg-app text-app">
+    <div className="min-h-screen px-4 transition-all ease-in-out bg-transparent delay-[1s] flex flex-wrap   text-app">
       {/*     <div className="h-screen px-4 transition-all ease-in-out bg-bottom bg-no-repeat delay-3000 bg-home-light dark:bg-home-dark bg-fit dark:bg-center "> */}
       {/* <div className="h-screen px-4 transition-all ease-in-out bg-bottom bg-no-repeat delay-3000 bg-home-light dark:bg-home-dark bg-fit dark:bg-center"> */}
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center h-[600px] ">

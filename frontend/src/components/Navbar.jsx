@@ -126,48 +126,48 @@ const Navbar = () => {
               onChange={(e) => setSearchTerm(e.target.value)}
             />
             <Button
-              className="absolute top-0 right-0 text-muted-card"
+              className="absolute top-0 right-0 "
               onClick={handleSearch}
             >
-              <Search className="text-sidebar-primary-fg" />
+              <Search className="text-secondary-fg bg-primary" />
             </Button>
           </div>
         </div>
         {/* nav section */}
         <nav className="ml-10 flex items-center justify-center-safe ">
           <ul className="items-center hidden text-xl font-semibold md:flex gap-7 text-theme">
-            <NavLink to={"/"} className="cursor-pointer hover:underline ">
+            <NavLink to={"/"} className="cursor-pointer  )] ">
               <li>
-                <House className="inline lg:hidden text-primary" />
-                <span className="hidden lg:inline text-primary">Home</span>
+                <House className="inline lg:hidden text-secondary-fg" />
+                <span className="hidden lg:inline text-secondary-fg">Home</span>
               </li>
             </NavLink>
 
             <NavLink
               to={"/blogs"}
-              className={`cursor-pointer hover:underline `}
+              className={`cursor-pointer  `}
             >
               <li>
-                <NotebookText className="inline lg:hidden text-primary " />
-                <span className="hidden lg:inline text-primary ">Blogs</span>
+                <NotebookText className="inline lg:hidden text-secondary-fg " />
+                <span className="hidden lg:inline text-secondary-fg ">Blogs</span>
               </li>
             </NavLink>
             <NavLink
               to={"/about"}
-              className={`cursor-pointer hover:underline `}
+              className={`cursor-pointer  `}
             >
               <li>
-                <ScrollText className="inline lg:hidden text-primary" />
-                <span className="hidden lg:inline text-primary">About</span>
+                <ScrollText className="inline lg:hidden text-secondary-fg" />
+                <span className="hidden lg:inline text-secondary-fg">About</span>
               </li>
             </NavLink>
             <NavLink
               to={"/write-blog"}
-              className={`cursor-pointer hover:underline `}
+              className={`cursor-pointer  `}
             >
               <li>
-                <Pencil className="inline lg:hidden text-primary" />
-                <span className="hidden lg:inline text-primary ">
+                <Pencil className="inline lg:hidden text-secondary-fg" />
+                <span className="hidden lg:inline text-secondary-fg ">
                   Write a Blog
                 </span>
               </li>
@@ -178,7 +178,7 @@ const Navbar = () => {
               onClick={() => {
                 dispatch(toggleTheme());
               }}
-              className="text-sidebar-primary-fg "
+              className="text-secondary-fg  bg-primary"
             >
               {theme === "light" ? <Moon /> : <Sun />}
             </Button>
@@ -214,12 +214,12 @@ const Navbar = () => {
                 {/* <Link to={'dashboard/profile'} /> */}
                 <DropdownMenu className="">
                   <DropdownMenuTrigger asChild>
-                    <Avatar className="cursor-pointer ">
+                    <Avatar className="cursor-pointer text-secondary-fg bg-primary">
                       <AvatarImage src={user.photoUrl} />
                       <AvatarFallback>{avatarFallback(user)}</AvatarFallback>
                     </Avatar>
                   </DropdownMenuTrigger>
-                  <DropdownMenuContent className="w-56 text-white bg-transparent backdrop-blur-md">
+                  <DropdownMenuContent className="w-56 text-secondary-fg bg-transparent backdrop-blur-md">
                     <DropdownMenuLabel>My Account</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
@@ -260,26 +260,26 @@ const Navbar = () => {
                 </DropdownMenu>
                 {/* </Link> */}
                 <Button
-                  className="hidden md:block track-tighter lg:flex lg:w-20 "
+                  className="hidden md:block track-tighter lg:flex lg:w-20 text-secondary-fg bg-primary "
                   onClick={logoutHandler}
                 >
-                  <LogOut className="hidden lg:block" />
+                  <LogOut className="hidden lg:block text-secondary-fg bg-primary" />
                   Logout
                 </Button>
               </div>
             ) : (
               <>
-                <div className="md:flex text-sidebar-primary-fg  ">
+                <div className="md:flex text-secondary-fg bg-primary ">
                   <Link to={"/login"}>
-                    <Button>Login</Button>
+                    <Button className="text-secondary-fg bg-primary">Login</Button>
                   </Link>
                 </div>
                 <div>
                   <Link
-                    className="hidden md:block text-sidebar-primary-fg"
+                    className="hidden md:block text-secondary-fg bg-primary"
                     to={"/signup"}
                   >
-                    <Button>Signup</Button>
+                    <Button className="text-secondary-fg bg-primary">Signup</Button>
                   </Link>
                 </div>
               </>
@@ -293,7 +293,7 @@ const Navbar = () => {
           ) : (
             <CircleChevronLeft
               onClick={toggleNav}
-              className="w-7 h-7 md:hidden text-primary"
+              className="w-7 h-7 md:hidden text-secondary-fg"
             />
           )}
         </nav>

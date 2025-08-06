@@ -122,29 +122,29 @@ const YourBlog = () => {
   };
 
   return (
-    <div className="animate-slideInLeft pb-10  md:ml-[250px] min-h-screen  object-fill py-6 transition-all delay-[2s] ease-in  bg-transparent">
+    <div className="animate-fadeIn pb-10  md:ml-[250px] min-h-screen  object-fill py-6 transition-all delay-[2s] ease-in  bg-transparent">
       <div className="max-w-6xl mx-auto mt-8 ">
-        <Card className="flex justify-between w-full p-5 space-y-2 bg-secondary text-muted-fg">
+        <Card className="flex justify-between w-full p-5 space-y-2 bg-transparent text-muted-fg">
           <Table>
             <TableCaption>A list of your recent blogs.</TableCaption>
             <TableHeader>
               <TableRow className="">
-                <TableHead className="text-center text-primary animate-fadeIn ">
+                <TableHead className="text-center text-secondary-fg animate-fadeIn ">
                   Author
                 </TableHead>
-                <TableHead className="hidden text-center text-primary animate-fadeIn lg:block">
+                <TableHead className="hidden text-center text-secondary-fg animate-fadeIn xl:block">
                   Thumbnail
                 </TableHead>
-                <TableHead className="text-center text-primary animate-fadeIn">
+                <TableHead className="text-center text-secondary-fg animate-fadeIn">
                   Title
                 </TableHead>
-                <TableHead className="text-center text-primary animate-fadeIn">
+                <TableHead className="text-center text-secondary-fg animate-fadeIn">
                   Category
                 </TableHead>
-                <TableHead className="text-center text-primary animate-fadeIn">
+                <TableHead className="text-center text-secondary-fg animate-fadeIn">
                   Date
                 </TableHead>
-                <TableHead className="text-center text-primary animate-fadeIn">
+                <TableHead className="text-center text-secondary-fg animate-fadeIn">
                   Action
                 </TableHead>
               </TableRow>
@@ -153,7 +153,7 @@ const YourBlog = () => {
               {Array.isArray(blog) &&
                 blog?.map((item, index) => (
                   <TableRow key={index}>
-                    <TableCell className="font-medium ">
+                    <TableCell className="font-medium text-secondary-fg ">
                       {item.author?.userName ??
                         capitalize(item.author?.firstName)}
                     </TableCell>
@@ -161,64 +161,64 @@ const YourBlog = () => {
                       <img
                         src={
                           item.thumbnail ||
-                          `https://placehold.co/200x200?text=${item?.title}`
+                          `https://placehold.co/500x300?text=${item?.title}`
                         }
                         alt={item.title}
-                        className="hidden rounded-md md:rounded-full md:w-20 md:h-20 lg:block  outline-1 outline-gray-700 dark:outline-gray-300 "
+                        className="hidden rounded-md md:rounded-md w-50 h-30 xl:inline  object-fill outline-1 outline-gray-700 dark:outline-gray-300 "
                       />
                       <TableCell
-                        className="flex flex-row flex-wrap cursor-pointer hover:underline p-auto "
+                        className="flex flex-row flex-wrap cursor-pointer hover:underline p-auto text-secondary-fg "
                         onClick={() => navigate(`/blogs/${item._id}`)}
                       >
                         {capitalize(item.title.substring(0, 15))}...
                       </TableCell>
                     </TableCell>
-                    <TableCell>
+                    <TableCell  className="text-secondary-fg">
                       {capitalize(item.category || "Uncategorized")}
                     </TableCell>
-                    <TableCell className="">{formatDate(index)}</TableCell>
+                    <TableCell className="text-muted">{formatDate(index)}</TableCell>
                     <TableCell className="text-center ">
                       <Eye
-                        className="hidden cursor-pointer lg:flex "
+                        className="hidden text-secondary-fg cursor-pointer xl:flex "
                         onClick={() => navigate(`/blogs/${item._id}`)}
                       />
                       <Edit
-                        className="hidden cursor-pointer lg:flex"
+                        className="hidden text-secondary-fg cursor-pointer xl:flex"
                         onClick={() =>
                           navigate(`/dashboard/write-blog/${item._id}`)
                         }
                       />
                       <Trash2
-                        className="hidden cursor-pointer lg:flex"
+                        className="hidden text-secondary-fg cursor-pointer xl:flex"
                         onClick={() => deleteBlog(item._id)}
                       />
 
                       <DropdownMenu className="flex md:hidden ">
                         <DropdownMenuTrigger>
-                          <EllipsisVertical className="flex md:hidden " />
+                          <EllipsisVertical className="flex xl:hidden " />
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-[180px]  lg:hidden backdrop-blur-sm  bg-transparent">
+                        <DropdownMenuContent className="w-[180px]  xl:hidden backdrop-blur-sm  bg-transparent">
                           <DropdownMenuItem
-                            className="text-blue-500"
+                            className="text-[var(--chart-2)]"
                             onClick={() =>
                               navigate(`/dashboard/write-blog/${item._id}`)
                             }
                           >
-                            <Edit />
+                            <Edit className="text-[var(--chart-2)]" />
                             Edit
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            className="text-fuchsia-500"
+                            className="text-[var(--chart-3)]"
                             onClick={() => navigate(`/blogs/${item._id}`)}
                           >
-                            <Eye />
+                            <Eye className="text-[var(--chart-3)]"/>
                             Open
                           </DropdownMenuItem>
                           <DropdownMenuItem
-                            className="text-red-500"
+                            className="text-[var(--chart-5)]"
                             onClick={() => deleteBlog(item._id)}
                           >
-                            <Trash2 />
+                            <Trash2 className="text-[var(--chart-5)]" />
                             Delete
                           </DropdownMenuItem>
                         </DropdownMenuContent>

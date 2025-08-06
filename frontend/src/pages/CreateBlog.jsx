@@ -53,13 +53,14 @@ const CreateBlog = () => {
   const getSelectedCategory = (value) => {
     setCategory(value);
   };
+  // console.log(title,`${api}/blog/create`)
   const createBlogHandler = async () => {
     try {
       setLoading(true);
       // `http://localhost:4000/api/v1/blog/create`,
       const res = await axios.post(
         `${api}/blog/create`,
-        { title: title },
+        {title:title} ,
         {
           headers: {
             "Content-Type": "application/json",
@@ -87,20 +88,20 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="flex justify-center p-4 pt-20 bg-transparent animate-slideInLeft backdrop-blur-sm">
+    <div className="animate-fadeIn flex justify-center p-4 pt-20 bg-transparent  backdrop-blur-sm">
       <Card className="p-4 bg-transparent md:p-10 ">
-        <h1 className="text-2xl font-bold">Lets create blog</h1>
-        <p>Let others get insights from your knowledge and experience.</p>
-        <p>Start on with a title and later moving to editor. </p>
+        <h1 className="text-2xl font-bold text-secondary-fg ">Lets create blog</h1>
+        <p className="text-muted-fg">Let others get insights from your knowledge and experience.</p>
+        <p className="text-muted-fg">Start on with a title and later moving to editor. </p>
         <div className="mt-10 ">
           <div>
-            <Label>Title</Label>
+            <Label className="text-secondary-fg ">Title</Label>
             <Input
               type="text"
               placeholder="Your Blog Name"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="bg-transparent"
+              className="bg-transparent text-accent-fg"
             />
           </div>
           {/* <div className="mt-4 mb-5">
@@ -134,12 +135,12 @@ const CreateBlog = () => {
           </div> */}
           <div className="flex items-center justify-center gap-2 mt-3 align-center">
             <Link to="/">
-              <Button variant="outline">Cancel</Button>
+              <Button variant="outline" className="text-secondary-fg ">Cancel</Button>
             </Link>
-            <Button className="" disabled={loading} onClick={createBlogHandler}>
+            <Button className="text-secondary-fg bg-primary" disabled={loading} onClick={createBlogHandler}>
               {loading ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                  <Loader2 className="w-4 h-4 mr-1 animate-spin text-secondary-fg  " />
                   Please wait
                 </>
               ) : (

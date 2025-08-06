@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose from "mongoose";
 
 const commentSchema = new mongoose.Schema(
   {
@@ -6,27 +6,29 @@ const commentSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    parentId: { type: [String], default: [] },
     postId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Blog'
+      ref: "Blog",
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User'
+      ref: "User",
     },
     numberOfLikes: {
       type: Number,
       default: 0,
     },
-    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
-    numberOfDislikes: { 
-      type: Number, default: 0 },
-
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    dislikes: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+    numberOfDislikes: {
+      type: Number,
+      default: 0,
+    },
   },
   { timestamps: true }
 );
 
-const Comment = mongoose.model('Comment', commentSchema);
+const Comment = mongoose.model("Comment", commentSchema);
 
 export default Comment;

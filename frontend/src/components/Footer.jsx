@@ -77,7 +77,7 @@ const Footer = () => {
 
   return (
     <footer
-      className={` transition-all delay-[2s] ease-in-out min-h-fit bg-transparent text-app bg-app  `}
+      className={` transition-all delay-[2s] ease-in-out min-h-fit bg-transparent text-app   `}
     >
       <div className="w-full h-3  bg-sidebar-primary backdrop-blur-md"></div>
       <div className="flex flex-row flex-wrap justify-around px-4 md:justify-between">
@@ -99,7 +99,7 @@ const Footer = () => {
             Email:{" "}
             <a
               href="mailto:bloggernishu31@gmail.com"
-              className="italic text-primary font-thin"
+              className="italic text-secondary-fg font-thin"
             >
               bloggernishu31@gmail.com
             </a>
@@ -108,7 +108,7 @@ const Footer = () => {
         {/* customer service link */}
         <div className="my-6 md:mb-0">
           <h3 className="text-xl font-semibold  ">Quick Links</h3>
-          <ul className="mt-2 space-y-2 text-muted-fg text-sm">
+          <ul className="mt-2 space-y-2 text-accent text-sm">
             <li>
               <Link to="/">Home</Link>
             </li>
@@ -135,7 +135,7 @@ const Footer = () => {
         {/* social media links */}
         <div className="my-6 md:mb-0">
           <h3 className="text-xl font-semibold ">Follow Us</h3>
-          <div className="flex mt-2 text-primary space-x-4">
+          <div className="flex mt-2 text-secondary-fg space-x-4">
             <a href="https://www.github.com/nishuR31" target="_black">
               <Github />
             </a>
@@ -146,8 +146,8 @@ const Footer = () => {
         </div>
         {/* newsletter subscription */}
         <div className="my-6 md:mb-0">
-          <h3 className="text-xl font-semibold ">Stay in the Loop</h3>
-          <p className="mt-2 text-sm">
+          <h3 className="text-xl font-semibold  text-secondary-fg">Stay in the Loop</h3>
+          <p className="mt-2 text-sm text-muted-fg">
             Subscribe us to get future special offers, free giveaways, and more.
           </p>
           <form action="" className="flex mt-4">
@@ -157,12 +157,12 @@ const Footer = () => {
               name="email"
               onChange={handleChange}
               placeholder="Your email address"
-              className="w-full p-2 placeholder:bg-transparent rounded-l-md border-input border-1 focus:outline-none caret-[var(--primary)] backdrop-blur-sm"
+              className="w-full p-2 placeholder:bg-transparent text-accent rounded-l-md border-input border-1 focus:outline-none caret-[var(--primary)] backdrop-blur-sm"
             />
             <button
               type="submit"
               onClick={handleSubmit}
-              className="px-4 text-primary-fg transition-all delay-1000 bg-sidebar-primary rounded-r-lg"
+              className="px-4 text-primary-fg transition-all delay-1000 bg-primary rounded-r-lg"
             >
               Subscribe
             </button>

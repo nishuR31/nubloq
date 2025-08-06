@@ -140,7 +140,7 @@ const Profile = () => {
   };
 
   return (
-    <div className=" object-cover min-h-screen pt-6 md:ml-[250px] transition-all delay-2000 ease-in bg-fixed bg-no-repeat bg-cover bg-app ">
+    <div className="animate-fadeIn object-cover min-h-screen pt-6 md:ml-[250px] transition-all delay-2000 ease-in bg-fixed bg-no-repeat bg-cover bg-bg ">
       <div className="min-w-full mx-auto mt-8">
         <Card className="flex flex-col gap-10 p-6 mx-4 bg-transparent text-app md:flex-row md:p-10 backdrop-blur-sm md:mx-0">
           <div className="flex flex-col items-center justify-center md:w-[400px]">
@@ -155,7 +155,7 @@ const Profile = () => {
                 alt={user?.firstName || "A Visionary"}
               />
             </Avatar>
-            <h1 className="my-3 text-xl font-semibold text-center text-muted-fg">
+            <h1 className="my-3 text-xl font-semibold text-center text-secondary-fg">
               {user?.occupation || "Blogger"}
             </h1>
             <div className="flex items-center gap-4">
@@ -187,30 +187,30 @@ const Profile = () => {
               Welcome <span className="text-primary">{user?.userName || "User"}</span>!
             </h1>
             {user?.firstName && (
-              <p className="px-10 py-2 mb-3 text-lg font-bold text-center rounded-lg w-fit md:text-start bg-muted">
+              <p className="px-10 py-2 mb-3 text-lg font-bold text-center text-muted-fg rounded-lg w-fit md:text-start bg-secondary ">
                 {capitalize(user?.firstName)}
               </p>
             )}
             <p>
-              <span className="font-semibold">Email : </span>
-              <span className="text-muted-fg">{user?.email}</span>
+              <span className="font-semibold text-secondary-fg">Email : </span>
+              <span className="text-accent-fg ">{user?.email}</span>
             </p>
-            <div className="flex flex-col items-start justify-start gap-2 my-5">
+            <div className="flex flex-col items-start justify-start text-app gap-2 my-5">
               <Label>About Me</Label>
-              <p className="p-6 border rounded-lg text-muted-fg dark:border-gray-600">
+              <p className="p-6 border rounded-lg text-secondary-fg">
                 {user?.bio ||
                   "I'm a curious storyteller with a passion for exploring ideas, learning things, asking questions, and connecting the dots across disciplines. I thrive on learning new things, sharing thoughtful insights, and finding creativity in everyday moments. Whether it’s writing, observing the world, or just going for a walk, I believe every experience has a story worth telling. Outside of work, I enjoy hiking, experimenting with new recipes, and getting lost in good conversations or great books."}
               </p>
             </div>
 
             <Dialog open={open} onOpenChange={setOpen}>
-              <Button className="text-primary-fg bg-primary" onClick={() => setOpen(true)}><Pen/>Edit Profile</Button>
-              <DialogContent className="w-auto align-middle h-fit line-clamp-none bg-secondary text-muted-fg rounded-md ">
+              <Button className="text-secondary-fg bg-primary" onClick={() => setOpen(true)}><Pen/>Edit Profile</Button>
+              <DialogContent className="w-auto align-middle h-fit line-clamp-none bg-bg  rounded-md ">
                 <DialogHeader>
-                  <DialogTitle className="text-center">
-                    Edit Profile
+                  <DialogTitle className="text-center  text-secondary-fg">
+                    <Pen className=" text-secondary-fg"/>Edit Profile
                   </DialogTitle>
-                  <DialogDescription className="text-center">
+                  <DialogDescription className="text-center text-secondary-fg">
                     Make changes to your profile here.
                   </DialogDescription>
                 </DialogHeader>
@@ -222,6 +222,7 @@ const Profile = () => {
                       value={input.firstName}
                       onChange={changeEventHandler}
                       placeholder="First Name"
+                      className="text-secondary-fg bg-transparent"
                     />
                     <TextInput
                       label="Last Name"
@@ -229,6 +230,8 @@ const Profile = () => {
                       value={input.lastName}
                       onChange={changeEventHandler}
                       placeholder="Last Name"
+                      className="text-secondary-fg bg-transparent"
+
                     />
                   </div>
                   <TextInput
@@ -237,6 +240,8 @@ const Profile = () => {
                     value={input.occupation}
                     onChange={changeEventHandler}
                     placeholder="Your role / title"
+                      className="text-secondary-fg bg-transparent"
+
                   />
                   <div className="flex gap-2">
                     <TextInput
@@ -245,6 +250,8 @@ const Profile = () => {
                       value={input.facebook}
                       onChange={changeEventHandler}
                       placeholder="Enter a URL"
+                      className="text-secondary-fg bg-transparent"
+
                     />
                     <TextInput
                       label="Instagram"
@@ -252,6 +259,8 @@ const Profile = () => {
                       value={input.instagram}
                       onChange={changeEventHandler}
                       placeholder="Enter a URL"
+                      className="text-secondary-fg bg-transparent"
+
                     />
                   </div>
                   <div className="flex gap-2">
@@ -261,6 +270,8 @@ const Profile = () => {
                       value={input.linkedin}
                       onChange={changeEventHandler}
                       placeholder="Enter a URL"
+                      className="text-secondary-fg bg-transparent"
+
                     />
                     <TextInput
                       label="GitHub"
@@ -268,6 +279,8 @@ const Profile = () => {
                       value={input.github}
                       onChange={changeEventHandler}
                       placeholder="Enter a URL"
+                      className="text-secondary-fg bg-transparent"
+
                     />
                   </div>
                   <div>
@@ -278,7 +291,8 @@ const Profile = () => {
                       onChange={changeEventHandler}
                       name="bio"
                       placeholder="Enter a description"
-                      className="col-span-3 text-gray-500"
+                      className="col-span-3 text-secondary-fg bg-transparent"
+
                     />
                   </div>
                   <div>
@@ -288,7 +302,7 @@ const Profile = () => {
                       type="file"
                       accept="image/*"
                       onChange={changeFileHandler}
-                      className="w-[277px] bg-transparent w-fit dark:border-gray-300"
+                      className="w-[277px] text-secondary-fg bg-transparent w-fit "
                     />
                   </div>
                 </div>

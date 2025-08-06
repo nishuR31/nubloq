@@ -39,7 +39,15 @@ const BlogView = () => {
   const [selectedBlog, setSelectedBlog] = useState(null);
   const [blogLikes, setBlogLikes] = useState(0); //num
   const [liked, setLiked] = useState(false);
-  const [book, setBook] = useState(user.bookMark.includes(blogId));
+  const [book, setBook] = useState(false);
+
+
+useEffect(() => {
+  if (user?.bookMark && blogId) {
+    setBook(user.bookMark.includes(blogId));
+  }
+}, [user, blogId,book]);
+
 
   //   const found = blog.find((b) => b._id === blogId);
   // useEffect(() => {
@@ -178,15 +186,15 @@ const BlogView = () => {
 
   if (!selectedBlog) {
     return (
-      <div className="min-h-screen pt-20 text-xl font-semibold text-center transition-all ease-in animate-slideInLeft delay-3000">
+      <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-app transition-all ease-in  delay-[2s]">
         Loading blog post...
       </div>
     );
   }
 
   return (
-    <div className="transition-all ease-in animate-slideInLeft pt-14 delay-[2s]  ">
-      <div className="max-w-6xl p-10 mx-auto text-muted-fg bg-app">
+    <div className="transition-all ease-in animate-fadeIn pt-14 delay-[2s]  ">
+      <div className="max-w-6xl p-10 mx-auto text-muted-fg bg-transparent">
         {/* Breadcrumb */}
         <Breadcrumb>
           <BreadcrumbList>
@@ -270,8 +278,13 @@ const BlogView = () => {
           {capitalize(selectedBlog?.subtitle)}
         </p>
         <hr className="w-full my-5 h-0.5 text-primary rounded-xl" />
-        <p className="text-card bg-transparent text-md" dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }} />
-        <p className="text-muted-fg text-sm bg-transparent">{selectedBlog?.category || "category"} </p>
+        <p
+          className="text-card bg-transparent text-md"
+          dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }}
+        />
+        <p className="text-muted-fg text-sm bg-transparent">
+          {selectedBlog?.category || "category"}{" "}
+        </p>
 
         {/* Tags and Reactions */}
         <div className="mt-10 text-app">
@@ -280,7 +293,11 @@ const BlogView = () => {
               ? [selectedBlog.category]
               : ["React", "Express", "MongoDB", "Blogging"]
             ).map((tag, i) => (
-              <Badge key={i} variant="secondary" className={'bg-accent text-muted-fg'}>
+              <Badge
+                key={i}
+                variant="secondary"
+                className={"bg-accent text-muted-fg"}
+              >
                 {tag}
               </Badge>
             ))}
@@ -295,11 +312,14 @@ const BlogView = () => {
                 className="flex items-center gap-1  "
               >
                 {liked ? (
-                  <Heart size={24} className="text-red-600 bg-red-600 cursor-pointer" />
+                  <Heart
+                    size={24}
+                    className="text-red-600  cursor-pointer"
+                  />
                 ) : (
                   <Heart
                     size={24}
-                    className="text-primary text-white cursor-pointer "
+                    className="text-secondary-fg cursor-pointer "
                   />
                 )}
                 <span>{blogLikes}</span>
@@ -309,7 +329,7 @@ const BlogView = () => {
                 size="sm"
                 className="flex items-center gap-1"
               >
-                <MessageSquare className="w-4 h-4 text-primary" />
+                <MessageSquare className="w-4 h-4 text-secondary-fg" />
                 <span>{comment.length} Comments</span>
               </Button>
             </div>
@@ -318,7 +338,7 @@ const BlogView = () => {
                 <Bookmark
                   size={24}
                   className={`w-4 h-4 ${
-                    book ? "text-yellow-500" : "text-primary"
+                    book ? "text-yellow-500" : "text-secondary-fg"
                   } transition`}
                 />
               </Button>
@@ -328,13 +348,13 @@ const BlogView = () => {
                 variant="ghost"
                 size="sm"
               >
-                <Share2 className="w-4 h-4 text-primary" />
+                <Share2 className="w-4 h-4 text-secondary-fg" />
               </Button>
             </div>
           </div>
         </div>
 
-        {/* <CommentBox selectedBlog={selectedBlog} /> */}
+        <CommentBox selectedBlog={selectedBlog} />
       </div>
     </div>
   );

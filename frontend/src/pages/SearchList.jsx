@@ -32,10 +32,10 @@ const SearchList = () => {
   );
 
   return (
-    <div className={`bg-transparent min-h-screen`}>
+    <div className={`animate-fadeIn bg-transparent min-h-screen`}>
       <div className="max-w-6xl mx-auto">
         <h2 className="mb-5 text-2xl font-semibold">
-          Search Results for: "<span className="text-blue-600">{query}</span>"
+          Search Results for: <span className="text-blue-600">{query}</span>
         </h2>
 
         {filteredBlogs?.length > 0 ? (
