@@ -1,8 +1,8 @@
-# **Nishu Blogs** — A Blogging Web App
+# **Nubloq** — A Blogging Web App
 
-Welcome to **Nishu Blogs**, a dynamic, full-featured blogging platform built using modern web technologies like **React**, **Node.js**, **Express**, **Redux**, and **MongoDB**. Designed for self-expression and storytelling, enables users to publish, manage, and explore rich content through a sleek, minimal interface.
+Welcome to **Nubloq**, a dynamic, full-featured blogging platform built using modern web technologies like **React**, **Node.js**, **Express**, **Redux**, and **MongoDB**. Designed for self-expression and storytelling, enables users to publish, manage, and explore rich content through a sleek, minimal interface.
 
-[![Nishu Blogs banner](https://dummyimage.com/1200x300/000/fff&text=Nishu-Blogs+-+Our+Personal+Blogging+Platform)](https://nishu-blogs.vercel.app)
+[![Nubloq banner](https://dummyimage.com/1200x300/000/fff&text=Nubloq+-+Our+Personal+Blogging+Platform)](https://nubloq.vercel.app)
 
 <br />
 <br />
@@ -39,6 +39,9 @@ Welcome to **Nishu Blogs**, a dynamic, full-featured blogging platform built usi
 -  **Picture upload enabled**  
   Ability to upload pics for cover photo and user profile.
 
+-  **Comment mode established**  
+  Ability to upload pics for cover photo and user profile.
+
 <br />
 <br /> 
 
@@ -63,7 +66,7 @@ Welcome to **Nishu Blogs**, a dynamic, full-featured blogging platform built usi
 >_Deployment in finally done.....
 Project is live on **Vercel** for the frontend and **Render** for the API.
 
-[![Nishu Blogs banner](https://dummyimage.com/1200x300/000/fff&text=Nishu-Blogs)](https://nishu-blogs.vercel.app)
+[![Nubloq banner](https://dummyimage.com/1200x300/000/fff&text=Nubloq)](https://nubloq.vercel.app)
 
 <br />
 <br />
@@ -77,7 +80,8 @@ Project is live on **Vercel** for the frontend and **Render** for the API.
 - **Forgot Password using Email** → Email based forgot login access
 - **Dashboard** → Create, edit, delete, and publish your blogs
 - **Profile** → View and update your user details
-- **Blog Details** → View full blogs, with comments (Future updates)
+- **Blog Details** → View full blogs
+- **Comment** → View ,post comments, new in development
 - **404 / Error States** → Polished handling for missing pages
 
 <br />
@@ -96,7 +100,7 @@ Project is live on **Vercel** for the frontend and **Render** for the API.
 
 ##  Purpose
 
-> “I built BlogPaglu as a personal project to sharpen my full-stack development skills, explore modern UI design patterns, and create a production-ready blog system from scratch.”
+> “I built Nubloq as a personal project to sharpen my full-stack development skills, explore modern UI design patterns, and create a production-ready blog system from scratch.”
 
 <br />
 <br />
@@ -104,32 +108,16 @@ Project is live on **Vercel** for the frontend and **Render** for the API.
 
 ##  Screenshots
 
-<details>
-  <summary>Home or Landing Page</summary>
-<img src="https://drive.google.com/uc?export=view&id=1qu-BTjlSveBjNkV5U13X8C1STjfBDvpu" width="500"/>
-  <p><strong>Description:</strong> This is how the blog layout appears.</p>
-</details>
-<details>
-  
-  <summary>Simple Signup Page</summary>
-<img src="https://drive.google.com/uc?export=view&id=1mA-0rZ8Q9tJgQqRwPrE07XHK0wN8J6-j" width="500"/>
-  <p><strong>Description:</strong> This is how the blog layout appears.</p>
-</details>
-<details>
-  <summary>About Section</summary>
-<img src="https://drive.google.com/uc?export=view&id=1UEcJinyUIiYl96Mbwd36lWrdO49V6T9Z" width="500"/>
-  <p><strong>Description:</strong> This is how the blog layout appears.</p>
-</details>
 
 <br />
 <br />
 
 ##  Future Plans
 
-- Add comments system with likes comments/replies
+- Add like comments/replies to comments
 - Markdown/blog editor with live preview
 - SEO enhancements
-- Blog monthly or time period based analytics dashboard
+- Monthly or time period based analytics dashboard
 
 
 <br />
