@@ -104,7 +104,7 @@ const ForgotPassword = () => {
                   placeholder="Enter your registered email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="placeholder:bg-transparent text-accent "
+                  className="placeholder:bg-transparent text-secondary-fg "
                 />
                 <Button className="w-full mt-2 text-secondary-fg bg-primary" onClick={sendOtpHandler}>
                   Send OTP
@@ -153,7 +153,7 @@ const ForgotPassword = () => {
               {verified && (
                 <>
                   <div className="relative">
-                    <Label>New Password</Label>
+                    <Label className="text-secondary-fg">New Password</Label>
                     <Input
                       type={showPassword ? "text" : "password"}
                       placeholder="Enter new password"
