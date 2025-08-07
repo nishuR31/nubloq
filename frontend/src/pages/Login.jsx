@@ -96,7 +96,7 @@ const Login = () => {
                   name="emailUser"
                   value={input.emailUser}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent text-accent "
+                  className="placeholder:bg-transparent text-secondary-fg "
                 />
               </div>
 
@@ -108,7 +108,7 @@ const Login = () => {
                   name="password"
                   value={input.password}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent text-accent"
+                  className="placeholder:bg-transparent text-secondary-fg"
                 />
                 <button
                   type="button"
