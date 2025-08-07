@@ -99,28 +99,6 @@ const Signup = () => {
       toast.error(error.response.data.message);
     }
 
-    // try {
-    //     dispatch(setLoading(true))
-    //     const response = await axios.post("", user, {
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //         },
-    //         withCredentials: true,
-    //     });
-    //     if (response.data.success) {
-    //         navigate('/login')
-    //         toast.success(response.data.message)
-    //         // setFormData({ name: "", email: "", password: "", role: "" });
-    //     } else {
-    //         toast(`Error: ${data.message || "Something went wrong"}`);
-    //     }
-    // } catch (error) {
-    //     // toast.error(error.response.data.message);
-    //     console.log(error);
-
-    // } finally {
-    //     dispatch(setLoading(false))
-    // }
   };
 
   const [showPassword, setShowPassword] = useState(false);
@@ -152,7 +130,7 @@ const Signup = () => {
                     name="firstName"
                     value={user.firstName}
                     onChange={handleChange}
-                    className="placeholder:bg-transparent"
+                    className="placeholder:bg-transparent text-secondary-fg"
                   />
                 </div>
 
@@ -164,7 +142,7 @@ const Signup = () => {
                     name="lastName"
                     value={user.lastName}
                     onChange={handleChange}
-                    className="placeholder:bg-transparent"
+                    className="placeholder:bg-transparent text-secondary-fg"
                   />
                 </div>
               </div>
@@ -176,7 +154,7 @@ const Signup = () => {
                   name="userName"
                   value={user.userName}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent"
+                  className="placeholder:bg-transparent text-secondary-fg"
                 />
               </div>
               <div>
@@ -187,7 +165,7 @@ const Signup = () => {
                   name="email"
                   value={user.email}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent"
+                  className="placeholder:bg-transparent text-secondary-fg"
                 />
               </div>
 
@@ -199,7 +177,7 @@ const Signup = () => {
                   name="password"
                   value={user.password}
                   onChange={handleChange}
-                  className="placeholder:bg-transparent"
+                  className="placeholder:bg-transparent text-secondary-fg"
                 />
                 <button
                   type="button"
