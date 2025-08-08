@@ -519,9 +519,9 @@ useEffect(() => {
     }
   };
 
+console.log(selectedblog);
   if (!selectedBlog) {
     return (
-      console.log(selectedblog);
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
         <h1>Loading blog post...</h1>
       </div>
