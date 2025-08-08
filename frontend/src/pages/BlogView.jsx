@@ -406,11 +406,11 @@ let navigate=useNavigate();
   const [book, setBook] = useState(false);
 
 
-useEffect(() => {
-  if (user?.bookMark && blogId) {
-    setBook(user?.bookMark?.includes(blogId) || false);
-  }
-}, [user, blogId]);
+// useEffect(() => {
+//   if (user?.bookMark && blogId) {
+//     setBook(user?.bookMark?.includes(blogId) || false);
+//   }
+// }, [user, blogId]);
 
   // const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
   const found = useMemo(
@@ -419,11 +419,14 @@ useEffect(() => {
   );
 
   useEffect(() => {
-    if(!blogId) {toast.error("Blogid not found"); navigate("/")}
+    if(!blogId) {toast.error("Blogid not found"); navigate("/");return}
+  }
     if (found ) {
       setSelectedBlog(found );
       setBlogLikes(found?.likes?.length || 0);
-      setLiked(Boolean(found?.likes?.includes(user?._id)) || false);
+      setLiked(Boolean(found?.likes?.includes(user?._id)) ?? false);
+      setBook(user?.bookMark?.includes(blogId) ?? false);
+
     } else {
       axios
         .get(`${api}/blog/${blogId}`)
@@ -433,7 +436,7 @@ useEffect(() => {
           toast.success("One Blog fetched.");
           setSelectedBlog(fetchedBlog);
           setBlogLikes(fetchedBlog?.likes?.length || 0);
-          setLiked(Boolean(fetchedBlog?.likes?.includes(user?._id)) || false);
+          setLiked(Boolean(fetchedBlog?.likes?.includes(user?._id)) ?? false);
           dispatch(setBlog((prev) => [...prev, fetchedBlog]));
         })
         .catch((err) => {
@@ -476,7 +479,7 @@ useEffect(() => {
       toast.error("Please login to like the blog");
       console.error("Please login to like the blog");
       return;
-    }
+    
 
     try {
       const response = await axios.get(
@@ -486,8 +489,8 @@ useEffect(() => {
       );
 
       const updatedBlog = response.data.payload;
-      setLiked(Boolean(updatedBlog.likes.includes(user._id)));
-      setBlogLikes(updatedBlog.likes.length);
+      setLiked(Boolean(updatedBlog?.likes?.includes(user._id))??false);
+      setBlogLikes(updatedBlog?.likes?.length ?? 0);
       toast.success(`${!liked ? "Liked" : "Disliked"} blog.`); //////////////////////
     } catch (err) {
       toast.error("Failed to like/dislike blog.");
@@ -519,12 +522,19 @@ useEffect(() => {
     }
   };
 
-console.table("selected blog:",selectedBlog);
+console.table(selectedBlog);
 console.table({book:book,liked:liked,});
   if (!selectedBlog) {
     return (
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
         <h1>Loading blog post...</h1>
+      </div>
+    );
+  }
+  if (!user) {
+    return (
+      <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
+        <h1>Loading blog post in public mode...</h1>
       </div>
     );
   }
