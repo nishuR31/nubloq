@@ -7,7 +7,7 @@ export default function avatarFallback({ userName, firstName, lastName }) {
     // Fallback: take first 2 chars from userName
     name = userName.trim().slice(0, 2);
   } else {
-    name = "  "; // default fallback
+    name = "<>"; // default fallback
   }
 
   return name.toUpperCase();
