@@ -500,9 +500,8 @@ const BlogView = () => {
       </div>
     );
   }
-
-  return (
-    <div className="transition-all animate-fadeIn pt-14">
+  
+  return !user ? <div className="animate-fadeIn min-h-screen pt-20 text-xl text-center text-secondary-fg flex justify-center transition-all animate-fadeIn pt-14">
       <div className="max-w-6xl p-10 mx-auto text-muted-fg">
         <Breadcrumb>
           <BreadcrumbList>
@@ -519,7 +518,125 @@ const BlogView = () => {
         </Breadcrumb>
 
         <div className="my-8 text-app">
-{!user && <h2 className="text-destructive mx-2"> Viewing as Guest</h2>}
+<h2 className="text-destructive mx-2"> Viewing as Guest</h2>
+          <h1 className="mb-4 text-4xl font-bold text-primary">
+            {capitalize(selectedBlog?.title)}
+          </h1>
+
+          <div className="flex flex-wrap items-center justify-between gap-4">
+            <div className="flex items-center space-x-4">
+              <Avatar>
+                <AvatarImage
+                  src={selectedBlog?.author?.photoUrl??`https://placehold.co/100x100?text=User`}
+                  alt="Author"
+                />
+                <AvatarFallback>
+                  {avatarFallback(selectedBlog?.author)}
+                </AvatarFallback>
+              </Avatar>
+              <div>
+                <p className="font-medium text-primary">
+                  {capitalize(selectedBlog?.author?.firstName ?? "Guest")}{" "}
+                  {capitalize(selectedBlog?.author?.lastName ?? "")}
+                </p>
+                <p className="text-sm text-muted-fg">
+                  Occupation: {selectedBlog?.author?.occupation ?? "Unspecified"}
+                </p>
+              </div>
+            </div>
+            <div className="text-sm text-muted-fg">
+              {selectedBlog.isPublished &&
+                `Published on ${changeTimeFormat(selectedBlog?.createdAt)}`}{" "}
+              • {moment(selectedBlog?.createdAt).fromNow()}
+            </div>
+          </div>
+        </div>
+
+        <hr className="my-5 h-0.5 text-primary rounded-xl" />
+
+        <div className="flex justify-center mb-8">
+          <img
+            src={
+              selectedBlog?.thumbnail ||
+              `https://placehold.co/500x250/${
+                theme === "light" ? "9aaaaf/000000" : "1f2937/ffffff"
+              }?text=${selectedBlog?.title}`
+            }
+            alt="Thumbnail"
+            className="rounded-xl max-w-full"
+          />
+        </div>
+
+        <p className="my-2 text-lg italic">{capitalize(selectedBlog?.subtitle)}</p>
+
+        <hr className="my-5 h-0.5 text-primary rounded-xl" />
+
+        <div
+          className="text-card text-md"
+          dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(500) }}
+        />
+
+        <p className="text-muted-fg text-sm mt-2">{selectedBlog?.category || "General"}</p>
+
+        <div className="mt-10 text-app">
+          <div className="flex flex-wrap gap-2 mb-8">
+            {(selectedBlog?.category ? [selectedBlog.category] : ["React", "Express", "MongoDB"]).map((tag, i) => (
+              <Badge key={i} variant="secondary" className="bg-accent text-muted-fg">
+                {tag}
+              </Badge>
+            ))}
+          </div>
+
+          <div className="flex items-center justify-between py-4 mb-8 border rounded-sm">
+            <div className="flex items-center space-x-4">
+              <Button onClick={likeHandler}  variant="ghost" size="sm" className="flex gap-1">
+                {liked ? (
+                  <Heart size={24} className="text-red-600" />
+                ) : (
+                  <Heart size={24} className="text-secondary-fg" />
+                )}
+                <span>{blogLikes}</span>
+              </Button>
+              <Button variant="ghost" size="sm" className="flex items-center gap-1">
+                <MessageSquare className="w-4 h-4 text-secondary-fg" />
+                <span>{comment.length} Comments</span>
+              </Button>
+            </div>
+            <div className="flex space-x-2">
+              <Button onClick={bookmarkHandler} variant="ghost" size="sm">
+                <Bookmark
+                  size={24}
+                  className={ "text-muted-fg"}
+                />
+              </Button>
+              <Button  onClick={() => handleShare(selectedBlog._id)} variant="ghost" size="sm">
+                <Share2 className="w-4 h-4 text-secondary-fg" />
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* <CommentBox selectedBlog={selectedBlog} /> */}
+      </div>
+    </div>
+  
+  : <div className="transition-all animate-fadeIn pt-14">
+      <div className="max-w-6xl p-10 mx-auto text-muted-fg">
+        <Breadcrumb>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <Link to="/"><BreadcrumbLink>Home</BreadcrumbLink></Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <Link to="/blogs"><BreadcrumbLink>Blogs</BreadcrumbLink></Link>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem><BreadcrumbPage>{selectedBlog?.title}</BreadcrumbPage></BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        <div className="my-8 text-app">
           <h1 className="mb-4 text-4xl font-bold text-primary">
             {capitalize(selectedBlog?.title)}
           </h1>
@@ -620,7 +737,7 @@ const BlogView = () => {
         <CommentBox selectedBlog={selectedBlog} />
       </div>
     </div>
-  );
-};
+  
+}
 
 export default BlogView;
