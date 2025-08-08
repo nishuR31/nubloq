@@ -590,15 +590,11 @@ const BlogView = () => {
           <div className="flex items-center justify-between py-4 mb-8 border rounded-sm">
             <div className="flex items-center space-x-4">
               <Button onClick={likeHandler}  variant="ghost" size="sm" className="flex gap-1">
-                {liked ? (
-                  <Heart size={24} className="text-red-600" />
-                ) : (
-                  <Heart size={24} className="text-secondary-fg" />
-                )}
+                  <Heart size={24} className="text-muted-fg" />
                 <span>{blogLikes}</span>
               </Button>
               <Button variant="ghost" size="sm" className="flex items-center gap-1">
-                <MessageSquare className="w-4 h-4 text-secondary-fg" />
+                <MessageSquare className="w-4 h-4 text-muted-fg" />
                 <span>{comment.length} Comments</span>
               </Button>
             </div>
@@ -610,7 +606,7 @@ const BlogView = () => {
                 />
               </Button>
               <Button  onClick={() => handleShare(selectedBlog._id)} variant="ghost" size="sm">
-                <Share2 className="w-4 h-4 text-secondary-fg" />
+                <Share2 className="w-4 h-4 text-muted-fg" />
               </Button>
             </div>
           </div>
