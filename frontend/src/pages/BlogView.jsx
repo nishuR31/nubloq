@@ -535,13 +535,13 @@ console.table({book:book,liked:liked,});
     );
   }
   
-  if (!user) {
-    return (
-      <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
-        <h1>Loading blog post in public mode...</h1>
-      </div>
-    );
-  }
+  // if (!user) {
+  //   return (
+  //     <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
+  //       <h1>Loading blog post in public mode...</h1>
+  //     </div>
+  //   );
+  // }
 
   return (
     <div className="transition-all ease-in animate-fadeIn pt-14 delay-[2s]  ">
