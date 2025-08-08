@@ -573,10 +573,10 @@ const BlogView = () => {
 
         <div className="text-card text-md">
           <div
-            dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0, 1000) + "..." }}
+            dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0, 800) + "..." }}
           />
         
-          <div className="flex jsutify-between flex-wrap flex-row">
+{/*           <div className="flex jsutify-between flex-wrap flex-row">
             <Button
             variant="ghost"
             size="sm"
@@ -585,7 +585,7 @@ const BlogView = () => {
               navigate(`/signup?redirect=/blogs/${selectedBlog?._id}`)
             }
           >
-            Join us to view full! <Lock class="text-[var(--destructive)]" />
+              {"Join us to view full!"} <Lock class="text-[var(--destructive)]" />
           </Button>
             
           <Button
@@ -596,9 +596,9 @@ const BlogView = () => {
               navigate(`/login?redirect=/blogs/${selectedBlog?._id}`)
             }
           >
-            Already a member? <Lock class="text-[var(--destructive)]" />
+            {"Already a member?"} <Lock class="text-[var(--destructive)]" />
           </Button>
-        </div>
+        </div> */}
           </div>
 
 
