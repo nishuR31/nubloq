@@ -88,7 +88,7 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="animate-fadeIn flex justify-center p-4 pt-20 bg-transparent  backdrop-blur-sm">
+    <div className="animate-fadeIn flex justify-center p-4 pt-20 bg-transparent max-w-screen max-h-screen backdrop-blur-sm">
       <Card className="p-4 bg-transparent md:p-10 ">
         <h1 className="text-2xl font-bold text-secondary-fg ">Lets create blog</h1>
         <p className="text-muted-fg">Let others get insights from your knowledge and experience.</p>
