@@ -518,7 +518,7 @@ const BlogView = () => {
         </Breadcrumb>
 
         <div className="my-8 text-app">
-<h2 className="text-[var(--destructive)] m-3 bg-muted px-screen py-2 "> Viewing as Guest</h2>
+<h2 className="text-[var(--destructive)] m-3 bg-muted px-5 py-2 animate-bounce animate-pulse "> Viewing as Guest</h2>
           <h1 className="mb-4 text-4xl font-bold text-primary">
             {capitalize(selectedBlog?.title)}
           </h1>
