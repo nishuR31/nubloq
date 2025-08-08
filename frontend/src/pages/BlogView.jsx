@@ -419,8 +419,11 @@ let navigate=useNavigate();
   );
 
   useEffect(() => {
-    if(!blogId) {toast.error("Blogid not found"); navigate("/");return}
-  }
+    if(!blogId) {
+      toast.error("Blogid not found"); 
+      navigate("/");
+      return;}
+  
     if (found ) {
       setSelectedBlog(found );
       setBlogLikes(found?.likes?.length || 0);
@@ -524,6 +527,7 @@ let navigate=useNavigate();
 
 console.table(selectedBlog);
 console.table({book:book,liked:liked,});
+    
   if (!selectedBlog) {
     return (
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
@@ -531,6 +535,7 @@ console.table({book:book,liked:liked,});
       </div>
     );
   }
+  
   if (!user) {
     return (
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
