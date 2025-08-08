@@ -148,7 +148,7 @@ const CreateBlog = () => {
               )}
             </Button>
           </div>
-          <div className="mt-5 hidden h-[300px] w-[500px]  lg:block  flex justify-center rounded-lg animate-slideInLeft">
+          <div className="mt-5 hidden h-[300px] w-[500px]  lg:inline  flex justify-center rounded-lg animate-fadeIn">
             <img src={imgs} className="rounded-lg object-fit " />
           </div>
         </div>
