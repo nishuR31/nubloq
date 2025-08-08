@@ -373,7 +373,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import avatarFallback from "../components/avatarFallback";
 import { Button } from "../components/ui/button";
 import { Badge } from "../components/ui/badge";
-import { Bookmark, MessageSquare, Share2, Heart } from "lucide-react";
+import { Bookmark, MessageSquare, Share2, Heart,Lock } from "lucide-react";
 import CommentBox from "../components/CommentBox";
 import axios from "axios";
 import { setBlog } from "../redux/blogSlice";
@@ -576,7 +576,7 @@ const BlogView = () => {
             dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0, 800) + "..." }}
           />
         
-{/*           <div className="flex jsutify-between flex-wrap flex-row">
+          <div className="flex jsutify-between flex-wrap flex-row">
             <Button
             variant="ghost"
             size="sm"
@@ -585,7 +585,7 @@ const BlogView = () => {
               navigate(`/signup?redirect=/blogs/${selectedBlog?._id}`)
             }
           >
-              {"Join us to view full!"} <Lock class="text-[var(--destructive)]" />
+              {"Join us to view full!"} <Lock className="text-[var(--destructive)]" />
           </Button>
             
           <Button
@@ -596,9 +596,9 @@ const BlogView = () => {
               navigate(`/login?redirect=/blogs/${selectedBlog?._id}`)
             }
           >
-            {"Already a member?"} <Lock class="text-[var(--destructive)]" />
+            {"Already a member?"} <Lock className="text-[var(--destructive)]" />
           </Button>
-        </div> */}
+        </div>
           </div>
 
 
