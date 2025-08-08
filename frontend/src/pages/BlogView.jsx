@@ -408,7 +408,7 @@ let navigate=useNavigate();
 
 useEffect(() => {
   if (user?.bookMark && blogId) {
-    setBook(user?.bookMark?.includes(blogId));
+    setBook(user?.bookMark?.includes(blogId) || false);
   }
 }, [user, blogId]);
 
@@ -519,8 +519,8 @@ useEffect(() => {
     }
   };
 
-console.log("selected blog:",selectedBlog);
-console.log("user:",user);
+console.table("selected blog:",selectedBlog);
+console.table({book:book,liked:liked,});
   if (!selectedBlog) {
     return (
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
