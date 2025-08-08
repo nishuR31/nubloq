@@ -424,7 +424,7 @@ let navigate=useNavigate();
       navigate("/");
       return;}
   
-    if (found ) {
+    else if (found ) {
       setSelectedBlog(found );
       setBlogLikes(found?.likes?.length || 0);
       setLiked(Boolean(found?.likes?.includes(user?._id)) ?? false);
@@ -481,9 +481,8 @@ let navigate=useNavigate();
     if (!user) {
       toast.error("Please login to like the blog");
       console.error("Please login to like the blog");
-      return;
+      return;}
     
-
     try {
       const response = await axios.get(
         // `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
