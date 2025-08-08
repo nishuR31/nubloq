@@ -152,7 +152,7 @@ const CreateBlog = () => {
           <img
             src={imgs}
             alt="preview"
-            className="rounded-lg object-cover hidden lg:block w-full max-w-md h-auto"
+            className="rounded-lg object-cover hidden lg:block w-full max-h-sm max-w-md h-auto"
           />
         </div>
         </div>
