@@ -148,8 +148,8 @@ const CreateBlog = () => {
               )}
             </Button>
           </div>
-          <div className="mt-5 hidden md:h-md md:w-md lg:h-lg lg:w-lg md:block  flex justify-center rounded-lg animate-slideInLeft">
-            <img src={imgs} className="rounded-lg object-fit" />
+          <div className="mt-5 hidden  lg:block  flex justify-center rounded-lg animate-slideInLeft">
+            <img src={imgs} className="rounded-lg object-fit w-[500px] h-[400px]" />
           </div>
         </div>
       </Card>
