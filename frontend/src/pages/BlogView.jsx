@@ -363,18 +363,11 @@
 
 
 /////////////////////////////////////////////////////////////////////////////////
-
+// TOP OF FILE: no major changes
 import React, { useEffect, useState, useMemo } from "react";
 import moment from "moment";
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "../components/ui/breadcrumb";
-import { Link, useParams,useNavigate } from "react-router-dom";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "../components/ui/breadcrumb";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
 import avatarFallback from "../components/avatarFallback";
@@ -385,125 +378,92 @@ import CommentBox from "../components/CommentBox";
 import axios from "axios";
 import { setBlog } from "../redux/blogSlice";
 import { toast } from "sonner";
-// import { useForceUpdate } from "framer-motion";
 import capitalize from "../components/capitalize";
-const api = import.meta.env.VITE_URL;
 import "../index.css";
 
-import blogs from "../data/blogs.json";
+const api = import.meta.env.VITE_URL;
 
 const BlogView = () => {
   const { blogId } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const { blog } = useSelector((store) => store.blog);
   const { user } = useSelector((store) => store.auth);
   const { comment } = useSelector((store) => store.comment);
   const { theme } = useSelector((store) => store.theme);
-  const dispatch = useDispatch();
-let navigate=useNavigate();
+
   const [selectedBlog, setSelectedBlog] = useState(null);
-  const [blogLikes, setBlogLikes] = useState(0); //num
+  const [blogLikes, setBlogLikes] = useState(0);
   const [liked, setLiked] = useState(false);
   const [book, setBook] = useState(false);
 
-
-// useEffect(() => {
-//   if (user?.bookMark && blogId) {
-//     setBook(user?.bookMark?.includes(blogId) || false);
-//   }
-// }, [user, blogId]);
-
-  // const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
-  const found = useMemo(
-    () => blog.find((b) => b._id === blogId),
-    [blog, blogId]
-  );
+  const found = useMemo(() => blog.find((b) => b._id === blogId), [blog, blogId]);
 
   useEffect(() => {
-    if(!blogId) {
-      toast.error("Blogid not found"); 
-      navigate("/");
-      return;}
-  
-    else if (found ) {
-      setSelectedBlog(found );
-      setBlogLikes(found?.likes?.length || 0);
-      setLiked(Boolean(found?.likes?.includes(user?._id)) ?? false);
-      setBook(user?.bookMark?.includes(blogId) ?? false);
-
-    } else {
-      axios
-        .get(`${api}/blog/${blogId}`)
-        // .get(`http://localhost:4000/api/v1/blog/${blogId}`)
-        .then((res) => {
-          const fetchedBlog = res.data.payload.blog;
-          toast.success("One Blog fetched.");
-          setSelectedBlog(fetchedBlog);
-          setBlogLikes(fetchedBlog?.likes?.length || 0);
-          setLiked(Boolean(fetchedBlog?.likes?.includes(user?._id)) ?? false);
-          dispatch(setBlog((prev) => [...prev, fetchedBlog]));
-        })
-        .catch((err) => {
-          toast.error("Blog not found.");
-          console.error("Error fetching blog by ID:", err);
-        });
-    }
-  }, [found]);
-  // only rerun if `found` changes
-
-  const bookmarkHandler = async () => {
-    if (!user) {
-      toast.error("Please login to book mark the blog");
-      console.error("Please login to book mark the blog");
+    if (!blogId) {
+      toast.error("Blog ID not found.");
+      navigate("/error");
       return;
     }
 
-    try {
-      const res = await axios.get(
-        `${api}/user/bookMark/${selectedBlog._id}?q=${!book}`,
-        { withCredentials: true }
-      );
+    if (found) {
+      setSelectedBlog(found);
+      setBlogLikes(found?.likes?.length || 0);
+      setLiked(Boolean(found?.likes?.includes(user?._id)));
+      setBook(user?.bookMark?.includes(blogId) ?? false);
+    } else {
+      axios
+        .get(`${api}/blog/${blogId}`)
+        .then((res) => {
+          const fetchedBlog = res.data.payload.blog;
+          setSelectedBlog(fetchedBlog);
+          setBlogLikes(fetchedBlog?.likes?.length || 0);
+          setLiked(Boolean(fetchedBlog?.likes?.includes(user?._id)));
+          setBook(user?.bookMark?.includes(blogId) ?? false);
+          dispatch(setBlog((prev) => [...prev, fetchedBlog]));
+          toast.success("Blog loaded.");
+        })
+        .catch((err) => {
+          toast.error("Blog not found.");
+          console.error("Fetch error:", err);
+        });
+    }
+  }, [found]);
 
+  const bookmarkHandler = async () => {
+    if (!user) return toast.error("Please login to bookmark.");
+
+    try {
+      const res = await axios.get(`${api}/user/bookMark/${selectedBlog._id}?q=${!book}`, { withCredentials: true });
       if (res.data.success) {
         setBook(!book);
-        toast.success(
-          book ? "Removed from bookmarks" : "Bookmarked successfully"
-        );
+        toast.success(book ? "Removed from bookmarks" : "Bookmarked");
       } else {
-        toast.error("Bookmark action failed.");
+        toast.error("Bookmark failed.");
       }
     } catch (error) {
-      toast.error("Failed to bookmark blog.");
-      console.error("Bookmark error:", error);
+      toast.error("Bookmark request failed.");
+      console.error(error);
     }
   };
 
   const likeHandler = async () => {
-    if (!user) {
-      toast.error("Please login to like the blog");
-      console.error("Please login to like the blog");
-      return;}
-    
+    if (!user) return toast.error("Please login to like blog.");
+
     try {
-      const response = await axios.get(
-        // `http://localhost:4000/api/v1/blog/${selectedBlog._id}/${
-        `${api}/blog/${selectedBlog._id}/${liked ? "dislike" : "like"}`,
-        { withCredentials: true }
-      );
+      const res = await axios.get(`${api}/blog/${selectedBlog._id}/${liked ? "dislike" : "like"}`, {
+        withCredentials: true,
+      });
 
-      const updatedBlog = response.data.payload;
-      setLiked(Boolean(updatedBlog?.likes?.includes(user._id))??false);
-      setBlogLikes(updatedBlog?.likes?.length ?? 0);
-      toast.success(`${!liked ? "Liked" : "Disliked"} blog.`); //////////////////////
+      const updated = res.data.payload;
+      setLiked(updated?.likes?.includes(user._id));
+      setBlogLikes(updated?.likes?.length ?? 0);
+      toast.success(`${!liked ? "Liked" : "Disliked"} blog.`);
     } catch (err) {
-      toast.error("Failed to like/dislike blog.");
-      console.error("Like handler error:", err);
+      toast.error("Failed to update like.");
+      console.error(err);
     }
-  };
-
-  const changeTimeFormat = (isoDate) => {
-    const date = new Date(isoDate);
-    const options = { day: "numeric", month: "long", year: "numeric" };
-    return date.toLocaleDateString("en-GB", options);
   };
 
   const handleShare = (blogId) => {
@@ -519,57 +479,47 @@ let navigate=useNavigate();
         .catch((err) => console.error("Error sharing:", err));
     } else {
       navigator.clipboard.writeText(blogUrl).then(() => {
-        toast.success("Blog link copied to clipboard!");
+        toast.success("Link copied to clipboard.");
       });
     }
   };
 
-console.table(selectedBlog);
-console.table({book:book,liked:liked,});
-    
+  const changeTimeFormat = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
+
   if (!selectedBlog) {
     return (
-      <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
+      <div className="animate-fadeIn min-h-screen pt-20 text-xl text-center text-secondary-fg flex justify-center">
         <h1>Loading blog post...</h1>
       </div>
     );
   }
-  
-  // if (!user) {
-  //   return (
-  //     <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
-  //       <h1>Loading blog post in public mode...</h1>
-  //     </div>
-  //   );
-  // }
 
   return (
-    <div className="transition-all ease-in animate-fadeIn pt-14 delay-[2s]  ">
-      <div className="max-w-6xl p-10 mx-auto text-muted-fg bg-transparent">
-        {/* Breadcrumb */}
+    <div className="transition-all animate-fadeIn pt-14">
+      <div className="max-w-6xl p-10 mx-auto text-muted-fg">
         <Breadcrumb>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <Link to="/">
-                <BreadcrumbLink>Home</BreadcrumbLink>
-              </Link>
+              <Link to="/"><BreadcrumbLink>Home</BreadcrumbLink></Link>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <Link to="/blogs">
-                <BreadcrumbLink>Blogs</BreadcrumbLink>
-              </Link>
+              <Link to="/blogs"><BreadcrumbLink>Blogs</BreadcrumbLink></Link>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
-            <BreadcrumbItem>
-              <BreadcrumbPage>{selectedBlog?.title}</BreadcrumbPage>
-            </BreadcrumbItem>
+            <BreadcrumbItem><BreadcrumbPage>{selectedBlog?.title}</BreadcrumbPage></BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
 
-        {/* Title & Author Info */}
         <div className="my-8 text-app">
-          <h1 className="mb-4 text-4xl font-bold text-primary tracking-tight">
+          <h1 className="mb-4 text-4xl font-bold text-primary">
             {capitalize(selectedBlog?.title)}
           </h1>
 
@@ -577,128 +527,89 @@ console.table({book:book,liked:liked,});
             <div className="flex items-center space-x-4">
               <Avatar>
                 <AvatarImage
-                  src={selectedBlog?.author?.photoUrl}
+                  src={selectedBlog?.author?.photoUrl || `https://placehold.co/100x100?text=User`}
                   alt="Author"
                 />
                 <AvatarFallback>
-                  {avatarFallback(selectedBlog?.author)}
+                  {avatarFallback(selectedBlog?.author) || "<>"}
                 </AvatarFallback>
               </Avatar>
               <div>
-                {selectedBlog?.author && (
-                  <p className="font-medium text-primary">
-                    {capitalize(selectedBlog?.author?.firstName)}{" "}
-                    {capitalize(selectedBlog?.author?.lastName)}
-                  </p>
-                )}
+                <p className="font-medium text-primary">
+                  {capitalize(selectedBlog?.author?.firstName ?? "Guest")}{" "}
+                  {capitalize(selectedBlog?.author?.lastName ?? "")}
+                </p>
                 <p className="text-sm text-muted-fg">
-                  Occupation :{" "}
-                  {selectedBlog?.author?.occupation ?? "Unspecified"}
+                  Occupation: {selectedBlog?.author?.occupation || "Unspecified"}
                 </p>
               </div>
             </div>
             <div className="text-sm text-muted-fg">
               {selectedBlog.isPublished &&
-                `Published on ${changeTimeFormat(
-                  selectedBlog?.createdAt
-                )}`}{" "}
+                `Published on ${changeTimeFormat(selectedBlog?.createdAt)}`}{" "}
               • {moment(selectedBlog?.createdAt).fromNow()}
             </div>
           </div>
         </div>
-        <hr className="w-full my-5 h-0.5 text-primary rounded-xl" />
 
-        {/* Thumbnail & Subtitle */}
-        <div className="flex justify-center mb-8 overflow-hidden rounded-lg">
+        <hr className="my-5 h-0.5 text-primary rounded-xl" />
+
+        <div className="flex justify-center mb-8">
           <img
             src={
               selectedBlog?.thumbnail ||
               `https://placehold.co/500x250/${
                 theme === "light" ? "9aaaaf/000000" : "1f2937/ffffff"
-              }?text=${selectedBlog?.title}&font=playfair-display`
+              }?text=${selectedBlog?.title}`
             }
-            alt="Featured"
-            width={500}
-            height={250}
-            className="w-cover rounded-xl"
+            alt="Thumbnail"
+            className="rounded-xl max-w-full"
           />
         </div>
 
-        {/* Blog Content */}
-        <p className="my-2 text-lg italic text-muted-fg">
-          {capitalize(selectedBlog?.subtitle)}
-        </p>
-        <hr className="w-full my-5 h-0.5 text-primary rounded-xl" />
-        <p
-          className="text-card bg-transparent text-md"
+        <p className="my-2 text-lg italic">{capitalize(selectedBlog?.subtitle)}</p>
+
+        <hr className="my-5 h-0.5 text-primary rounded-xl" />
+
+        <div
+          className="text-card text-md"
           dangerouslySetInnerHTML={{ __html: selectedBlog?.bio }}
         />
-        <p className="text-muted-fg text-sm bg-transparent">
-          {selectedBlog?.category || "category"}{" "}
-        </p>
 
-        {/* Tags and Reactions */}
+        <p className="text-muted-fg text-sm mt-2">{selectedBlog?.category || "General"}</p>
+
         <div className="mt-10 text-app">
-          <div className="flex flex-wrap gap-2 mb-8 ">
-            {(selectedBlog?.category
-              ? [selectedBlog.category]
-              : ["React", "Express", "MongoDB", "Blogging"]
-            ).map((tag, i) => (
-              <Badge
-                key={i}
-                variant="secondary"
-                className={"bg-accent text-muted-fg"}
-              >
+          <div className="flex flex-wrap gap-2 mb-8">
+            {(selectedBlog?.category ? [selectedBlog.category] : ["React", "Express", "MongoDB"]).map((tag, i) => (
+              <Badge key={i} variant="secondary" className="bg-accent text-muted-fg">
                 {tag}
               </Badge>
             ))}
           </div>
 
-          <div className="flex items-center justify-between py-4 mb-8 border-1 border-input rounded-sm">
+          <div className="flex items-center justify-between py-4 mb-8 border rounded-sm">
             <div className="flex items-center space-x-4">
-              <Button
-                onClick={likeHandler}
-                variant="ghost"
-                size="sm"
-                className="flex items-center gap-1  "
-              >
+              <Button onClick={likeHandler} variant="ghost" size="sm" className="flex gap-1">
                 {liked ? (
-                  <Heart
-                    size={24}
-                    className="text-red-600  cursor-pointer"
-                  />
+                  <Heart size={24} className="text-red-600" />
                 ) : (
-                  <Heart
-                    size={24}
-                    className="text-secondary-fg cursor-pointer "
-                  />
+                  <Heart size={24} className="text-secondary-fg" />
                 )}
                 <span>{blogLikes}</span>
               </Button>
-              <Button
-                variant="ghost"
-                size="sm"
-                className="flex items-center gap-1"
-              >
+              <Button variant="ghost" size="sm" className="flex items-center gap-1">
                 <MessageSquare className="w-4 h-4 text-secondary-fg" />
                 <span>{comment.length} Comments</span>
               </Button>
             </div>
-            <div className="flex items-center space-x-2">
-              <Button variant="ghost" size="sm" onClick={bookmarkHandler}>
+            <div className="flex space-x-2">
+              <Button onClick={bookmarkHandler} variant="ghost" size="sm">
                 <Bookmark
                   size={24}
-                  className={`w-4 h-4 ${
-                    book ? "text-yellow-500" : "text-secondary-fg"
-                  } transition`}
+                  className={book ? "text-yellow-500" : "text-secondary-fg"}
                 />
               </Button>
-
-              <Button
-                onClick={() => handleShare(selectedBlog._id)}
-                variant="ghost"
-                size="sm"
-              >
+              <Button onClick={() => handleShare(selectedBlog._id)} variant="ghost" size="sm">
                 <Share2 className="w-4 h-4 text-secondary-fg" />
               </Button>
             </div>
@@ -712,5 +623,3 @@ console.table({book:book,liked:liked,});
 };
 
 export default BlogView;
-
-///current: new user add karo, forgotpass, like system, comment
