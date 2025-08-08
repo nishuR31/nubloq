@@ -520,6 +520,7 @@ useEffect(() => {
   };
 
 console.log("selected blog:",selectedBlog);
+console.log("user:",user);
   if (!selectedBlog) {
     return (
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
