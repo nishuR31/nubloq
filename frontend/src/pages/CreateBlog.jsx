@@ -88,8 +88,8 @@ const CreateBlog = () => {
   };
 
   return (
-    <div className="animate-fadeIn flex justify-center p-4 pt-20 bg-transparent w-full h-full backdrop-blur-sm">
-      <Card className="p-4 bg-transparent md:p-10 m-2 w-screen ">
+    <div className="animate-fadeIn flex justify-center p-4 pt-20 bg-transparent  backdrop-blur-sm">
+      <Card className="p-4 bg-transparent md:p-10 m-2 w-full max-w-4xl ">
         <h1 className="text-2xl font-bold text-secondary-fg ">Lets create blog</h1>
         <p className="text-muted-fg">Let others get insights from your knowledge and experience.</p>
         <p className="text-muted-fg">Start on with a title and later moving to editor. </p>
@@ -148,9 +148,13 @@ const CreateBlog = () => {
               )}
             </Button>
           </div>
-          <div className="mt-5  h-[300px] w-[500px]  flex justify-center rounded-lg animate-fadeIn">
-            <img src={imgs} className="rounded-lg hidden lg:block object-fit " />
-          </div>
+        <div className="mt-8 w-full flex justify-center">
+          <img
+            src={imgs}
+            alt="preview"
+            className="rounded-lg object-cover hidden lg:block w-full max-w-md h-auto"
+          />
+        </div>
         </div>
       </Card>
     </div>
