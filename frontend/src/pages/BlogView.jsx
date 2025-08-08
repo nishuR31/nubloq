@@ -441,7 +441,7 @@ useEffect(() => {
           console.error("Error fetching blog by ID:", err);
         });
     }
-  }, [found,user]);
+  }, [found]);
   // only rerun if `found` changes
 
   const bookmarkHandler = async () => {
