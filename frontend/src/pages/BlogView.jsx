@@ -432,8 +432,8 @@ useEffect(() => {
           const fetchedBlog = res.data.payload.blog;
           toast.success("One Blog fetched.");
           setSelectedBlog(fetchedBlog);
-          setBlogLikes(fetchedBlog.likes.length || 0);
-          setLiked(Boolean(fetchedBlog.likes.includes(user?._id)) || false);
+          setBlogLikes(fetchedBlog?.likes?.length || 0);
+          setLiked(Boolean(fetchedBlog?.likes?.includes(user?._id)) || false);
           dispatch(setBlog((prev) => [...prev, fetchedBlog]));
         })
         .catch((err) => {
@@ -519,7 +519,7 @@ useEffect(() => {
     }
   };
 
-console.log(selectedblog);
+console.log("selected blog:",selectedblog);
   if (!selectedBlog) {
     return (
       <div className="animate-fadeIn min-h-screen bg-bg pt-20 text-xl font-semibold text-center text-secondary-fg flex justify-center transition-all ease-in  delay-[2s]">
