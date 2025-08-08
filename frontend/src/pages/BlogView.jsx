@@ -576,7 +576,7 @@ const BlogView = () => {
             dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0, 800) + "..." }}
           />
         
-          <div className="flex jsutify-between flex-wrap flex-row">
+          <div className="flex justify-between flex-wrap flex-row gap-2">
             <Button
             variant="ghost"
             size="sm"
