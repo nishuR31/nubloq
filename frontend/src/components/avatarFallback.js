@@ -1,4 +1,4 @@
-export default function avatarFallback({ userName, firstName, lastName }) {
+export default function avatarFallback({ userName, firstName, lastName }||{}) {
   let name;
   // Check if both first and last name are provided
   if (firstName && lastName) {
