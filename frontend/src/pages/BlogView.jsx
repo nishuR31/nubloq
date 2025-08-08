@@ -518,7 +518,7 @@ const BlogView = () => {
         </Breadcrumb>
 
         <div className="my-8 text-app">
-<h2 className="text-[var(--destructive)] m-3 bg-muted px-5 py-2 animate-bounce animate-pulse rounded-lg "> Viewing as Guest. <span>Features and infomation available are limited..</span></h2>
+<h2 className="text-[var(--destructive)] m-3 bg-muted px-5 py-2 animate-bounce animate-pulse rounded-lg "> Viewing as Guest. <span>Features and information available are limited..</span></h2>
           <h1 className="mb-4 text-4xl font-bold text-primary">
             {capitalize(selectedBlog?.title)}
           </h1>
@@ -572,7 +572,8 @@ const BlogView = () => {
 
         <div
           className="text-card text-md"
-          dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0,500)+"..." }}
+          dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0,1000)+"..." }}
+          <Button variant="ghost" size="sm" className="flex text-secondary-fg bg-primary items-center gap-1" onClick={navigate("/login")} >{"Unlock"}<Lock /></Button>
         />
 
         <p className="text-muted-fg text-sm mt-2">{selectedBlog?.category || "General"}</p>
