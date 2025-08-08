@@ -148,11 +148,11 @@ const CreateBlog = () => {
               )}
             </Button>
           </div>
-        <div className="mt-8 w-full flex justify-center">
+        <div className="mt-8 h-[400px] flex justify-center">
           <img
             src={imgs}
             alt="preview"
-            className="rounded-lg object-cover hidden lg:block w-full max-h-sm max-w-md h-auto"
+            className="rounded-lg object-cover hidden lg:block w-full overflow-hidden max-h-sm max-w-md h-auto"
           />
         </div>
         </div>
