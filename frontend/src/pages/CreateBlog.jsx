@@ -148,7 +148,7 @@ const CreateBlog = () => {
               )}
             </Button>
           </div>
-        <div className="mt-8 h-[400px] flex justify-center">
+        <div className="mt-8 h-[300px] flex justify-center">
           <img
             src={imgs}
             alt="preview"
