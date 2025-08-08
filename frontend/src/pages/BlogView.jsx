@@ -519,6 +519,7 @@ const BlogView = () => {
         </Breadcrumb>
 
         <div className="my-8 text-app">
+{!user && <h2 className="text-destructive mx-2"> Viewing as Guest</h2>}
           <h1 className="mb-4 text-4xl font-bold text-primary">
             {capitalize(selectedBlog?.title)}
           </h1>
@@ -527,11 +528,11 @@ const BlogView = () => {
             <div className="flex items-center space-x-4">
               <Avatar>
                 <AvatarImage
-                  src={selectedBlog?.author?.photoUrl || `https://placehold.co/100x100?text=User`}
+                  src={selectedBlog?.author?.photoUrl??`https://placehold.co/100x100?text=User`}
                   alt="Author"
                 />
                 <AvatarFallback>
-                  {avatarFallback(selectedBlog?.author) || "<>"}
+                  {avatarFallback(selectedBlog?.author)}
                 </AvatarFallback>
               </Avatar>
               <div>
@@ -540,7 +541,7 @@ const BlogView = () => {
                   {capitalize(selectedBlog?.author?.lastName ?? "")}
                 </p>
                 <p className="text-sm text-muted-fg">
-                  Occupation: {selectedBlog?.author?.occupation || "Unspecified"}
+                  Occupation: {selectedBlog?.author?.occupation ?? "Unspecified"}
                 </p>
               </div>
             </div>
