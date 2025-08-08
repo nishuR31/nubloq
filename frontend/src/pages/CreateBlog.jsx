@@ -89,7 +89,7 @@ const CreateBlog = () => {
 
   return (
     <div className="animate-fadeIn flex justify-center p-4 pt-20 bg-transparent  backdrop-blur-sm w-screen h-screen">
-      <Card className="p-4 bg-transparent flex md:p-10 w-screen h-screen">
+      <Card className="p-4 bg-transparent md:p-10 w-screen h-screen">
         <h1 className="text-2xl font-bold text-secondary-fg ">Lets create blog</h1>
         <p className="text-muted-fg">Let others get insights from your knowledge and experience.</p>
         <p className="text-muted-fg">Start on with a title and later moving to editor. </p>
@@ -148,7 +148,7 @@ const CreateBlog = () => {
               )}
             </Button>
           </div>
-          <div className="mt-5 h-[300px] w-[500px]  flex justify-center rounded-lg animate-slideInLeft">
+          <div className="mt-5 hidden lg:h-[300px] lg:w-[500px] lg:block  flex justify-center rounded-lg animate-slideInLeft">
             <img src={imgs} className="rounded-lg object-fit" />
           </div>
         </div>
