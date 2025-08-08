@@ -576,6 +576,18 @@ const BlogView = () => {
             dangerouslySetInnerHTML={{ __html: selectedBlog?.bio.substring(0, 1000) + "..." }}
           />
         
+          <div className="flex jsutify-between flex-wrap flex-row">
+            <Button
+            variant="ghost"
+            size="sm"
+            className="flex text-secondary-fg bg-primary items-center gap-1 mt-2"
+            onClick={() =>
+              navigate(`/signup?redirect=/blogs/${selectedBlog?._id}`)
+            }
+          >
+            Join us to view full! <Lock class="text-[var(--destructive)]" />
+          </Button>
+            
           <Button
             variant="ghost"
             size="sm"
@@ -584,9 +596,10 @@ const BlogView = () => {
               navigate(`/login?redirect=/blogs/${selectedBlog?._id}`)
             }
           >
-            Unlock <Lock class="text-[var(--destructive)]" />
+            Already a member? <Lock class="text-[var(--destructive)]" />
           </Button>
         </div>
+          </div>
 
 
         <p className="text-muted-fg text-sm mt-2">{selectedBlog?.category || "General"}</p>
