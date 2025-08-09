@@ -420,10 +420,10 @@ export const logout = asyncHandler(async (req, res) => {
   res.setHeader('Expires', '0');
 
   // Friendly message with optional username if available
-  return res.status(codes.OK).json(
+  return res.status(codes.ok).json(
     new ApiResponse(
       `Log out was successfully. ${req.user?.userName ? `Goodbye ${req.user.userName}` : 'Please visit again'}.`,
-      codes.OK
+      codes.ok
     ).res()
   );
 });
