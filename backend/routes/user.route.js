@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.route("/register").post(register);
 router.route("/login").post(auth(false),login);
-router.route("/logout").get(auth(),logout);
+router.route("/logout").get(auth(false),logout);
 router.route("/contact").post(sendContact);
 router.route("/profile/:id").get(profile);
 router.route("/subscribe").post(sendSubscribe);
