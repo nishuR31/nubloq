@@ -324,31 +324,56 @@ export const profile = asyncHandler(async (req, res) => {
 });
 /////////////////////////////////////////////////////////////
 export const logout = asyncHandler(async (req, res) => {
-  if (!req.user) {
-    return res
-      .status(codes.unauthorized)
-      .json(
-        new ApiErrorResponse(
-          "User not authorized, please login before.",
-          codes.unauthorized
-        ).res()
-      );
-  }
+  // if (!req.user) {
+  //   return res
+  //     .status(codes.unauthorized)
+  //     .json(
+  //       new ApiErrorResponse(
+  //         "User not authorized, please login before.",
+  //         codes.unauthorized
+  //       ).res()
+  //     );
+  // }
 
-  let user = await User.findOne({
-    $or: [{ userName: req.user.userName }, { _id: req.user._id }],
-  });
+  // let user = await User.findOne({
+  //   $or: [{ userName: req.user.userName }, { _id: req.user._id }],
+  // });
 
-  if (!user) {
-    return res
-      .status(codes.internalServerError)
-      .json(
-        new ApiErrorResponse(
-          "Error fetching the user.",
-          codes.internalServerError
-        ).res()
-      );
-  }
+  // if (!user) {
+  //   return res
+  //     .status(codes.internalServerError)
+  //     .json(
+  //       new ApiErrorResponse(
+  //         "Error fetching the user.",
+  //         codes.internalServerError
+  //       ).res()
+  //     );
+  // }
+  // if (!req.user) {
+  //   return res
+  //     .status(codes.unauthorized)
+  //     .json(
+  //       new ApiErrorResponse(
+  //         "User not authorized, please login before.",
+  //         codes.unauthorized
+  //       ).res()
+  //     );
+  // }
+
+  // let user = await User.findOne({
+  //   $or: [{ userName: req.user.userName }, { _id: req.user._id }],
+  // });
+
+  // if (!user) {
+  //   return res
+  //     .status(codes.internalServerError)
+  //     .json(
+  //       new ApiErrorResponse(
+  //         "Error fetching the user.",
+  //         codes.internalServerError
+  //       ).res()
+  //     );
+  // }
 
   user.refreshToken = "";
   await user.save();
