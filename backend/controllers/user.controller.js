@@ -352,6 +352,7 @@ export const logout = asyncHandler(async (req, res) => {
 
   user.refreshToken = "";
   await user.save();
+  req.user=null;
 
   for (let cookie in req.cookies) {
     res.clearCookie(cookie, {
