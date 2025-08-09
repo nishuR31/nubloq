@@ -354,15 +354,28 @@ export const logout = asyncHandler(async (req, res) => {
   await user.save();
   // req.user=null;
 
-  for (let cookie in req.cookies) {
-    res.clearCookie(cookie, {
+  // for (let cookie in req.cookies) {
+  //   res.clearCookie(cookie, {
+  //     httpOnly: false,
+  //     secure: true,
+  //     sameSite: "None",
+  //     path:"/",
+  //   });
+  // }
+
+      res.clearCookie("accessToken", {
       httpOnly: false,
       secure: true,
       sameSite: "None",
-      path:"/",
+      path: "/",
     });
-  }
-
+    res.clearCookie("refreshToken", {
+      httpOnly: false,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+    });
+  
   return res
     .status(codes.ok)
     .json(
