@@ -360,21 +360,28 @@ export const logout = asyncHandler(async (req, res) => {
       secure: true,
       sameSite: "None",
       path:"/",
+      expires: new Date(0),
     });
   }
 
-      res.clearCookie("accessToken", {
+    res.clearCookie("accessToken", {
       httpOnly: true,
       secure: true,
       sameSite: "None",
       path: "/",
+      expires: new Date(0),
     });
     res.clearCookie("refreshToken", {
       httpOnly: true,
       secure: true,
       sameSite: "None",
       path: "/",
+      expires: new Date(0),
     });
+  
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
   
   return res
     .status(codes.ok)
