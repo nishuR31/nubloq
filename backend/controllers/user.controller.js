@@ -325,7 +325,7 @@ export const profile = asyncHandler(async (req, res) => {
 /////////////////////////////////////////////////////////////
 export const logout = asyncHandler(async (req, res) => {
 
-  if (!req.user) {
+  if (!req?.user) {
     return res
       .status(codes.unauthorized)
       .json(
@@ -353,10 +353,10 @@ export const logout = asyncHandler(async (req, res) => {
 
   user.refreshToken = null;
   await user.save();
-=
+
   for (let cookie in req.cookies) {
     res.clearCookie(cookie, {
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: "None",
       path:"/",
@@ -364,13 +364,13 @@ export const logout = asyncHandler(async (req, res) => {
   }
 
       res.clearCookie("accessToken", {
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: "None",
       path: "/",
     });
     res.clearCookie("refreshToken", {
-      httpOnly: false,
+      httpOnly: true,
       secure: true,
       sameSite: "None",
       path: "/",
@@ -380,7 +380,7 @@ export const logout = asyncHandler(async (req, res) => {
     .status(codes.ok)
     .json(
       new ApiResponse(
-        `You are successfully logged out. Please visit again ${req.user.userName??""}, thank you.`,
+        `You are successfully logged out. Please visit again ${req?.user?.userName??""}, thank you.`,
         codes.ok
       ).res()
     );
