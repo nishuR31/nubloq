@@ -1,5 +1,5 @@
 import React from "react";
-
+import { Analytics } from "@vercel/analytics/next"
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Signup from "./pages/Signup";
