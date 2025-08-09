@@ -405,7 +405,7 @@ export const logout = asyncHandler(async (req, res) => {
     .status(codes.ok)
     .json(
       new ApiResponse(
-        `${req.user.userName} successfully logged out.`,
+        `${req.user.userName??"Your are"} successfully logged out.`,
         codes.ok
       ).res()
     );
