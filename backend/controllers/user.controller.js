@@ -323,36 +323,72 @@ export const profile = asyncHandler(async (req, res) => {
   );
 });
 /////////////////////////////////////////////////////////////
+export const logout = asyncHandler(async (req, res) => {
+
+  if (!req?.user) {
+    return res
+      .status(codes.unauthorized)
+      .json(
+        new ApiErrorResponse(
+          "User not authorized, please login before using this feature.",
+          codes.unauthorized
+        ).res()
+      );
+  }
+
+  let user = await User.findOne({
+    $or: [{ userName: req.user.userName }, { _id: req.user._id }],
+  });
+
+  if (!user) {
+    return res
+      .status(codes.notFound)
+      .json(
+        new ApiErrorResponse(
+          "User not found.",
+          codes.notFound
+        ).res()
+      );
+  }
+
+  user.refreshToken = null;
+  await user.save();
+
+  for (let cookie in req.cookies) {
+    res.clearCookie(cookie, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path:"/",
+      expires: new Date(0),
+    });
+  }
+
+    res.clearCookie("accessToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      expires: new Date(0),
+    });
+    res.clearCookie("refreshToken", {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      expires: new Date(0),
+    });
+  
+  return res
+    .status(codes.ok)
+    .json(
+      new ApiResponse(
+        `You are successfully logged out. Please visit again ${req?.user?.userName??""}, thank you.`,
+        codes.ok
+      ).res()
+    );
+});
 // export const logout = asyncHandler(async (req, res) => {
-
-//   if (!req?.user) {
-//     return res
-//       .status(codes.unauthorized)
-//       .json(
-//         new ApiErrorResponse(
-//           "User not authorized, please login before using this feature.",
-//           codes.unauthorized
-//         ).res()
-//       );
-//   }
-
-//   let user = await User.findOne({
-//     $or: [{ userName: req.user.userName }, { _id: req.user._id }],
-//   });
-
-//   if (!user) {
-//     return res
-//       .status(codes.notFound)
-//       .json(
-//         new ApiErrorResponse(
-//           "User not found.",
-//           codes.notFound
-//         ).res()
-//       );
-//   }
-
-//   user.refreshToken = null;
-//   await user.save();
 
 //   for (let cookie in req.cookies) {
 //     res.clearCookie(cookie, {
@@ -387,51 +423,11 @@ export const profile = asyncHandler(async (req, res) => {
 //     .status(codes.ok)
 //     .json(
 //       new ApiResponse(
-//         `You are successfully logged out. Please visit again ${req?.user?.userName??""}, thank you.`,
+//         `You are successfully logged out. Please visit again , thank you.`,
 //         codes.ok
 //       ).res()
 //     );
 // });
-export const logout = asyncHandler(async (req, res) => {
-
-  for (let cookie in req.cookies) {
-    res.clearCookie(cookie, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path:"/",
-      expires: new Date(0),
-    });
-  }
-
-    res.clearCookie("accessToken", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-      expires: new Date(0),
-    });
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-      expires: new Date(0),
-    });
-  
-    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
-  res.setHeader('Pragma', 'no-cache');
-  res.setHeader('Expires', '0');
-  
-  return res
-    .status(codes.ok)
-    .json(
-      new ApiResponse(
-        `You are successfully logged out. Please visit again , thank you.`,
-        codes.ok
-      ).res()
-    );
-});
 
 ///////////////////////////////////////////////
 
