@@ -270,13 +270,13 @@ if (q) {
   if (isBookmarked) {
     user.bookMark = user.bookMark.filter((id) => id!=blogId);
   } else {
-    user.bookMark.push(blog._id);
+    user.bookMark=[...new Set(user.bookMark.push(blog._id))];
   }
 } else {
   if (isBookmarked) {
     user.bookMark = user.bookMark.filter((id) => id!=blogId);
   } else {
-    user.bookMark.push(blog._id);
+    user.bookMark=[...new Set(user.bookMark.push(blog._id))];
   }
 }
 
@@ -323,73 +323,112 @@ export const profile = asyncHandler(async (req, res) => {
   );
 });
 /////////////////////////////////////////////////////////////
-export const logout = asyncHandler(async (req, res) => {
-
-  if (!req?.user) {
-    return res
-      .status(codes.unauthorized)
-      .json(
-        new ApiErrorResponse(
-          "User not authorized, please login before using this feature.",
-          codes.unauthorized
-        ).res()
-      );
-  }
-
-  let user = await User.findOne({
-    $or: [{ userName: req.user.userName }, { _id: req.user._id }],
-  });
-
-  if (!user) {
-    return res
-      .status(codes.notFound)
-      .json(
-        new ApiErrorResponse(
-          "User not found.",
-          codes.notFound
-        ).res()
-      );
-  }
-
-  user.refreshToken = null;
-  await user.save();
-
-  for (let cookie in req.cookies) {
-    res.clearCookie(cookie, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path:"/",
-      expires: new Date(0),
-    });
-  }
-
-    res.clearCookie("accessToken", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-      expires: new Date(0),
-    });
-    res.clearCookie("refreshToken", {
-      httpOnly: true,
-      secure: true,
-      sameSite: "None",
-      path: "/",
-      expires: new Date(0),
-    });
-  
-  return res
-    .status(codes.ok)
-    .json(
-      new ApiResponse(
-        `You are successfully logged out. Please visit again ${req?.user?.userName??""}, thank you.`,
-        codes.ok
-      ).res()
-    );
-});
 // export const logout = asyncHandler(async (req, res) => {
 
+//   if (!req?.user) {
+//     return res
+//       .status(codes.unauthorized)
+//       .json(
+//         new ApiErrorResponse(
+//           "User not authorized, please login before using this feature.",
+//           codes.unauthorized
+//         ).res()
+//       );
+//   }
+
+//   let user = await User.findOne({
+//     $or: [{ userName: req.user.userName }, { _id: req.user._id }],
+//   });
+
+//   if (!user) {
+//     return res
+//       .status(codes.notFound)
+//       .json(
+//         new ApiErrorResponse(
+//           "User not found.",
+//           codes.notFound
+//         ).res()
+//       );
+//   }
+
+//   user.refreshToken = null;
+//   await user.save();
+
+//   for (let cookie in req.cookies) {
+//     res.clearCookie(cookie, {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: "None",
+//       path:"/",
+//       expires: new Date(0),
+//     });
+//   }
+
+//     res.clearCookie("accessToken", {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: "None",
+//       path: "/",
+//       expires: new Date(0),
+//     });
+//     res.clearCookie("refreshToken", {
+//       httpOnly: true,
+//       secure: true,
+//       sameSite: "None",
+//       path: "/",
+//       expires: new Date(0),
+//     });
+  
+//   return res
+//     .status(codes.ok)
+//     .json(
+//       new ApiResponse(
+//         `You are successfully logged out. Please visit again ${req?.user?.userName??""}, thank you.`,
+//         codes.ok
+//       ).res()
+//     );
+// });
+
+
+
+export const logout = asyncHandler(async (req, res) => {
+  // Clear all cookies without checking authentication state
+  Object.keys(req.cookies).forEach(cookieName => {
+    res.clearCookie(cookieName, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      // expires: new Date(0),
+    });
+  });
+
+  // Explicitly clear token cookies (redundant but ensures they're gone)
+  ['accessToken', 'refreshToken'].forEach(tokenName => {
+    res.clearCookie(tokenName, {
+      httpOnly: true,
+      secure: true,
+      sameSite: "None",
+      path: "/",
+      // expires: new Date(0),
+    });
+  });
+
+  // Prevent caching of this response
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+
+  // Friendly message with optional username if available
+  return res.status(codes.OK).json(
+    new ApiResponse(
+      `Log out was successfully. ${req.user?.userName ? `Goodbye ${req.user.userName}` : 'Please visit again'}.`,
+      codes.OK
+    ).res()
+  );
+});
+
+  
 //   for (let cookie in req.cookies) {
 //     res.clearCookie(cookie, {
 //       httpOnly: true,
@@ -423,7 +462,7 @@ export const logout = asyncHandler(async (req, res) => {
 //     .status(codes.ok)
 //     .json(
 //       new ApiResponse(
-//         `You are successfully logged out. Please visit again , thank you.`,
+//         `You are successfully logged out. Please visit again ${req?.user?.userName??""} , thank you.`,
 //         codes.ok
 //       ).res()
 //     );
