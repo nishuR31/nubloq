@@ -6,7 +6,7 @@ import "../index.css";
 export default function PrivacyPolicy() {
   return (
     <>
-      <div className="animate-fadeIn flex flex-col w-full bg-card p-6 py-10 mx-auto text-app transition-all ease-in bg-no-repeat bg-cover ">
+      <div className="animate-fadeIn flex flex-col w-full bg-bg p-6 py-10 mx-auto text-secondary-fg transition-all ease-in bg-no-repeat bg-cover ">
         <h1 className="pt-10 mb-4 text-3xl text-app animate-bounce font-bold">Privacy Policy</h1>
         <p className="mb-4">
           Your privacy is important to us. This Privacy Policy explains how
@@ -60,12 +60,12 @@ export default function PrivacyPolicy() {
           Thank You for using our service.
         </p>
 
-        <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+        <p className="mt-6 text-sm text-muted-fg">
           Last updated: July 29, 2025
         </p>
         <div className="">
           <Link to="/" className="">
-            <Button variant="ghost" className="w-full bg-secondary mt-5">
+            <Button variant="ghost" className="w-full bg-primary text-secondary-fg mt-5">
               Home
             </Button>
           </Link>
