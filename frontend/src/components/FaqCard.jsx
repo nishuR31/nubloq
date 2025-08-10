@@ -16,7 +16,7 @@ export default function FaqCard({ question, answer }) {
     >
       <Button
       variant="ghost"
-        className="w-full text-lg font-semibold text-center text-secondary-fg "
+        className="w-full text-lg font-semibold text-center text-app "
         onClick={() => setOpen(!open)}
       >
         {question}
