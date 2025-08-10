@@ -10,7 +10,7 @@ import "../index.css";
 export default function FaqSection() {
   return (
     
-    <section className="animate-fadeIn flex flex-col w-full p-6 py-10 mx-auto text-gray-800 transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-3000 dark:bg-left dark:bg-cover min-h-content bg-wave dark:bg-blackWave dark:text-gray-200">
+    <section className="animate-fadeIn flex flex-col w-full p-6 py-10 mx-auto  transition-all ease-in bg-no-repeat bg-transparent text-secondary-fg bg-cover min-h-content ">
       <h2
         className="relative text-3xl font-bold my-6 text-center 
       after:content-[''] after:absolute after:-bottom-2 after:right-1/2 after:-translate-x-0 after:w-0 after:h-1 after:bg-gray-500 after:transition-all hover:after:w-[100px]
@@ -24,7 +24,7 @@ export default function FaqSection() {
           <FaqCard key={idx} question={faq.question} answer={faq.answer} />
         ))}
       </div>
-              <div className=""><Link to="/" className=""><Button variant="ghost" className="w-full">Home</Button></Link></div>
+              <div className=""><Link to="/" className=""><Button variant="ghost" className="w-full bg-muted text-secondary-fg">Home</Button></Link></div>
       
     </section>
   );
