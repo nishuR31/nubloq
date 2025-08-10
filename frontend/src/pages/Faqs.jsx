@@ -19,7 +19,7 @@ export default function FaqSection() {
       >
         Frequently Asked Questions
       </h2>
-      <div className="grid max-w-3xl gap-4 mx-auto">
+      <div className="grid max-w-3xl gap-4 mx-auto text-secondary-fg">
         {faqs.map((faq, idx) => (
           <FaqCard key={idx} question={faq.question} answer={faq.answer} />
         ))}
