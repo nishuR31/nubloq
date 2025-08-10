@@ -173,7 +173,7 @@ const Footer = () => {
       <div className="py-4 text-sm text-center border-none backdrop-blur-sm">
         <p className="animate-bounce">
           &copy; {new Date().getFullYear()}{" "}
-          <span className="font-bold text-secondary-fg ">Nishu Blog</span>. All rights reserved
+          <span className="font-bold text-secondary-fg ">Nubloq</span>. All rights reserved
         </p>
       </div>
       <ScrollToTop />
