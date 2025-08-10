@@ -5,12 +5,12 @@ import "../index.css";
 
 const CodeOfConduct = () => {
   return (
-    <div className="animate-fadeIn flex flex-col  py-[70px] px-5 text-justify  transition-all delay-[1s] ease-in bg-cover  bg-no-repeat -cover min-h-content  w-full mx-auto p-6 text-app bg-app">
+    <div className="animate-fadeIn flex flex-col  py-[70px] px-5 text-justify  transition-all delay-[1s] ease-in bg-cover  bg-no-repeat -cover min-h-content  w-full mx-auto p-6 text-secondary-fg bg-transparent">
       <h1 className=" mb-4 text-3xl font-bold text-center text-app">
         Code of Conduct
       </h1>
 
-      <h2 className="mt-6 mb-2 text-2xl font-semibold ">Our Pledge</h2>
+      <h2 className="mt-6 mb-2 text-2xl font-semibold text-app ">Our Pledge</h2>
       <p className="mb-4 text-muted-fg">
         As contributors and maintainers of{" "}
         <strong className="text-muted">Nubloq</strong>, we pledge to make
@@ -82,7 +82,7 @@ const CodeOfConduct = () => {
       <br />
       <div className="">
         <Link to="/" className="">
-          <Button variant="ghost" className="w-full  bg-muted ">
+          <Button variant="ghost" className="w-full  bg-muted text-secondary-fg ">
             Home
           </Button>
         </Link>
