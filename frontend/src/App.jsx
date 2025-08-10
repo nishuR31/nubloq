@@ -50,7 +50,9 @@ const App = () => {
           path="/faqs"
           element={
             <>
+              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
               <Faqs />
+              </div>
             </>
           }
         />
@@ -58,7 +60,9 @@ const App = () => {
           path="/privacy"
           element={
             <>
+              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
               <PrivacyPolicy />
+                </div>
             </>
           }
         />
@@ -66,11 +70,20 @@ const App = () => {
           path="/code-of-conduct"
           element={
             <>
+              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
               <CodeOfConduct />
+                </div>
             </>
           }
         />
-        <Route path="/contact" element={<Contact />} />
+        <Route
+          path="/contact"
+          element={
+        <>
+              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
+                <Contact />
+                </div>
+        </>} />
         <Route
           path="/about"
           element={
