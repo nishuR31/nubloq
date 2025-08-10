@@ -79,7 +79,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="animate-fadeIn flex flex-col w-full min-h-screen p-6 px-5 py-10 mx-auto text-justify bg-app transition-all ease-in bg-no-repeat bg-cover animate-slideInLeft delay-[2s] ">
+    <div className="animate-fadeIn flex flex-col w-full min-h-screen p-6 px-5 py-10 mx-auto text-justify bg-transparent transition-all ease-in bg-no-repeat bg-cover  delay-[2s] ">
       <div className="flex flex-col items-center gap-5 px-10 mx-auto mt-10 bg-transparent rounded-lg backdrop-blur-md max-w-screen border-input shadow-lg border-1 md:flex-row">
         <div className="flex-1 w-full max-w-xl">
           <h2 className="pt-10 mb-6 text-4xl font-bold text-center text-app animate-bounce">
