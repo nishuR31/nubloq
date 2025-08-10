@@ -39,7 +39,7 @@ const App = () => {
           path="/"
           element={
             <>
-              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
+              <div className="animate-fadeIn bg-bg min-h-screen  bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
                 <Home />
                 <Footer />
               </div>
@@ -50,7 +50,7 @@ const App = () => {
           path="/faqs"
           element={
             <>
-              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
+              <div className="animate-fadeIn bg-bg min-h-screen  bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
               <Faqs />
               </div>
             </>
@@ -60,7 +60,7 @@ const App = () => {
           path="/privacy"
           element={
             <>
-              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
+              <div className="animate-fadeIn bg-bg min-h-screen  bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
               <PrivacyPolicy />
                 </div>
             </>
@@ -80,7 +80,7 @@ const App = () => {
           path="/contact"
           element={
         <>
-              <div className="animate-fadeIn bg-bg min-h-screen bg-app bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
+              <div className="animate-fadeIn bg-bg min-h-screen  bg-fixed object-fill bg-center bg-no-repeat transition-all ease-in delay-[2s] ">
                 <Contact />
                 </div>
         </>} />
