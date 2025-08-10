@@ -343,7 +343,8 @@ const BlogView = () => {
               }?text=${selectedBlog?.title}`
             }
             alt="Thumbnail"
-            className="rounded-xl max-w-full"
+      className="w-full h-full object-cover rounded-xl"
+{/*             className="rounded-xl max-w-full" */}
           />
         </div>
 
