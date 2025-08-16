@@ -107,7 +107,7 @@ Project is live on **Vercel** for the frontend and **Render** for the API.
 
 
 ##  Screenshots
-
+![screenshot](screenshot.png)
 
 <br />
 <br />
