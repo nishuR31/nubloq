@@ -48,6 +48,7 @@ const _dirname = path.resolve();
 let baseRoute = "/api/v1/";
 
 // apis
+app.get("/",(req,res)=>res.status(200),json({"message":"Server up"}));
 app.get(`${baseRoute}ping`,(req,res)=>res.status(200).json({message:"ping"}))
 app.use(`${baseRoute}user`, userRoute);
 app.use(`${baseRoute}blog`, blogRoute);
