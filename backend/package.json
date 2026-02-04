@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "backend": "npx nodemon server.js"
+    "backend": "node server.js",
+    "dev" : "npx nodemon server.js"
   },
   "keywords": [],
   "author": "",
